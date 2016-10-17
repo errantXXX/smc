@@ -887,6 +887,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
     }, AttackHide: function () {
         a(".btn-command-back").removeClass("display-on"), a(".btn-attack-start, .img-diagram, .prt-temporary, .cnt-raid-information .btn-chat").removeClass("display-on").addClass("display-off"), a(".prt-battl-state").removeClass("ready").addClass("player"), a(".img-score").hasClass("display-on") && a(".img-score").removeClass("display-on")
     }, playScenarios: function (c, d, e, f, h) {
+        console.ll('playScenarios');
         var i = this;
         d = d || 0, e = e || 0, b.isUndefined(stage.pJsnData.rep) || (c = stage.pJsnData.rep[stage.gGameStatus.rep], stage.gGameStatus.rep++), i.preprocessOnPlayScenarios(c);
         var j = g.mInit("avatar"), k = g.mInit("boss"), l = g.mInit("common"), m = i.coreprocessOnPlayScenarios(j, k, l, c, d, e, f, h), n = new a.Deferred;
@@ -2102,6 +2103,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         var b = a;
         return 3 === stage.pJsnData.boss.number && (1 == a ? b = 2 : 2 == a && (b = 1)), b
     }, Attack: function (c, e, g, h, i) {
+        console.ll('Attack');
         var j = this;
         stage.gGameStatus.attacking = 1;
         var k = "normal_attack_result", l = {}, m = {raid_id: stage.pJsnData.raid_id, target_num: stage.gGameStatus.target, lock: stage.gGameStatus.lock};
