@@ -1,5 +1,4 @@
 console.ll = console.info;
-console.ll(22);
 var loadCreateJS = function(a) {
     0 === Game.setting.cjs_mode ? require(["lib/createjs"], function() {
         require(["lib/createjs-patch", "lib/soundjs-0.5.2-patch"], function() {
