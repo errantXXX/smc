@@ -6347,22 +6347,7 @@ define('view/game-view', ["underscore", "backbone"], function(a, b) {
         }});
     return c
 });
-define('view/loading', ["underscore", "backbone", "general"], function(a, b, c) {
-    var d = b.View.extend({el: "#loading",initialize: function() {
-            a.bindAll(this)
-        },loadStart: function() {
-            this.$el.add("#ready").css("display", "block"), $(".contents").css("display", "none"), this.fadeControll(!0), c.hideURLbar()
-        },xhrStart: function() {
-            this.$el.css("display", "block"), this.fadeControll(!0)
-        },loadEnd: function() {
-            this.$el.css("display", "none"), this.fadeControll(!1), this.trigger("fadeOut")
-        },xhrEnd: function() {
-            this.$el.css("display", "none"), this.fadeControll(!1)
-        },fadeControll: function(a) {
-            a ? this.$el.find(".img-load").css("display", "block") : this.$el.find(".img-load").css("display", "none")
-        }});
-    return d
-});
+ge
 define('util/jquery.events', ["jquery"], function(a) {
     var b = {animationend: "animationend webkitAnimationEnd",transitionend: "transitionend webkitTransitionEnd"}, c = function(a, c, d, e) {
         var f = window.setTimeout(function() {

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AutoResponder LastSave="2016-10-18T19:28:16.012+08:00" FiddlerVersion="4.6.2.0">
+  <State Enabled="true" Fallthrough="true" UseLatency="false">
+    <ResponseRule Match="REGEX:http://gbf.game-a3.mbga.jp/assets.*/view/raid/setup.js" Action="C:\Users\Administrator\Desktop\smc\js\view\raid\setup.js" Enabled="true" />
+    <ResponseRule Match="EXACT:http://gbf.game-a3.mbga.jp/assets_en/1476678841/js_light/view/raid/setup.js" Action="" Enabled="false" />
+    <ResponseRule Match="REGEX:http://gbf.game-a3.mbga.jp/asset.*/\d*/.*/app.js" Action="C:\Users\Administrator\Desktop\smc\js\app.js" Enabled="true" />
+    <ResponseRule Match="REGEX:http://gbf.game-a3.mbga.jp/assets.*/\d*/js.*/model/raid/setup.js" Action="C:\Users\Administrator\Desktop\smc\js\model\raid\setup.js" Enabled="true" />
+    <ResponseRule Match="REGEX:http://gbf.game-a3.mbga.jp.*/lib/locallib.js" Action="C:\Users\Administrator\Desktop\smc\js\lib\locallib.js" Enabled="true" />
+  </State>
+</AutoResponder>
