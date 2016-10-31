@@ -58,7 +58,7 @@
                     waitSeconds:60});
                 var requirejs_createNode = requirejs.createNode;
                 requirejs.createNode = function() { var node = requirejs_createNode.apply(this, arguments); node.setAttribute('crossorigin', 'anonymous'); return node; };
-                require(['app']);
+                require(['app-mine']);
 
             </script>
 	</body>

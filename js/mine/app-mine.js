@@ -180,7 +180,7 @@ require(["lib/common"], function() {
             },complete: function(request) {
                     ajaxUtil.removeXHR(request)
             }}), require(["lib/locallib"], function() {
-                require(["backbone", "view/loading", "router/app-router"], function(backbone, loadingObject, appRouter) {
+                require(["backbone", "view/loading", "mine/js/router/app-router"], function(backbone, loadingObject, appRouter) {
                     globalGame.loading = new loadingObject, globalGame.router = new appRouter, backbone.history.start(), globalGame.submenu && require(["submenu"])
                 })
             })
