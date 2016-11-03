@@ -11,8 +11,8 @@ window.fitScreenByZoom = function(deviceRatio) {
 };
 var  Game = {};
 Game.controller = '';
-Game.baseUri    = '/Astral';
-Game.imgUri     = '/Astral/img';
+Game.baseUri    = '/Astral/';
+Game.imgUri     = 'http://gbf.game-a1.mbga.jp/assets_en/1478071970/img_light';
 Game.cssUri     = '/Astral/css';
 Game.jsUri      = '/Astral/js';
 Game.fontUri    = '/Astral/font';

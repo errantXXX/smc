@@ -32,6 +32,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
           D : model/chat/semiraid
     */
     window.onerror = function(e) {
+        console.ll('-----------');
         console.ll('error');
         console.ll(e);
         console.ll('-----------');
@@ -379,10 +380,13 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         a("#opaque-mask").show();
         console.l(f.urlRoot(c.action, c.mode, c.is_multi, c.is_semi),'preSave url');
  
-        f.preSave(!1, g, {url: f.urlRoot(c.action, c.mode, c.is_multi, c.is_semi), silent: !0, error: function () {
+        f.preSave(false, g, {url: f.urlRoot(c.action, c.mode, c.is_multi, c.is_semi), silent: !0, error: function (e) {
+
         }, success: function () {
+            console.info('get raid info complate');
             e.trigger(Na), i.reqStartTime = parseInt(new Date / 1e3);
             var d = f.toJSON();
+
             if (e.use_ap = d.use_ap, e.pJsnData = d, d.base_fps > 0) {
                 b.isUndefined(c.speed) ? (12 == d.base_fps && (d.base_fps = 18), e.currentFps = d.base_fps) : 2 == c.speed ? e.currentFps = 1.5 * e.baseFps : e.currentFps = 2 * e.baseFps;
                 var g = e.currentFps > 24 ? 24 : e.currentFps < 12 ? 12 : e.currentFps;
@@ -410,6 +414,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
             });
             var p = new a.Deferred;
             e.prepareLoading(d, n, function () {
+                console.l('prepareLoading compelte');
                 p.resolve()
             }), 1 == d.invite_enable && e.activateMask();
             var q = new a.Deferred, s = new a.Deferred;
@@ -501,6 +506,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
             })
         }})
     }, prepareLoading: function (c, d, e) {
+            console.l('prepareLoading');
         if (o.loadSE("se/treasure_se_6.mp3"), c.is_survival ? (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("stage"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("stage")) : d && (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("round"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("round")), c.is_survival && "undefined" != typeof c.survival && c.survival.is_score_buff)o.playBGM(c.bgm), this.popBattleService(c); else if (c.is_survival && "undefined" != typeof c.survival && 1 == c.survival.stage_number) {
             var f = {cjsName: "sfv_survival_start", fpsNum: 18, canvasElem: "canvas-pre-battle", canvasWidth: 640, canvasHeight: 920};
             c.survival.playerCjsId = c.player.param[0].cjs, B.setParams(f, c.survival);

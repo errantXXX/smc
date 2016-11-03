@@ -1,0 +1,1 @@
+define(["jquery","backbone"],function(a,b){var c=b.Model.extend({defaults:{manifest:[{src:Game.imgUri+"/sp/cjs/quest_clear.png?s=ff01632efa07a87763ffadd56817ba78",id:"quest_clear",type:"image"}]}});return c});

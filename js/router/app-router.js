@@ -1,37 +1,45 @@
 
-define('lib/raid/destroy', ["underscore"], function(a) {
-    var b = {mSetInterval: function() {
-        var b = window.stage;
-        b && b.gGameStatus && a.each(b.gGameStatus.timer, function(a) {
-            clearInterval(a)
+define('lib/raid/destroy', ["underscore"], function(underscore) {
+    var object = {
+        mSetInterval: function() {
+           // var b = window.stage;
+
+        var gameStage = window.stage;
+            gameStage && gameStage.gGameStatus && underscore.each(b.gGameStatus.timer, function(timer) {
+            clearInterval(timer)
         })
     },mCreateJS: function() {
-        var b = window.stage;
-        null != b && (createjs.Ticker.removeEventListener("tick", b), createjs.Ticker.removeEventListener("tick", b.funcUpdate), "undefined" != typeof b.gAryCntnAvatar && (a.each(b.gAryCntnAvatar, function(a) {
-            a.removeAllChildren()
-        }), b.gAryCntnAvatar = null, b.gAryRootAvatar = null), "undefined" != typeof b.gAryCntnBoss && (a.each(b.gAryCntnBoss, function(a) {
-            a.removeAllChildren()
-        }), b.gAryCntnBoss = null, b.gAryRootBoss = null), "undefined" != typeof b.gBossContainer && (b.gBossContainer = null), "undefined" != typeof b.gPlayerContainer && (b.gPlayerContainer = null), "undefined" != typeof b.gMasterContainer && (b.gMasterContainer = null))
+        var gameStage = window.stage;
+        null != gameStage && (createjs.Ticker.removeEventListener("tick",gameStage), createjs.Ticker.removeEventListener("tick", gameStage.funcUpdate), "undefined" != typeof gameStage.gAryCntnAvatar && (underscore.each(gameStage.gAryCntnAvatar, function(container) {
+            container.removeAllChildren()
+        }), gameStage.gAryCntnAvatar = null, gameStage.gAryRootAvatar = null), "undefined" != typeof gameStage.gAryCntnBoss && (underscore.each(gameStage.gAryCntnBoss, function(contaienr) {
+            contaienr.removeAllChildren()
+        }), gameStage.gAryCntnBoss = null, gameStage.gAryRootBoss = null), "undefined" != typeof gameStage.gBossContainer && (gameStage.gBossContainer = null), "undefined" != typeof gameStage.gPlayerContainer && (gameStage.gPlayerContainer = null), "undefined" != typeof gameStage.gMasterContainer && (gameStage.gMasterContainer = null))
     }};
-    return b
+    return object
 });
 /**
  * Data Loader Model to obscure Ajax
  */
-define('model/data-loader', ["jquery", "underscore", "backbone", "util/backbone-singleton"], function(a, b, c) {
-    var d = {}, e = c.Model.extend({clear: function(a) {
-        a ? b.has(d, a) && delete d[a] : d = {}
-    },load: function(c, e) {
-        var f = this;
-        if (e = e || {}, e = b.defaults(e, {cache: !0}), e.cache && b.has(d, c))
-            return e.success && e.success.call(f, d[c]), f.trigger("complete"), (new a.Deferred).resolve().promise();
-        var g = new a.Deferred;
-        return a.ajax({url: Game.baseUri + c,cache: !1,success: function(a) {
-            e.success && e.success.apply(f, arguments), e.cache && (d[c] = a), g.resolve(), f.trigger("complete")
-        },error: function() {
-            e.error && e.error.apply(f, arguments), g.reject()
-        }}), g.promise()
-    }});
+define('model/data-loader', ["jquery", "underscore", "backbone", "util/backbone-singleton"], function($/*a*/, _/*b*/, backbone/*c*/) {
+    var d = {};
+    vare = c.Model.extend(
+        {
+        clear: function(model) {
+                model ?_.has({}, model) && delete d[model] : d = {}
+        },
+        load: function(c, e) {
+            var f = this;
+            if (e = e || {}, e = b.defaults(e, {cache: !0}), e.cache && b.has(d, c))
+                return e.success && e.success.call(f, d[c]), f.trigger("complete"), (new a.Deferred).resolve().promise();
+            var g = new a.Deferred;
+            return a.ajax({url: Game.baseUri + c,cache: !1,success: function(a) {
+                e.success && e.success.apply(f, arguments), e.cache && (d[c] = a), g.resolve(), f.trigger("complete")
+            },error: function() {
+                e.error && e.error.apply(f, arguments), g.reject()
+            }}), g.promise()
+        }
+        });
     return e.makeSingleton(["load", "clear", "on", "off", "once"]), e
 });
 define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/sound", "model/data", "model/data-loader", "util/local-storage"], function(a, b, c, d, e, f, g, h) {
@@ -310,7 +318,7 @@ define('util/language-message', ["underscore"], function(a) {
     }}
 });
 define('router/app-router', ["backbone", "lib/sound", "lib/raid/destroy", "model/sound", "util/local-storage", "util/navigate", "util/ajax", "model/data-loader", "model/cjs-loader", "model/manifest-loader", "util/language-message"], function(a, b, c, d, e, f, g, h, i, j, k) {
-                                /*a          b,              c,                d,               e,                    f,            j,              h,                   i,                   j,                      k*/
+                                /*a          b,              c,                d,               e,                    f,           g,              h,                   i,                   j,                      k*/
     var l = {},
         m = a.Router.extend({initialize: function() {
         this.router_href()

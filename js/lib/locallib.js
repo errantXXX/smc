@@ -1896,7 +1896,13 @@ define('view/chat/form', ["jquery", "underscore", "backbone", "view/popup", "uti
             }), a.render().popShow()
         },destroy: function() {
             this.off(), this.undelegateEvents(), this.stopListening()
-        }}), l = k.extend({el: "",$frmMessage: null,template: b.template(a("#tpl-chat-pop").html()),initialize: function() {
+        }}),
+        l = k.extend({
+            el: "",
+            $frmMessage: null,
+            template: b.template(a("#tpl-chat-pop").html()),
+
+            initialize: function() {
             var a = this.options.err_msg;
             this.create(a)
         },render: function() {
@@ -6347,7 +6353,22 @@ define('view/game-view', ["underscore", "backbone"], function(a, b) {
         }});
     return c
 });
-ge
+define('view/loading', ["underscore", "backbone", "general"], function(a, b, c) {
+    var d = b.View.extend({el: "#loading",initialize: function() {
+        a.bindAll(this)
+    },loadStart: function() {
+        this.$el.add("#ready").css("display", "block"), $(".contents").css("display", "none"), this.fadeControll(!0), c.hideURLbar()
+    },xhrStart: function() {
+        this.$el.css("display", "block"), this.fadeControll(!0)
+    },loadEnd: function() {
+        this.$el.css("display", "none"), this.fadeControll(!1), this.trigger("fadeOut")
+    },xhrEnd: function() {
+        this.$el.css("display", "none"), this.fadeControll(!1)
+    },fadeControll: function(a) {
+        a ? this.$el.find(".img-load").css("display", "block") : this.$el.find(".img-load").css("display", "none")
+    }});
+    return d
+});
 define('util/jquery.events', ["jquery"], function(a) {
     var b = {animationend: "animationend webkitAnimationEnd",transitionend: "transitionend webkitTransitionEnd"}, c = function(a, c, d, e) {
         var f = window.setTimeout(function() {
@@ -6363,4 +6384,5 @@ define('util/jquery.events', ["jquery"], function(a) {
             return c(this, "transitionend", a, b), this
         }}), a
 });
+console.info('locallib complate')
 define(["constant", "general", "catalog/user_agent", "catalog/ua/sound/webaudio", "lib/sound", "model/content", "model/data", "model/game", "model/pagination", "model/socket", "model/template", "model/token-data", "model/cjs-loader", "model/manifest-loader", "view/content", "view/game-view", "view/loading", "view/popup", "util/jquery.whenall", "util/jquery.events", "util/backbone-singleton", "util/local-storage", "util/navigate", "util/touch", "util/ajax"]);

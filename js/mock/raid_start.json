@@ -1,0 +1,486 @@
+{
+  "raid_id": 20959656,
+  "quest_id": "14",
+  "base_fps": 18,
+  "special_skill_flag": "0",
+  "summon_enable": 1,
+  "fellow": 1,
+  "timer": 0,
+  "guild": 0,
+  "turn": 4,
+  "multi": 0,
+  "is_dungeon": false,
+  "is_arcade": false,
+  "is_survival": false,
+  "is_trialbattle": false,
+  "is_arcarum": false,
+  "participant_type": 0,
+  "battle": {
+    "total": 2,
+    "count": "1"
+  },
+  "formation": [
+    "0",
+    "1",
+    "2",
+    "3"
+  ],
+  "background": "\/sp\/raid\/bg\/01rb_2.jpg",
+  "background_image_object": [],
+  "bgm": "bgm\/10_battle_multiraid_02.mp3",
+  "overdrive_image": "",
+  "is_force_navi": 0,
+  "player": {
+    "type": "player",
+    "number": 4,
+    "param": [
+      {
+        "name": "CCjlory",
+        "cjs": "kni_sw_0_01",
+        "pid": "110001_sw_0_01",
+        "pid_image": "110001_sw_0_01",
+        "pid_image_cutin": "110001_sw_0_01",
+        "hpmax": 856,
+        "hp": "816",
+        "recast": 53,
+        "leader": 1,
+        "recastmax": "100",
+        "attr": "4",
+        "special_comment": "Small wind DMG to a foe",
+        "split": [
+          "5",
+          "3"
+        ],
+        "effect": "phit_sw_0004",
+        "alive": 1,
+        "special_skill": "Double Slash",
+        "condition": {
+          "buff": [],
+          "debuff": [],
+          "num": 0
+        },
+        "formchange_type": null,
+        "extra_attr": 0,
+        "form": 0
+      },
+      {
+        "name": "Zehek",
+        "cjs": "npc_3020017000_01",
+        "pid": "3020017000",
+        "pid_image": "3020017000_01",
+        "pid_image_cutin": "3020017000_01",
+        "hpmax": 411,
+        "hp": "411",
+        "recast": 50,
+        "leader": 0,
+        "recastmax": "100",
+        "attr": "6",
+        "special_comment": "Medium dark DMG to a foe",
+        "split": [
+          "5",
+          "0"
+        ],
+        "effect": "phit_kn_0006",
+        "alive": 1,
+        "special_skill": "Dark Blade",
+        "condition": {
+          "buff": [],
+          "debuff": [],
+          "num": 1
+        },
+        "formchange_type": null,
+        "extra_attr": 0,
+        "form": 1
+      },
+      {
+        "name": "Walder",
+        "cjs": "npc_3020013000_01",
+        "pid": "3020013000",
+        "pid_image": "3020013000_01",
+        "pid_image_cutin": "3020013000_01",
+        "hpmax": 457,
+        "hp": "0",
+        "recast": 100,
+        "leader": 0,
+        "recastmax": "100",
+        "attr": "3",
+        "special_comment": "Medium earth DMG to a foe",
+        "split": [
+          "1",
+          "0",
+          "0"
+        ],
+        "effect": "phit_kn_0003",
+        "alive": 0,
+        "special_skill": "Steelshot",
+        "condition": {
+          "buff": [],
+          "debuff": [],
+          "num": 2
+        },
+        "formchange_type": null,
+        "extra_attr": 0,
+        "form": 1
+      },
+      {
+        "name": "Katalina",
+        "cjs": "npc_3030005000_01",
+        "pid": "3030005000",
+        "pid_image": "3030005000_01",
+        "pid_image_cutin": "3030005000_01",
+        "hpmax": 444,
+        "hp": "444",
+        "recast": 62,
+        "leader": 0,
+        "recastmax": "100",
+        "attr": "2",
+        "special_comment": "Big water DMG to a foe",
+        "split": [
+          "6",
+          "2"
+        ],
+        "effect": "phit_sw_0012",
+        "alive": 1,
+        "special_skill": "Blades of Frost",
+        "condition": {
+          "buff": [],
+          "debuff": [],
+          "num": 3
+        },
+        "formchange_type": null,
+        "extra_attr": 0,
+        "form": 1
+      }
+    ],
+    "job_is_formchange": ""
+  },
+  "boss": {
+    "type": "m",
+    "number": 1,
+    "modechange": 1,
+    "modegauge": 0,
+    "star": 1,
+    "param": [
+      {
+        "type": "m",
+        "name": {
+          "ja": "Lv1 \u767e\u4eba\u5c06\u52c7\u731b\u306e\u30c0\u30ea\u30eb",
+          "en": "Lvl 1 Daryl Lionbrave"
+        },
+        "cjs": "enemy_6200392",
+        "number": 1,
+        "hpmax": 5000,
+        "hp": "1430",
+        "recast": "3",
+        "recastmax": "3",
+        "attr": "4",
+        "split": [
+          "3"
+        ],
+        "effect": "ehit_sw_0004",
+        "alive": 1,
+        "modechange": 1,
+        "modegauge": 0,
+        "modeflag": 0,
+        "rare_flag": "1",
+        "no_attack_flag": "",
+        "no_special_flag": 0,
+        "enemy_id": "113001",
+        "form": 1,
+        "gauge_group": 1,
+        "is_key_enemy": 0,
+        "monster": "Lvl 1 Daryl Lionbrave",
+        "Lv": "1",
+        "attribute": "Wind",
+        "tribe": "Humanoid",
+        "spec": "\u2022 Weak against fire attacks.<br>\u2022 Resists wind attacks.",
+        "condition": {
+          "buff": [],
+          "debuff": [],
+          "num": 1
+        },
+        "timing": {
+          "effect": "2",
+          "damage": "2"
+        },
+        "message_position": {
+          "x": "",
+          "y": ""
+        },
+        "effect_position": {
+          "x": "",
+          "y": ""
+        },
+        "damage_position_plus": {
+          "x": "",
+          "y": ""
+        },
+        "dropped": [],
+        "cutin_flag": "0"
+      }
+    ]
+  },
+  "is_rare": 1,
+  "balloon": {
+    "boss": [
+      {
+        "pos": 0,
+        "serif": "",
+        "voice": null
+      }
+    ]
+  },
+  "treasure": {
+    "treasure_type_1": 0,
+    "treasure_type_2": 0,
+    "treasure_type_3": 0,
+    "treasure_type_4": 0,
+    "treasure_type_5": 3
+  },
+  "lupi": 40,
+  "stone": "200",
+  "next": "no_next.png",
+  "0": "none",
+  "supporter": {
+    "recast": "0",
+    "name": "Colossus Omega",
+    "level": "",
+    "quality": "",
+    "detail": "Massive fire DMG to all foes \/ Medium hit to DEF (DMG enhanced)",
+    "require": "9",
+    "id": "2040034000",
+    "skill": "Resolute Reactor",
+    "comment": "Massive fire DMG to all foes \/ Medium hit to DEF (DMG enhanced)",
+    "protection_name": "Colossus Omega's Aura",
+    "protection": "100% boost to Vulcan skills",
+    "friend": false,
+    "evolution_flag": 0,
+    "available_skill": true,
+    "evolution": "3"
+  },
+  "nickname": "CCjlory",
+  "temporary": {
+    "cmd": "temporary",
+    "small": "0",
+    "large": "1"
+  },
+  "temporary_potion_one_name": "Green Potion",
+  "temporary_potion_all_name": "Blue Potion",
+  "ability": {
+    "1": {
+      "mode": "player",
+      "pos": 0,
+      "alive": 1,
+      "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/leader\/ds\/110001_sw_0_01.jpg",
+      "list": {
+        "1": [
+          {
+            "class": "ico-ability37_3 ability-character-num-1-1",
+            "ability-id": "70",
+            "ability-recast": "0",
+            "recaset-default": "5",
+            "duration": "1",
+            "duration-second": "",
+            "duration-type": " turn",
+            "ability-character-num": 0,
+            "text-data": "50% DMG cut to all parties",
+            "ability-name": "Phalanx",
+            "icon-type": "3",
+            "type": "damage_cut",
+            "ability-pick": ""
+          },
+          {
+            "class": "num-recast-a0 ability-icon-num-1-1",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    "2": {
+      "mode": "npc",
+      "pos": 1,
+      "alive": 1,
+      "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/npc\/ds\/3020017000.jpg",
+      "list": {
+        "1": [
+          {
+            "class": "ico-ability40_1 ability-character-num-2-1",
+            "ability-id": "1402",
+            "ability-recast": "0",
+            "recaset-default": "6",
+            "duration": "",
+            "duration-second": "180",
+            "duration-type": "",
+            "ability-character-num": 1,
+            "text-data": "Dark DMG to a foe \/ Blind",
+            "ability-name": "Dark Mist",
+            "icon-type": "1",
+            "type": "damage,blind",
+            "ability-pick": ""
+          },
+          {
+            "class": "num-recast-a0 ability-icon-num-2-1",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    "3": {
+      "mode": "npc",
+      "pos": 3,
+      "alive": 1,
+      "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/npc\/ds\/3030005000.jpg",
+      "list": {
+        "1": [
+          {
+            "class": "ico-ability3_2 ability-character-num-4-1",
+            "ability-id": "3000",
+            "ability-recast": "0",
+            "recaset-default": "6",
+            "duration": "",
+            "duration-second": "",
+            "duration-type": "",
+            "ability-character-num": 3,
+            "text-data": "Restore all allies' HP",
+            "ability-name": "Heal",
+            "icon-type": "2",
+            "type": "defined_heal,heal",
+            "ability-pick": ""
+          },
+          {
+            "class": "num-recast-a0 ability-icon-num-4-1",
+            "value": "0"
+          }
+        ],
+        "2": [
+          {
+            "class": "ico-ability ability-character-num-4-2",
+            "ability-id": null,
+            "ability-recast": 0,
+            "ability-character-num": 3,
+            "text-data": null,
+            "ability-pick": null
+          },
+          {
+            "class": "ability-icon-num-4-2",
+            "value": 0
+          }
+        ]
+      }
+    }
+  },
+  "summon": [
+    {
+      "id": "2030002000",
+      "name": "Proto Bahamut",
+      "skill": "Catastrophe",
+      "comment": "Big dark DMG to all foes",
+      "recast": "1",
+      "require": "9",
+      "protection_name": "Proto Bahamut's Aura",
+      "protection": "10% boost to ATK",
+      "evolution_flag": "1",
+      "level": "",
+      "quality": "",
+      "evolution": "0"
+    },
+    {
+      "id": "2010003000",
+      "name": "Killer Bee",
+      "skill": "Killer Bee's Call",
+      "comment": "Small fire DMG to all foes \/ Poison",
+      "recast": "5",
+      "require": "8",
+      "protection_name": "Killer Bee's Aura",
+      "protection": "5% boost to fire ATK",
+      "evolution_flag": "1",
+      "level": "",
+      "quality": "",
+      "evolution": "0"
+    },
+    {
+      "id": "2010001000",
+      "name": "Wind Rabbit",
+      "skill": "Wind Rabbit's Call",
+      "comment": "Small wind DMG to all foes",
+      "recast": "1",
+      "require": "4",
+      "protection_name": "Wind Rabbit's Aura",
+      "protection": "5% boost to wind ATK",
+      "evolution_flag": "1",
+      "level": "",
+      "quality": "",
+      "evolution": "0"
+    },
+    {
+      "id": "2010011000",
+      "name": "Timber Wolf",
+      "skill": "Timber Wolf's Call",
+      "comment": "Small earth DMG to all foes",
+      "recast": "4",
+      "require": "7",
+      "protection_name": "Timber Wolf's Aura",
+      "protection": "5% boost to earth ATK",
+      "evolution_flag": "1",
+      "level": "",
+      "quality": "",
+      "evolution": "0"
+    },
+    {
+      "id": "2010011000",
+      "name": "Timber Wolf",
+      "skill": "Timber Wolf's Call",
+      "comment": "Small earth DMG to all foes",
+      "recast": "4",
+      "require": "7",
+      "protection_name": "Timber Wolf's Aura",
+      "protection": "5% boost to earth ATK",
+      "evolution_flag": "1",
+      "level": "",
+      "quality": "",
+      "evolution": "0"
+    }
+  ],
+  "potion": {
+    "count": "5",
+    "item_name": "Full Elixir",
+    "limit_remain": 0,
+    "limit_number": 0,
+    "limit_flg": false,
+    "is_trialbattle": false
+  },
+  "shop_lowest_price": "100",
+  "shop_potion_id": 7,
+  "weapon": {
+    "weapon": "1010000000"
+  },
+  "diagram_flag": 1,
+  "chat_button_flag": 1,
+  "chat_receive_flag": 1,
+  "chat_stamp_flag": 1,
+  "effect_mode": 0,
+  "summon_speed": 1,
+  "is_skip_to_request_assistance": 0,
+  "is_guests_allowed_to_request_assistance": 1,
+  "ability_popup_flag": 1,
+  "others_effect_display_flag": 1,
+  "auto_attack_display_flag": 1,
+  "disp_hp_percent_disp": 0,
+  "ability_rail_use": 1,
+  "ability_rail_disp": 1,
+  "serif": 1,
+  "is_escorted_character_dead": 0,
+  "move_background": "\/sp\/raid\/bg_progress\/01qa.png",
+  "location_id": "20001",
+  "field_effect": [],
+  "bgm_setting": {
+    "is_change_bgm": false,
+    "bgm": null
+  },
+  "key_enemy_mode": 0,
+  "duplicate_key": "581aee959160f",
+  "suddenly_attack_flag": false,
+  "use_ap": true,
+  "without_pc": "",
+  "no_skill_battle": ""
+}

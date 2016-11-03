@@ -24,8 +24,10 @@ var loadCreateJS = function(a) {
 require(["lib/common"], function() {
 
     require(["util/device"]);
+    console.log('lib/common')
     var userAgent = (new UAParser).getResult();
     Game.ua = Game.ua ? _.extend(Game.ua, userAgent) : userAgent;
+
     if ( window.AndroidCacheProxy) {
         window.AndroidCacheProxy.setCacheManifest = function(a, b, c) {
             var cyLastTime = window.localStorage.cy_last_time || 0;
@@ -42,7 +44,9 @@ require(["lib/common"], function() {
         AndroidCacheProxy.setCacheManifest(Game.modifiedListUri, cacheSize, cacheRetention);
     }
     loadCreateJS(function() {
+        console.info('loadCreatejs');
         require(["jquery", "underscore", "util/ajax", "lib/shellapp"], function($/*a*/, _/*b*/, ajaxUtil/*c*/, shellApp/*d*/) {
+
             /*//send ajax funtion
             function sendAjax(a, c, d) {
                 var ajax = new XMLHttpRequest;
@@ -179,9 +183,19 @@ require(["lib/common"], function() {
                     ajaxUtil.addXHR(request);
             },complete: function(request) {
                     ajaxUtil.removeXHR(request)
-            }}), require(["lib/locallib"], function() {
-                require(["backbone", "view/loading", "mine/js/router/app-router"], function(backbone, loadingObject, appRouter) {
-                    globalGame.loading = new loadingObject, globalGame.router = new appRouter, backbone.history.start(), globalGame.submenu && require(["submenu"])
+            }});
+
+            require(["lib/locallib-mine"], function() {
+
+                require(["backbone", "view/loading", "router/app-router-mine"], function(backbone, loadingObject, appRouter) {
+
+                    globalGame.loading = new loadingObject,
+                        globalGame.router = new appRouter,
+                        backbone.history.start(),
+                    globalGame.submenu && require(["submenu"]);
+                    globalGame.router.on('route',function (e) {
+                        console.info(e);
+                    })
                 })
             })
         })

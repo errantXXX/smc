@@ -9,9 +9,15 @@
 		<meta http-equiv="expires" content="-1">
 		<meta name="format-detection" content="telephone=no">
 		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link type="text/css" rel="stylesheet" href="/Astral/css/common.css">
+        <link type="text/css" rel="stylesheet" href="/Astral/css/index.css">
 	</head>
-	<body>Canvas:
-		<canvas class=".canvas"></canvas>
+	<body><div class="mobage-game-container" id="mobage-game-container">
+		<div class="wrapper" id="wrapper">
+		<div class="contents"></div>
+		</div>
+	</div>
+
 			<script src="../lib/Game.js" crossorigin="anonymous"></script>
             <script src="../lib/require.js" crossorigin="anonymous"></script>
             <script>
@@ -58,7 +64,7 @@
                     waitSeconds:60});
                 var requirejs_createNode = requirejs.createNode;
                 requirejs.createNode = function() { var node = requirejs_createNode.apply(this, arguments); node.setAttribute('crossorigin', 'anonymous'); return node; };
-                require(['app-mine']);
+                require(['mine/app-mine']);
 
             </script>
 	</body>
