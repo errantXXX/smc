@@ -55,7 +55,6 @@ define('router/app-router-mine', ["backbone","model/cjs-loader","util/ajax","lib
                  console.info('default index');
             },
             raid: function(raidId, speed, isLock) {
-                console.info('raid router');
                 this.move();
                 require(["view/raid/main-mine"], function(RaidMain) {
                     Game.view = new RaidMain({

@@ -1209,9 +1209,14 @@ define('lib/mobage-jssdk', ["jquery", "underscore", "util/navigate"], function(a
     return r
 });
 define('model/data', ["underscore", "backbone", "util/ajax", "lib/shellapp", "util/local-storage", "util/language-message", "lib/mobage-jssdk"], function(a, b, c, d, e, f, g) {
-    var h = [], i = !1, j = b.Model.extend({initialize: function() {
-        this.listenTo(this, "error", this.error), this.error = this.getErrorStorageValue()
-    },parse: function(c) {
+                            /*a        b            c              d               e                    f                        g*/
+    var h = [],
+        i = !1,
+        j = b.Model.extend({
+            initialize: function() {
+                this.listenTo(this, "error", this.error),
+                    this.error = this.getErrorStorageValue()
+            },parse: function(c) {
         function e(a) {
             i = !1;
             var c = new (b.Model.extend({urlRoot: Game.baseUri + "authentication/greejs"}));
@@ -5889,7 +5894,9 @@ define('view/form', ["jquery", "underscore", "backbone", "view/popup"], function
     return q
 });
 define("view/captcha", ["jquery", "underscore", "backbone", "view/form", "model/token-data"], function(a, b, c, d, e) {
-    var f = "c/i?t=", g = "1文字以上入力してください<br>読み取りづらい場合は一度送信してください", h = "もう一度入力してください<br>読み取りづらい場合は一度送信してください", i = c.View.extend({el: "#pop-c-a-i",events: {},initialize: function() {
+    var f = "c/i?t=", g = "1文字以上入力してください<br>読み取りづらい場合は一度送信してください",
+        h = "もう一度入力してください<br>読み取りづらい場合は一度送信してください",
+        i = c.View.extend({el: "#pop-c-a-i",events: {},initialize: function() {
         this.$dynamicMessage = this.$el.find(".txt-c-a-i-message"), this.$image = this.$el.find(".image"), this.$frmGroup = this.$el.find("#c-a-i-frm-group"), this.createSubView()
     },createSubView: function() {
         var a = this;
