@@ -5905,6 +5905,7 @@ define("view/captcha", ["jquery", "underscore", "backbone", "view/form", "model/
     return i
 });
 define('view/content', ["underscore", "backbone", "model/content", "model/data", "model/token-data", "lib/shellapp", "lib/sound", "model/sound", "view/popup", "view/captcha", "util/ajax", "util/local-storage", "util/language-message"], function(a, b, c, d, e, f, g, h, i, j, k, l, m) {
+                                /*a        b         c                    d                   e         f                   g       h                     i        j                 k                   l             m*/
     function n() {
         $("#gree-ui-menu").width(268)
     }

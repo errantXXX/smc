@@ -1,6 +1,4 @@
-define('mine/view/raid/main',['underscore'],function (_) {
-    alert('load');
-})
+
 define('lib/raid/destroy', ["underscore"], function(underscore) {
     var object = {
         mSetInterval: function() {
@@ -24,7 +22,7 @@ define('router/app-router-mine', ["backbone","model/cjs-loader","util/ajax","lib
     var object = backbone.Router.extend(
         {
             initialize: function() {
-                //console.info('top');
+                console.info('init router');
                 //this.router_href();
                 window.onerror =function (e) {
                     console.info(e);
@@ -32,6 +30,7 @@ define('router/app-router-mine', ["backbone","model/cjs-loader","util/ajax","lib
             },
             move: function () {
                 console.info('startMove');
+
                 Game.loading.loadStart(),
                // Game.ua.isJssdk() && $("#mobage-game-container").parent().scrollTop(0),
                 Game.view && (Game.view.content_close(), Game.view.destroyImages()),
@@ -56,7 +55,8 @@ define('router/app-router-mine', ["backbone","model/cjs-loader","util/ajax","lib
             },
             raid: function(raidId, speed, isLock) {
                 this.move();
-                require(["view/raid/main-mine"], function(RaidMain) {
+                require(["view/raid/main-lite"], function(RaidMain) {
+                    console.info('raid router')
                     Game.view = new RaidMain({
                         raid_id: raidId,
                         action: "start",

@@ -747,7 +747,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
 /**
  * Sound Interface
  */
-define('lib/sound', ["jquery", "underscore", "./sound-player"], function(a, b, c) {
+define('lib/sound', ["jquery", "underscore", "lib/sound-player"], function(a, b, c) {
     function d(a) {
         b.each(c, function(b, c) {
             g[c] = function() {
@@ -1208,11 +1208,12 @@ define('lib/mobage-jssdk', ["jquery", "underscore", "util/navigate"], function(a
     };
     return r
 });
-define('model/data', ["underscore", "backbone", "util/ajax", "lib/shellapp", "util/local-storage", "util/language-message", "lib/mobage-jssdk"], function(_, backbone, ajaxUtil, shellApp,localStorageUtil,languageUtil, jsSdk) {
+//define('model/data', ["underscore", "backbone", "util/ajax", "lib/shellapp", "util/local-storage", "util/language-message", "lib/mobage-jssdk"], function(_, backbone, ajaxUtil, shellApp,localStorageUtil,languageUtil, jsSdk) {
+define('model/data', ["underscore", "backbone", "util/ajax", "lib/shellapp", "util/local-storage", "util/language-message", "lib/mobage-jssdk"], function(a, b, c, d,e,f, g) {
                              /*a        b            c              d               e                    f                        g*/
     var h = [],
         i = !1,
-        j =backbone.Model.extend({
+        j =b.Model.extend({
             initialize: function() {
                 this.listenTo(this, "error", this.error),
                     this.error = this.getErrorStorageValue()
@@ -1307,6 +1308,558 @@ define('model/content', ["underscore", "backbone", "model/data", "lib/sound", "m
     }});
     return f
 });
-define('view/content',['jquery','backbone'],function ($,_) {
+define('general',function(){
+    var object = {
+        hideURLbar:function(){
 
+        }
+    };
+    return object;
+})
+define('view/loading', ["underscore", "backbone", "general"], function(a, b, c) {
+    var d = b.View.extend({el: "#loading",initialize: function() {
+        a.bindAll(this)
+    },loadStart: function() {
+        this.$el.add("#ready").css("display", "block"), $(".contents").css("display", "none"), this.fadeControll(!0), c.hideURLbar()
+    },xhrStart: function() {
+        this.$el.css("display", "block"), this.fadeControll(!0)
+    },loadEnd: function() {
+        this.$el.css("display", "none"), this.fadeControll(!1), this.trigger("fadeOut")
+    },xhrEnd: function() {
+        this.$el.css("display", "none"), this.fadeControll(!1)
+    },fadeControll: function(a) {
+        a ? this.$el.find(".img-load").css("display", "block") : this.$el.find(".img-load").css("display", "none")
+    }});
+    return d
+});
+/**
+ * @fileoverview CreateJS manifest Loader
+ */
+define('model/manifest-loader', ["underscore", "backbone", "util/backbone-singleton"], function(a, b) {
+    var c = window.images = window.images || {}, d = {}, e = b.Model.extend({initialize: function() {
+        this.loadQueue = new createjs.LoadQueue(!1), this.loadQueue.setMaxConnections(5), this.loadQueue.addEventListener("error", a.bind(this.handleError, this)), this.loadQueue.addEventListener("fileload", a.bind(this.handleFileLoad, this)), this.loadQueue.addEventListener("complete", a.bind(this.handleComplete, this)), window.CreateJsShell && 1 == Game.setting.cjs_mode && (this.loadQueue._progress = 1)
+    },setImageAlias: function(a, b) {
+        c[b] = c[a], d[b] = d[a]
+    },handleFileLoad: function(a) {
+        var b, d = a.item.id;
+        switch (a.item.type) {
+            case createjs.LoadQueue.IMAGE:
+                b = a.result, c[d] = b
+        }
+        this.trigger("fileload", a)
+    },handleComplete: function(a) {
+        this.trigger("complete", a), window.CreateJsShell && 1 == Game.setting.cjs_mode && (this.loadQueue._progress = 0)
+    },handleError: function(a) {
+        this.trigger("error", a)
+    },getLoadingTarget: function(b) {
+        if (!b)
+            return null;
+        a.isObject(b) || (b = {id: b,src: b});
+        var e = b.id;
+        return a.has(c, e) && d[e] == b.src ? null : (d[e] = b.src, a.defaults({type: createjs.LoadQueue.IMAGE}, b))
+    },loadManifest: function(b, c, d) {
+        var e = this, f = [];
+        a.each(b, function(b) {
+            var c = e.getLoadingTarget(b);
+            c && (a.defaults(c, {cache: !0}), f.push(c))
+        }), f = a.uniq(f), a.isEmpty(f) ? this.loadQueue.dispatchEvent("complete") : this.loadQueue.loadManifest(f, c, d)
+    },loadFile: function(b, c, d) {
+        var e = this, f = e.getLoadingTarget(b);
+        f && (a.defaults(f, {cache: !0}), this.loadQueue.loadFile(f, c, d))
+    },load: function() {
+        this.loadQueue.load()
+    },close: function() {
+        this.loadQueue.close()
+    },setMaxConnections: function(a) {
+        this.loadQueue.setMaxConnections(a)
+    },addEventListener: function(a, b) {
+        this.once(a, b)
+    },clear: function() {
+        a.each(d, function(a, b) {
+            delete c[b]
+        }), d = {}
+    },reset: function() {
+        this.loadQueue.reset()
+    }});
+    return e.makeSingleton(["loadFile", "loadManifest", "load", "clear", "setImageAlias", "on", "off", "once", "addEventListener", "reset"]), e
+});
+define('model/cjs-loader', ["jquery", "underscore", "backbone", "model/manifest-loader", "util/jquery.whenall", "util/backbone-singleton"], function(a, b, c, d) {
+    var e = window.lib = window.lib || {}, f = {}, g = {}, h = {}, i = {}, j = "cjs/", k = "model/manifest/", l = Game.baseUri + "cassets/cache/" + Game.jsUri.replace(/.*\//g, ""), m = c.Model.extend({loadFiles: function(c, l) {
+        var m = this, n = new a.Deferred, o = b.reject(c, function(a) {
+            return b.has(f, a) || b.has(g, a)
+        });
+        b.each(o, function(a) {
+            g[a] = 1
+        }), o = b.unique(b.sortBy(o));
+        var p = function() {
+            n.resolve();
+            var a = b.difference(b.union(c, b.keys(g)), b.keys(f));
+            b.isEmpty(a) && m.trigger("complete")
+        };
+        if (b.isEmpty(o))
+            p();
+        else {
+            var q = new a.Deferred, r = new createjs.LoadQueue(!1, Game.jsUri + "/", !0);
+            r.setMaxConnections(5), r.on("complete", function() {
+                q.resolve()
+            }), r.on("fileload", function(a) {
+                if (a.item) {
+                    var c = a.item.id;
+                    if (c) {
+                        var d = b.last(c.split("/"));
+                        e[d].prototype.playFunc = function(a) {
+                            createjs.Tween.get().wait(1).call(a)
+                        }, f[d] = d, h[c] = e[d]
+                    }
+                }
+            }), r.on("error", function(a) {
+                q.reject()
+            });
+            var s = b.map(o, function(a) {
+                var b = j + a;
+                return {id: b,src: b + ".js",type: createjs.LoadQueue.JAVASCRIPT,cache: !0}
+            });
+            r.loadManifest(s);
+            var t = a.whenAll.apply(null, b.map(o, function(b) {
+                var c = k + b, e = new a.Deferred;
+                return require([c], function(a) {
+                    if (i[c] = a.prototype.defaults.manifest, l) {
+                        var b = i[c];
+                        d.once("complete", function() {
+                            e.resolve()
+                        }), d.loadManifest(b, !0)
+                    } else
+                        e.resolve()
+                }, function(a) {
+                    e.reject()
+                }), e
+            }));
+            a.when(q, t).always(function() {
+                p()
+            })
+        }
+        return n
+    },cjs: function(a) {
+        return a ? h[j + a] : b.values(h)
+    },manifest: function(a) {
+        return a ? i[k + a] : b.values(i)
+    },clear: function() {
+        b.each(b.keys(requirejs.s.contexts._.defined), function(a) {
+            0 == a.indexOf(l) && (require.undef(a), delete e[a])
+        }), b.each(h, function(a, b) {
+            require.undef(b), delete e[b]
+        }), b.each(i, function(a, b) {
+            require.undef(b), delete e[b]
+        }), f = {}, g = {}, h = {}, i = {}, d.clear()
+    }});
+    return m.makeSingleton(["loadFiles", "cjs", "manifest", "clear", "on", "off", "once"]), m
+});
+define('util/backbone-singleton', ["underscore", "backbone"], function(a, b) {
+    var c = function(b, c) {
+        return c = c || a.reject(a.keys(b.prototype), function(a) {
+            return "_" == a[0]
+        }), b.prototype.constructor = function() {
+            return b._instance ? b._instance : (b._instance = this, b.prototype.constructor.apply(this, arguments))
+        }, b.getInstance = function() {
+            return this._instance = this._instance || new b, this._instance
+        }, a.each(c, function(a) {
+            b[a] = function() {
+                var c = b.getInstance();
+                return c[a].apply(c, arguments)
+            }
+        }), b
+    };
+    return b.Model.makeSingleton = function(a) {
+        c(this, a)
+    }, {makeSingleton: c}
+});
+define('model/data-loader', ["jquery", "underscore", "backbone", "util/backbone-singleton"], function(a, b, c) {
+    var d = {}, e = c.Model.extend({clear: function(a) {
+        a ? b.has(d, a) && delete d[a] : d = {}
+    },load: function(c, e) {
+        var f = this;
+        if (e = e || {}, e = b.defaults(e, {cache: !0}), e.cache && b.has(d, c))
+            return e.success && e.success.call(f, d[c]), f.trigger("complete"), (new a.Deferred).resolve().promise();
+        var g = new a.Deferred;
+        return a.ajax({url: Game.baseUri + c,cache: !1,success: function(a) {
+            e.success && e.success.apply(f, arguments), e.cache && (d[c] = a), g.resolve(), f.trigger("complete")
+        },error: function() {
+            e.error && e.error.apply(f, arguments), g.reject()
+        }}), g.promise()
+    }});
+    return e.makeSingleton(["load", "clear", "on", "off", "once"]), e
+});
+define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/sound", "model/data", "model/data-loader", "util/local-storage"], function(a, b, c, d, e, f, g, h) {
+    var i = "silent", j = "se/btn_se/btn_se_03.mp3", k = [{se: i,classes: ["prt-silent-se", "btn-silent-se", "btn-help-topic-title", "btn-command-forward"]}, {se: "se/queststart_se_1.mp3",classes: ["se-quest-start"]}, {se: "se/target_se_1.mp3",classes: ["btn-targeting"]}, {se: "se/book_open_se_1.mp3",classes: ["btn-story", "btn-archive-list", "btn-library"]}, {se: "se/stamp_se_1.mp3",classes: ["btn-stamp-ok"]}, {se: "se/btn_se/btn_se_02.mp3",classes: ["btn-usual-cancel", "btn-usual-text-cancel", "btn-usual-cancel-small", "btn-usual-close", "btn-head-close", "btn-deck-cancel", "btn-cancel", "btn-close", "btn-help-close", "btn-command-back", "btn-log", "btn-ability-unavailable", "btn-summon-unavailable", "btn-tutorial-disable", "btn-play uncleared"]}, {se: "se/menu_open_se_1.mp3",classes: ["btn-head-pop", "btn-open"]}, {se: "se/menu_close_se_1.mp3",classes: ["btn-head-close"]}, {se: "se/btn_se/btn_se_04.mp3",classes: ["se-start", "btn-result", "btn-start", "btn-tutorial-start"]}, {se: "se/btn_se/btn_se_05.mp3",classes: ["btn-attack-start"]}, {se: "se/btn_se/btn_se_01.mp3",classes: ["se-ok", "btn-select-baloon", "btn-usual-ok"]}, {se: j,classes: ["btn-shine", "btn-ability-available", "btn-summon-available", "btn-archive-item", "btn-treasure-item"]}], l = [{se: "se/sell_se_1.mp3",classes: ["pop-sell-result"]}], m = c.Model.extend({loadSound: function(a, b) {
+        return b = b || {}, e.loadFile(a, b)
+    },loadBGM: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, this.loadSound(a, b)
+    },loadSE: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.loadSound(a, b)
+    },loadVoice: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
+    },playSound: function(a, c) {
+        c = c || {};
+        var d;
+        c.force && e.setup(!0), c.alias ? (d = c.loop ? e.setAliasAndRepeat : e.setAliasAndPlay, d = b.partial(d, a, c.alias, b.omit(c, "alias"))) : (d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)), c.force ? e.setup(!0).done(d) : d()
+    },playBGM: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, b.loop = !0, b.force && (b.force = !1, delete b.force), this.playSound(a, b)
+    },playSE: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.playSound(a, b)
+    },playVoice: function(a, b) {
+        return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.playSound(a, b)
+    },stopBGM: function(a) {
+        a ? e.stop(a) : e.stop(d.BGM_ALIAS)
+    },stopSE: function(a) {
+        a ? e.stop(a) : (e.stop(d.SE_ALIAS), e.stop(d.SE_SAMPLE_ALIAS))
+    },stopVoice: function(a) {
+        a ? e.stop(a) : (e.stop(d.VOICE_ALIAS), e.stop(d.VOICE_SAMPLE_ALIAS))
+    },unsetBGM: function(a) {
+        e.unsetAlias(a || d.BGM_ALIAS)
+    },unsetSE: function(a) {
+        e.unsetAlias(a || d.SE_ALIAS)
+    },unsetVoice: function(a) {
+        e.unsetAlias(a || d.VOICE_ALIAS)
+    },isPlayingBGM: function(a) {
+        return e.isPlaying(a || d.BGM_ALIAS)
+    },isPlayingSE: function(a) {
+        return e.isPlaying(a || d.SE_ALIAS)
+    },isPlayingVoice: function(a) {
+        return e.isPlaying(a || d.VOICE_ALIAS)
+    },setPlayingVoice: function(a) {
+        return e.setPlaying(d.VOICE_ALIAS, a)
+    },_getLocationId: function(a) {
+        var b = this;
+        return (new (f.extend({urlRoot: window.Game.baseUri + "user/location_id"}))).fetch({ignoreError: !0}).done(function(c) {
+            a && a.call(b, c)
+        })
+    },_getPreLocationId: function(a) {
+        var b = this;
+        return (new (f.extend({urlRoot: window.Game.baseUri + "user/pre_location_id"}))).fetch({ignoreError: !0}).done(function(c) {
+            a && a.call(b, c)
+        })
+    },_getShipId: function(a, b) {
+        var c = this;
+        return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/ship_type" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
+            b && b.call(c, a)
+        })
+    },_getJukebox: function(a, b) {
+        var c = this;
+        return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/bgm_file" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
+            b && b.call(c, a)
+        })
+    },_getSoundData: function(a, c, d) {
+        var e = this;
+        return b.isFunction(c) && (d = c, c = null), g.load(a, {success: function(a) {
+            if (d) {
+                var f = a.data;
+                b.isObject(f) && !b.isArray(f) && (f = f[c]), b.isArray(f) && (f = f[b.random(f.length - 1)]), d.call(e, f)
+            }
+        }})
+    },playTownBGM: function(a) {
+        var b = this;
+        if (a)
+            return b._getSoundData("sound/town_bgm?data=" + a, a, function(a) {
+                b.playBGM(a)
+            });
+        if (h.isSupported()) {
+            var c = h.get("mypage_char_bgm");
+            if (c && "default" != c)
+                return void b.playBGM("bgm/" + c)
+        }
+        return b._getLocationId(function(a) {
+            a && b.playTownBGM(a)
+        })
+    },playQuestMapBGM: function(a, c) {
+        var d = this;
+        if ("normal" === a)
+            return d._getPreLocationId(function(a) {
+                a && d.playQuestMapBGM(a, c)
+            });
+        if (a) {
+            var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
+            return d._getSoundData("sound/quest_map_bgm?" + e, function(a) {
+                d.playBGM(a)
+            })
+        }
+        return d._getLocationId(function(a) {
+            a && d.playQuestMapBGM(a, c)
+        })
+    },playQuestSupporterBGM: function(a, c) {
+        var d = this;
+        if (a) {
+            var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
+            return d._getSoundData("sound/quest_supporter_bgm?" + e, function(a) {
+                d.playBGM(a)
+            })
+        }
+        return d._getLocationId(function(a) {
+            a && d.playQuestSupporterBGM(a, c)
+        })
+    },playShipBGM: function(a, b) {
+        var c = this;
+        return a ? c._getSoundData("sound/ship_bgm?data=" + a, a, function(a) {
+            c.playBGM(a)
+        }) : c._getShipId(b, function(a) {
+            a ? c.playShipBGM(a) : c.playTownBGM()
+        })
+    },playGuildBGM: function(a, b) {
+        var c = this;
+        return a ? void this.playBGM("bgm/" + a + ".mp3") : c._getJukebox(b, function(a) {
+            a && c.playGuildBGM(a)
+        })
+    },playJukeboxDefaultBGM: function() {
+        return this.playBGM("bgm/13_event_generalpurpose_00.mp3")
+    },playTutorialQuestBGM: function() {
+        return this.playBGM("bgm/02_field_01.mp3")
+    },playTutorialTownBGM: function() {
+        return this.playBGM("bgm/11_kaze_reel_00.mp3")
+    },playShopBGM: function() {
+        return this.playBGM("bgm/11_kaze_reel_00.mp3")
+    },playResultBGM: function() {
+        return this.playBGM("bgm/05_gatcha_02.mp3")
+    },playEventBGM: function() {
+        return this.playBGM("bgm/12_baltz_06.mp3")
+    },playLimitedBGM: function(a) {
+        var b = "2009" == a ? "bgm/31_garonzo_02.mp3" : "bgm/02_field_02.mp3";
+        return this.playBGM(b)
+    },loadMypageVoiceData: function(a) {
+        var b = this;
+        b._getSoundData("sound/mypage_voice?data=" + a, a)
+    },playMypageVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/mypage_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },loadArchiveVoiceData: function(a) {
+        var b = this;
+        b._getSoundData("sound/archive_voice?data=" + a, a)
+    },playArchiveVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/archive_voice?data=" + a, a, function(a) {
+            b.playVoice(a, {force: !0})
+        })
+    },playWinVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/win_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playDyingVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/dying_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playSpecialSkillGaugeVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/special_skill_gauge_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playFormationVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/formation_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playGachaVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/gacha_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playEvolutionVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/evolution_voice?data=" + a, a, function(a) {
+            b.playVoice(a)
+        })
+    },playSampleSE: function(a) {
+        var b = this;
+        b._getSoundData("sound/sample_se", function(a) {
+            b.playSE(a, {alias: d.SE_SAMPLE_ALIAS})
+        })
+    },playSampleVoice: function(a) {
+        var b = this;
+        b._getSoundData("sound/sample_voice", function(a) {
+            b.playVoice(a, {alias: d.VOICE_SAMPLE_ALIAS})
+        })
+    },playRecastMaxSE: function() {
+        return this.playSE("se/ougi_gauge_se_1.mp3")
+    },playSlideSE: function() {
+        return this.playSE("se/btn_se/btn_se_02.mp3")
+    },playEquipSE: function() {
+        return this.playSE("se/equip_se_1.mp3")
+    },playChangeWeaponSE: function() {
+        return this.playSE("se/set_sw_se_1.mp3")
+    },playSortSE: function() {
+        return this.playSE("se/sort_se_1.mp3")
+    },playNextSceneSE: function() {
+        return this.playSE(d.SE_NEXT_SCENE, {alias: d.SE_NEXT_SCENE})
+    },playExpGaugeSE: function() {
+        return this.playSound("se/gauge_se_1.mp3", {offset: .15})
+    },playAssistSE: function() {
+        return this.playSound("se/help_se_1_01.mp3")
+    },playAssistJoinedSE: function() {
+        return this.playSE("se/help_se_2.mp3")
+    },playBattleReadySE: function() {
+        return this.playSE("se/ready_se_1.mp3")
+    },playOpenAccordionSE: function() {
+        return this.playSE("se/page_se_1.mp3")
+    },playCloseAccordionSE: function() {
+        return this.playSE("se/page_back_se_1.mp3")
+    },playOpenMenuSE: function() {
+        return this.playSE("se/menu_open_se_1.mp3")
+    },playCloseMenuSE: function() {
+        return this.playSE("se/menu_close_se_1.mp3")
+    },playGetItemSE: function() {
+        return this.playSE("se/itemget_04_se_1.mp3")
+    },playGetTreasureSE: function() {
+        return this.playSE("se/itemget_03_se_1.mp3")
+    },playRankUpSE: function() {
+        return this.playSE("se/rankup_se_1.mp3")
+    },playLevelUpSE: function() {
+        return this.playSE("se/levelup_se_1.mp3")
+    },playPopSE: function() {
+        return this.playSE("se/popup_se_1.mp3")
+    },playQuestForwardButtonSE: function() {
+        return this.playSE("se/btn_se/btn_se_01.mp3")
+    },playSuccessSE: function() {
+        return this.playSE("se/success_s_se_1.mp3")
+    },playGreatSuccessSE: function() {
+        return this.playSE("se/success_l_se_1.mp3")
+    },playPushStampSE: function() {
+        return this.playSE("se/stamp_se_1.mp3")
+    },playRecoverySE: function() {
+        return this.playSE("se/item_use_se_1.mp3")
+    },playButtonSE: function(a) {
+        var c = this;
+        if (a.hasClass("btn-disable-sound") || (a.hasClass("btn-switch-sound") || a.hasClass("btn-bgm-change")) && a.hasClass("soundOn"))
+            ;
+        else {
+            var d = b.some(k, function(d) {
+                return b.some(d.classes, function(b) {
+                    return a.hasClass(b) ? (d.se !== i && c.playSE(d.se), !0) : !1
+                })
+            });
+            d || c.playSE(j)
+        }
+    },playPopShowSE: function(a) {
+        var c = this;
+        b.some(l, function(d) {
+            return b.some(d.classes, function(b) {
+                return a.hasClass(b) ? (c.playSE(d.se), !0) : !1
+            })
+        })
+    }});
+    return m.makeSingleton(), m
+});
+define('view/content', ["underscore", "backbone", "model/content","lib/shellapp"],function(_,backbone,contentModel,shellApp) {
+    var view = backbone.View.extend(
+        {
+            el: ".contents",
+            setTimeoutTimerIdObj: {},
+            setIntervalTimerIdObj: {},
+            initialize: function (params) {
+
+            },
+            content_bind: function () {
+                this.on("loadStart", Game.loading.loadStart),
+                    this.on("xhrStart", Game.loading.xhrStart),
+                    this.on("loadEnd", Game.loading.loadEnd),
+                    this.on("xhrEnd", Game.loading.xhrEnd),
+                    this.on("page_error", this.page_error),
+                    this.on("data_error", this.data_error),
+                    this.on("popup_error", this.popup_error)
+            },
+            content_clear:function(){
+                $(".mask").removeClass().addClass("mask")
+            },
+            content_close: function() {
+                /*this.off(),
+                    this.undelegateEvents(),
+                    this.stopListening(),
+                    this.timerOff(),
+                    this.clearTimeoutAll(),
+                    this.clearIntervalAll(),
+                    this.destroy && this.destroy(),
+                    this.destroySubViews(),
+                    this.destroyStage(),
+                    this.abortAjax();
+                */
+            },
+            destroyImages: function() {
+                if (this.el && !f.isShellApp()) {
+                    var a = 0, b = this.el.getElementsByTagName("img");
+                    for (a = 0; a < b.length; ++a)
+                        b[a].src = "";
+                    var c = this.el.getElementsByTagName("canvas");
+                    for (a = 0; a < c.length; ++a)
+                        c[a].width = 0
+                }
+            }
+        });
+    return view;
+});
+define('view/popup', ["underscore", "backbone", "model/sound"], function(a, b, c) {
+    var d = 0, e = b.View.extend({el: "#pop",defaults: {className: null,title: null,body: null,flagBtnCancel: 0,flagBtnOk: 0,flagBtnClose: 0,btnOkClassName: null,btnCancelClassName: null,btnCloseClassName: null,showStartCallback: null,showEndCallback: null},events: {"tap .btn-usual-ok": "onPushOk","tap .btn-usual-cancel": "onPushCancel","tap .btn-usual-close": "onPushClose"},initialize: function() {
+        this.options = this.options || {}, this.options.targetObj && $(this.options.targetObj).length && (this.el = this.options.targetObj), this.setElement(this.el), this.options = a.defaults(this.options, this.defaults)
+    },render: function() {
+        return this.$el.html(a.template($("#popup").html(), this.options)), this
+    },popShow: function(a, b) {
+        this.options.showStartCallback && this.options.showStartCallback(), clearTimeout(d), $(".mask").css("display", "block");
+        var e = this.$el.find(".pop-usual"), f = this;
+        c.playPopShowSE(e);
+        var g = this.options.showEndCallback;
+        g && e.oneTransitionEnd(function() {
+            e.off("transitionend webkitTransitionEnd"), g()
+        }, 300);
+        var h, i = Number($("html").height()), j = Number($("html").css("zoom")), k = $(document).scrollTop();
+        Game.ua.isJssdk() && (i = Number($("#mobage-game-container").height()), j = 1 >= j ? Number($("#mobage-game-container").css("zoom")) : j, k = $("#mobage-game-container").parent().scrollTop());
+        var l = $(window).height() / j, m = 50 * +j;
+        if (0 < $("#debug").length && (m = m + +$("#debug").height() + 30), "undefined" != typeof a)
+            h = b;
+        else {
+            var n = k / j;
+            l + n > i && (n = i - l), h = (l - e.height()) / 2 + n
+        }
+        e.css({display: "block",top: h + "px"}).delay(100).queue(function() {
+            if (a)
+                $(this).removeClass("pop-hide").addClass("pop-show");
+            else {
+                var b = h, c = b + e.height(), d = Game.ua.isChromeApp() && 100 > m ? 100 : m, g = i - d;
+                c > g && (b = g - e.height()), 0 > b && (b = 0);
+                var j = +i - +e.height() - +m;
+                if (0 > j) {
+                    var k = Math.abs(j), l = $("#wrapper").css("margin-bottom").replace(/px/g, ""), n = +l + k + 50;
+                    f.updatedWrapperMargin = !0, f.updateWrapperMargin(1, n)
+                }
+                h != b ? (e.css("top", b + "px"), setTimeout(function() {
+                    e.removeClass("pop-hide").addClass("pop-show")
+                }, 100)) : $(this).removeClass("pop-hide").addClass("pop-show")
+            }
+        })
+    },popClose: function() {
+        var a = this;
+        this.updateWrapperMargin(0, 0), this.$el.find(".pop-usual").removeClass("pop-show").addClass("pop-hide").oneTransitionEnd(function() {
+            $(this).css("display", "none"), a.popOff(), a.trigger("popClose")
+        }, 300)
+    },popRemove: function(a) {
+        var b = this;
+        this.trigger("removeStart"), this.updateWrapperMargin(0, 0), this.$el.find(".pop-usual").removeClass("pop-show").addClass("pop-hide").oneTransitionEnd(function() {
+            1 != a && $(this).add(".mask").css("display", "none"), b.trigger("removeEnd"), $(this).off("transitionend webkitTransitionEnd"), b.destroy()
+        }, 300)
+    },locationUnclaimed: function(a) {
+        this.popRemove(), b.history.navigate("#quest/assist/unclaimed", !0)
+    },popOff: function() {
+        this.off(), this.undelegateEvents(), this.stopListening()
+    },popDelete: function() {
+        this.$el.find(".pop-usual").removeClass("pop-show").addClass("pop-hide"), $(this).add(".mask").css("display", "none"), $(this).off("transitionend webkitTransitionEnd"), this.off(), this.undelegateEvents(), this.stopListening(), this.updateWrapperMargin(0, 0)
+    },destroy: function() {
+        this.popOff(), this.$el.empty()
+    },onPushOk: function() {
+        this.trigger("ok")
+    },onPushCancel: function() {
+        this.trigger("cancel")
+    },onPushClose: function() {
+        this.trigger("close")
+    },updateWrapperMargin: function(a, b) {
+        this.updatedWrapperMargin && (this.defaultWrapperMarginBottom || (this.defaultWrapperMarginBottom = $("#wrapper").css("margin-bottom").replace(/px/g, "")), 0 === a ? $("#wrapper").css("margin-bottom", this.defaultWrapperMarginBottom + "px") : $("#wrapper").css("margin-bottom", b + "px"))
+    }});
+    return e
 });
