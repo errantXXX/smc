@@ -1758,6 +1758,28 @@ define('view/content', ["underscore", "backbone", "model/content","lib/shellapp"
             initialize: function (params) {
 
             },
+            content_render:function(json){
+                this.$el.html(decodeURIComponent(json.get("data")));
+                var cssResource = this.$el.find("#asset-css").attr("css");
+                var isError = false;
+                var _this = this;
+                var cssPath = Game.cssUri + cssResource, loadQueue = new createjs.LoadQueue(!0);
+                $("head>style.page").remove();
+                loadQueue.addEventListener("fileload", function(e) {
+                    e.item.type === createjs.LoadQueue.CSS && (e.result.className = "page")
+                }), loadQueue.addEventListener("complete", function(a) {
+                    loadQueue.removeAllEventListeners(), isError || ($(".contents").css("display", "block"), $("#ready").css("display", "none"), _this.trigger("readyFadeOut"))
+                }), loadQueue.addEventListener("error", function(a) {
+                    alert("init content failed"), isError = true
+                }), loadQueue.loadFile(cssPath);
+
+            },
+        addSubView: function(subView) {
+            this._subViews || (this._subViews = {}), this._subViews[subView.cid] = subView
+         },
+        removeSubView: function(subView) {
+            delete this._subViews[subView.cid]
+        },
             content_bind: function () {
                 this.on("loadStart", Game.loading.loadStart),
                     this.on("xhrStart", Game.loading.xhrStart),
