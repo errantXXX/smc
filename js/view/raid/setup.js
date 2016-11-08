@@ -372,6 +372,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         use_ap: null, 
         popScrollHeightDelta: 0, 
         initialize: function (c) {
+            console.l(c,'param is');
         this.content_bind(), this.trigger(Ma);
         var e = this, f = new d, g = c;
         this.assist_flg = !1, 
@@ -415,6 +416,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
             var p = new a.Deferred;
             e.prepareLoading(d, n, function () {
                 console.l('prepareLoading compelte');
+
                 p.resolve()
             }), 1 == d.invite_enable && e.activateMask();
             var q = new a.Deferred, s = new a.Deferred;
@@ -507,6 +509,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         }})
     }, prepareLoading: function (c, d, e) {
             console.l('prepareLoading');
+
         if (o.loadSE("se/treasure_se_6.mp3"), c.is_survival ? (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("stage"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("stage")) : d && (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("round"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("round")), c.is_survival && "undefined" != typeof c.survival && c.survival.is_score_buff)o.playBGM(c.bgm), this.popBattleService(c); else if (c.is_survival && "undefined" != typeof c.survival && 1 == c.survival.stage_number) {
             var f = {cjsName: "sfv_survival_start", fpsNum: 18, canvasElem: "canvas-pre-battle", canvasWidth: 640, canvasHeight: 920};
             c.survival.playerCjsId = c.player.param[0].cjs, B.setParams(f, c.survival);
@@ -541,7 +544,23 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         })) : (a(".prt-start-direction").append('<div class="prt-ready"></div>'), o.playBattleReadySE(), e())
     }, loadCJS: function (a, c, d) {
         var e = [].concat(Ca);
-        c ? e = R[0] == a.location_id ? a.arcade && a.arcade.is_bonus ? b.union(e, Ea) : b.union(e, Da) : a.is_survival ? b.union(e, Ga) : b.union(e, Fa) : a.is_trialbattle && (e = b.union(e, Ha)), b.each(a.player.param, function (a) {
+
+            if(c){
+                if(R[0] == a.location_id){
+                    if( a.arcade && a.arcade.is_bonus){
+                        e = b.union(e, Ea)
+                    } else{
+                        e =  b.union(e, Da)
+                    }
+                }else if (a.is_survival){
+                    e = b.union(e, Ga);
+                } else {
+                    e =  b.union(e, Fa)
+                }
+            }else if(a.is_trialbattle) {
+                e = b.union(e, Ha)
+            }
+            b.each(a.player.param, function (a) {
             e.push(a.cjs), e.push(a.effect)
         }), b.each(a.boss.param, function (a) {
             e.push(a.cjs), e.push(a.effect)

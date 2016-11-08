@@ -1,7 +1,4 @@
-define("view/raid/setup-lite",["backbone"],function(backbone){
-    var view = backbone.View.extend({});
-    return view;
-})
+
 define(["backbone", "model/content", "view/content", "view/raid/setup-lite", "sky/view/content", "util/local-storage"], function (backbone, contentModel, contentView, setupRaidView, contentViewSky, localStorageUtil) {
                 /*a          b               c                   d                e                   f*/
     var g = "app",
@@ -37,8 +34,9 @@ define(["backbone", "model/content", "view/content", "view/raid/setup-lite", "sk
 
             },
             render: function () {
+                console.info('main render');
                 this.content_render(this.content_model);
-                var option = {raid_id: this.raid_id, action: this.action, is_multi: this.is_multi, is_semi: this.is_semi};
+                var option = {raid_id: this.raid_id, action: 'start', is_multi: this.is_multi, is_semi: this.is_semi};
                 this.setupView = new setupRaidView(option);
                     this.addSubView(this.setupView),
                     this.trigger("loadEnd");

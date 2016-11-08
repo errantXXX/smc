@@ -642,6 +642,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
             return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, t.load(b, c).done(function() {
                 e._sounds[b] = b, delete e._reservedSounds[b], delete e._errorSounds[b], c.ignoreComplete || e._handleComplete()
             }).fail(function() {
+                console.info('fail')
                 e._errorSounds[b] = b, delete e._reservedSounds[b], c.ignoreComplete || e._handleComplete()
             })) : (new a.Deferred).resolve().promise()
         }, b.each(["play", "repeat"], function(a) {
@@ -1482,9 +1483,26 @@ define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/soun
     },loadVoice: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
     },playSound: function(a, c) {
+
         c = c || {};
         var d;
-        c.force && e.setup(!0), c.alias ? (d = c.loop ? e.setAliasAndRepeat : e.setAliasAndPlay, d = b.partial(d, a, c.alias, b.omit(c, "alias"))) : (d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)), c.force ? e.setup(!0).done(d) : d()
+        if( c.force){
+            e.setup(!0)
+        }
+        if(c.alias){
+            if(c.loop) {
+                d = e.setAliasAndRepeat
+            } else {
+                e.setAliasAndPlay
+            }
+            console.info(d);
+            console.info(a);
+            console.info(c.force);
+            d = b.partial(d, a, c.alias, b.omit(c, "alias"));
+        } else {
+            d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)
+        }
+        c.force ? e.setup(!0).done(d) : d()
     },playBGM: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, b.loop = !0, b.force && (b.force = !1, delete b.force), this.playSound(a, b)
     },playSE: function(a, b) {

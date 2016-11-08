@@ -350,6 +350,9 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                 }, d.getInstances = function() {
                     return d._instances
                 }, d.load = function(b, c) {
+
+
+
                     c = c || {};
                     var e;
                     if (c.src)
@@ -382,6 +385,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                         e.play(f, h, i, j, k)
                     })
                 }, d.repeat = function(a, b) {
+                    console.info(a);
                     return d.load(a, b).done(function() {
                         var c = d._instances[a] = d._instances[a] || g.Sound.createInstance(a);
                         if (c) {
@@ -460,6 +464,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                     })
                 }))
             }, b.repeat = function(c, e) {
+                console.info(c);
                 return c.match(k) ? (s.bgm = !0, d.playMusic(c, 0, -1), (new a.Deferred).resolve().promise()) : c.match(l) ? (s.se = !0, d.playSoundEffect(c), (new a.Deferred).resolve().promise()) : c.match(m) ? (s.voice = !0, d.playVoice(c, e && e.force), (new a.Deferred).resolve().promise()) : (d.pauseMusic(), g.call(b, c, e).done(function() {
                     b.once(c, "complete", function() {
                         d.resumeMusic()
@@ -516,6 +521,9 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e._handleComplete = function() {
             e.isLoaded() && e.trigger("complete")
         }, e._loadAndCall = function(c, f) {
+            console.info('_loadAndCall');
+            console.info(c);
+            console.info(f);
             f = f || {}, f.dir = f.dir || e.getDirectory(c);
             var g = new a.Deferred;
             if (!d.isShellApp()) {
@@ -625,7 +633,9 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                 f = d == a && a.match(l) ? e.play(b, c) : e.stopAndPlay(d, a, c)
             }
         }, e.setAliasAndRepeat = function(a, b, c) {
+
             e._isPlayable(a) || e.stop(b);
+            console.info(e.repeat)
             var d = e._alias[b];
             if (a) {
                 e.setAlias(a, b);
@@ -639,9 +649,13 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e.setPlaying = function(a, b) {
             return a = e._alias[a] || a || "", a && t.setPlaying(a, b)
         }, e.load = function(b, c) {
-            return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, t.load(b, c).done(function() {
+            console.l(t,'t is');
+
+            return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, console.info('start loading sound'),
+                t.load(b, c).done(function() {
                 e._sounds[b] = b, delete e._reservedSounds[b], delete e._errorSounds[b], c.ignoreComplete || e._handleComplete()
             }).fail(function() {
+                console.info('fail');
                 e._errorSounds[b] = b, delete e._reservedSounds[b], c.ignoreComplete || e._handleComplete()
             })) : (new a.Deferred).resolve().promise()
         }, b.each(["play", "repeat"], function(a) {
@@ -1490,7 +1504,8 @@ define('model/data-loader', ["jquery", "underscore", "backbone", "util/backbone-
     return e.makeSingleton(["load", "clear", "on", "off", "once"]), e
 });
 define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/sound", "model/data", "model/data-loader", "util/local-storage"], function(a, b, c, d, e, f, g, h) {
-    var i = "silent", j = "se/btn_se/btn_se_03.mp3", k = [{se: i,classes: ["prt-silent-se", "btn-silent-se", "btn-help-topic-title", "btn-command-forward"]}, {se: "se/queststart_se_1.mp3",classes: ["se-quest-start"]}, {se: "se/target_se_1.mp3",classes: ["btn-targeting"]}, {se: "se/book_open_se_1.mp3",classes: ["btn-story", "btn-archive-list", "btn-library"]}, {se: "se/stamp_se_1.mp3",classes: ["btn-stamp-ok"]}, {se: "se/btn_se/btn_se_02.mp3",classes: ["btn-usual-cancel", "btn-usual-text-cancel", "btn-usual-cancel-small", "btn-usual-close", "btn-head-close", "btn-deck-cancel", "btn-cancel", "btn-close", "btn-help-close", "btn-command-back", "btn-log", "btn-ability-unavailable", "btn-summon-unavailable", "btn-tutorial-disable", "btn-play uncleared"]}, {se: "se/menu_open_se_1.mp3",classes: ["btn-head-pop", "btn-open"]}, {se: "se/menu_close_se_1.mp3",classes: ["btn-head-close"]}, {se: "se/btn_se/btn_se_04.mp3",classes: ["se-start", "btn-result", "btn-start", "btn-tutorial-start"]}, {se: "se/btn_se/btn_se_05.mp3",classes: ["btn-attack-start"]}, {se: "se/btn_se/btn_se_01.mp3",classes: ["se-ok", "btn-select-baloon", "btn-usual-ok"]}, {se: j,classes: ["btn-shine", "btn-ability-available", "btn-summon-available", "btn-archive-item", "btn-treasure-item"]}], l = [{se: "se/sell_se_1.mp3",classes: ["pop-sell-result"]}], m = c.Model.extend({loadSound: function(a, b) {
+    var i = "silent", j = "se/btn_se/btn_se_03.mp3", k = [{se: i,classes: ["prt-silent-se", "btn-silent-se", "btn-help-topic-title", "btn-command-forward"]}, {se: "se/queststart_se_1.mp3",classes: ["se-quest-start"]}, {se: "se/target_se_1.mp3",classes: ["btn-targeting"]}, {se: "se/book_open_se_1.mp3",classes: ["btn-story", "btn-archive-list", "btn-library"]}, {se: "se/stamp_se_1.mp3",classes: ["btn-stamp-ok"]}, {se: "se/btn_se/btn_se_02.mp3",classes: ["btn-usual-cancel", "btn-usual-text-cancel", "btn-usual-cancel-small", "btn-usual-close", "btn-head-close", "btn-deck-cancel", "btn-cancel", "btn-close", "btn-help-close", "btn-command-back", "btn-log", "btn-ability-unavailable", "btn-summon-unavailable", "btn-tutorial-disable", "btn-play uncleared"]}, {se: "se/menu_open_se_1.mp3",classes: ["btn-head-pop", "btn-open"]}, {se: "se/menu_close_se_1.mp3",classes: ["btn-head-close"]}, {se: "se/btn_se/btn_se_04.mp3",classes: ["se-start", "btn-result", "btn-start", "btn-tutorial-start"]}, {se: "se/btn_se/btn_se_05.mp3",classes: ["btn-attack-start"]}, {se: "se/btn_se/btn_se_01.mp3",classes: ["se-ok", "btn-select-baloon", "btn-usual-ok"]}, {se: j,classes: ["btn-shine", "btn-ability-available", "btn-summon-available", "btn-archive-item", "btn-treasure-item"]}], l = [{se: "se/sell_se_1.mp3",classes: ["pop-sell-result"]}], m = c.Model.extend({
+        loadSound: function(a, b) {
         return b = b || {}, e.loadFile(a, b)
     },loadBGM: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, this.loadSound(a, b)
@@ -1499,11 +1514,33 @@ define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/soun
     },loadVoice: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
     },playSound: function(a, c) {
-        c = c || {};
-        var d;
-        c.force && e.setup(!0), c.alias ? (d = c.loop ? e.setAliasAndRepeat : e.setAliasAndPlay, d = b.partial(d, a, c.alias, b.omit(c, "alias"))) : (d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)), c.force ? e.setup(!0).done(d) : d()
+
+            c = c || {};
+            var d;
+            if( c.force){
+                e.setup(!0)
+            }
+            if(c.alias){
+                if(c.loop) {
+                    d = e.setAliasAndRepeat
+                } else {
+                    e.setAliasAndPlay
+                }
+                console.info(d);
+                console.info(a);
+                console.info(c.alias);
+                d = b.partial(d, a, c.alias, b.omit(c, "alias"));
+            } else {
+                d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)
+            }
+            c.force ? e.setup(!0).done(d) : d()
     },playBGM: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, b.loop = !0, b.force && (b.force = !1, delete b.force), this.playSound(a, b)
+
+        return b = b || {},
+            b.alias = b.alias || d.BGM_ALIAS,
+            b.loop = !0,
+        b.force && (b.force = !1, delete b.force),
+            this.playSound(a, b)
     },playSE: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.playSound(a, b)
     },playVoice: function(a, b) {
