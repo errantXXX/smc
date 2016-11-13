@@ -337,7 +337,10 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         var a = this;
         a.ready = f.returnFalse, a.destroy = f.returnFalse, a.getInstances = f.returnEmptyObject, a.load = f.returnRejectedPromise, a.play = f.returnRejectedPromise, a.repeat = f.returnRejectedPromise, a.stop = f.returnFalse, a.isPlaying = f.returnFalse, a.setPlaying = f.returnFalse, a.mute = f.returnFalse, a.unmute = f.returnFalse, a.setVolume = f.returnFalse, a.replay = f.returnFalse, a.once = f.returnFalse, a.requiresUserAction = f.returnFalse
     }).call(s);
-    var t = b.clone(s), u = function(d) {
+    var t = b.clone(s);
+
+    var u = function(d) {
+        console.info('ddd');
         d._instances = {}, d._loadedSources = {}, d._bindingCallbackList = {};
         var e = new a.Deferred;
         return d._setup ? e.resolve() : (d._setup = !0, function(g) {
@@ -464,6 +467,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                     })
                 }))
             }, b.repeat = function(c, e) {
+                console.info('yes it is repeat');
                 console.info(c);
                 return c.match(k) ? (s.bgm = !0, d.playMusic(c, 0, -1), (new a.Deferred).resolve().promise()) : c.match(l) ? (s.se = !0, d.playSoundEffect(c), (new a.Deferred).resolve().promise()) : c.match(m) ? (s.voice = !0, d.playVoice(c, e && e.force), (new a.Deferred).resolve().promise()) : (d.pauseMusic(), g.call(b, c, e).done(function() {
                     b.once(c, "complete", function() {
@@ -486,6 +490,9 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         return c.promise()
     };
     (function() {
+        console.info(u);
+        console.info(a);
+        console.info(b.partial)
         var a = this;
         a.setup = b.partial(u, a)
     }).call(t), (q || r) && (d.isShellApp() ? !function(a) {
@@ -532,6 +539,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
                 if (b.has(e._errorSounds, c))
                     return g.reject().promise()
             }
+
             return e.load(c, f)
         }, e._setGain = function(a, b) {
             t.setVolume(a, e.getLocalVolume(a), b), e.isMuted(a) ? t.mute(a, b) : t.unmute(a, b)
@@ -544,6 +552,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e.isSupported = function() {
             return e.isSupportedHTMLAudio() || e.isSupportedWebAudio() || e.isSupportedNativeAudio()
         }, e.setup = function(c) {
+
             var d = new a.Deferred;
             return e._setup ? d.resolve() : (e._setup = !0, t.setup().done(function() {
                 t.requiresUserAction() && (c ? b.each(t.getInstances(), function(a, b) {
@@ -635,7 +644,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e.setAliasAndRepeat = function(a, b, c) {
 
             e._isPlayable(a) || e.stop(b);
-            console.info(e.repeat)
+
             var d = e._alias[b];
             if (a) {
                 e.setAlias(a, b);
@@ -650,14 +659,29 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
             return a = e._alias[a] || a || "", a && t.setPlaying(a, b)
         }, e.load = function(b, c) {
             console.l(t,'t is');
+            if(c.force || e._isPlayable(b)){
+                if(e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b]) {
+                   return (new a.Deferred).resolve().promise()
+                } else{
+                    e._reservedSounds[b] = b, console.info('start loading sound');
+                    return t.load(b, c).done(function() {
+                        e._sounds[b] = b, delete e._reservedSounds[b], delete e._errorSounds[b], c.ignoreComplete || e._handleComplete()
+                    }).fail(function() {
+                        console.info('fail');
+                        e._errorSounds[b] = b, delete e._reservedSounds[b], c.ignoreComplete || e._handleComplete()
+                    });
 
-            return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, console.info('start loading sound'),
+                }
+            } else {
+                return (new a.Deferred).resolve().promise()
+            }
+/*            return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, console.info('start loading sound'),
                 t.load(b, c).done(function() {
                 e._sounds[b] = b, delete e._reservedSounds[b], delete e._errorSounds[b], c.ignoreComplete || e._handleComplete()
             }).fail(function() {
                 console.info('fail');
                 e._errorSounds[b] = b, delete e._reservedSounds[b], c.ignoreComplete || e._handleComplete()
-            })) : (new a.Deferred).resolve().promise()
+            })) : (new a.Deferred).resolve().promise()*/
         }, b.each(["play", "repeat"], function(a) {
             e[a] = function(b, c) {
                 return c = c || {}, b = e._alias[b] || b || "", c.force || e._isPlayable(b) ? (null == c.volume && (c.volume = e.getLocalVolume(b)), e._isPlayed[b] = !0, e._loadAndCall(b, c).done(function() {
@@ -693,14 +717,17 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
             return a = e._alias[a] || a || "", b = e._alias[b] || b || "", c = c || {}, c.force || e._isPlayable(b) ? (e._isPlayed[a] = !1, e._isPlayed[b] = !0, e._loadAndCall(b, c).always(function() {
                 a !== b && e._isPlayed[a] || t.stop(a, c)
             }).done(function() {
+
                 e._isPlayed[b] && (null == c.volume && (c.volume = e.getLocalVolume(b)), t.play(b, c).done(function() {
                     e._setGain(b, c)
                 }))
             })) : void e.stop(a, c)
         }, e.stopAndRepeat = function(a, b, c) {
             return a = e._alias[a] || a || "", b = e._alias[b] || b || "", c = c || {}, c.force || e._isPlayable(b) ? (e._isPlayed[a] = !1, e._isPlayed[b] = !0, e._loadAndCall(b, c).always(function() {
+                console.info('after always');
                 a === b && e._isPlayed[a] || t.stop(a, c)
             }).done(function() {
+                console.info('stopAndRepeat Done')
                 e._isPlayed[b] && (null == c.volume && (c.volume = e.getLocalVolume(b)), t.repeat(b, c).done(function() {
                     e._setGain(b, c)
                 }))
@@ -744,7 +771,9 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e.once = function(a, b, c) {
             return t.once(a, b, c)
         }
-    }.call(w), w.isSupportedWebAudio() || w.setup(!1);
+    }.call(w); w.setup(!1);
+
+
     var x, y;
     return document.hidden ? (x = "hidden", y = "visibilitychange") : document.mozHidden ? (x = "mozHidden", y = "mozvisibilitychange") : document.msHidden ? (x = "msHidden", y = "msvisibilitychange") : document.webkitHidden && (x = "webkitHidden", y = "webkitvisibilitychange"), x && y && document.addEventListener(y, function() {
         document[x] ? w.mute() : w.unmute()
@@ -1508,34 +1537,17 @@ define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/soun
         loadSound: function(a, b) {
         return b = b || {}, e.loadFile(a, b)
     },loadBGM: function(a, b) {
+
         return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, this.loadSound(a, b)
     },loadSE: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.loadSound(a, b)
     },loadVoice: function(a, b) {
         return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
     },playSound: function(a, c) {
-
             c = c || {};
             var d;
-            if( c.force){
-                e.setup(!0)
-            }
-            if(c.alias){
-                if(c.loop) {
-                    d = e.setAliasAndRepeat
-                } else {
-                    e.setAliasAndPlay
-                }
-                console.info(d);
-                console.info(a);
-                console.info(c.alias);
-                d = b.partial(d, a, c.alias, b.omit(c, "alias"));
-            } else {
-                d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)
-            }
-            c.force ? e.setup(!0).done(d) : d()
-    },playBGM: function(a, b) {
-
+            c.force && e.setup(!0), c.alias ? (d = c.loop ? e.setAliasAndRepeat : e.setAliasAndPlay, d = b.partial(d, a, c.alias, b.omit(c, "alias"))) : (d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)), c.force ? e.setup(!0).done(d) : d()
+        },playBGM: function(a, b) {
         return b = b || {},
             b.alias = b.alias || d.BGM_ALIAS,
             b.loop = !0,

@@ -45,8 +45,15 @@ var patchWithCJSScale = function(a) {
     var b = createjs.Stage.prototype.initialize;
     createjs.Stage.prototype.initialize = function(c) {
         if (c) {
-            var d = parseInt(c.getAttribute("data-width"), 10) || parseInt(c.style.width, 10) || c.width / 2, e = parseInt(c.getAttribute("data-height"), 10) || parseInt(c.style.height, 10) || c.height / 2;
-            c.setAttribute("data-width", d), c.setAttribute("data-height", e), c.style.zoom = 1 / window.deviceRatio, c.style.width = d * window.deviceRatio + "px", c.style.height = e * window.deviceRatio + "px", c.width = 2 * d * a, c.height = 2 * e * a
+            var d = parseInt(c.getAttribute("data-width"), 10) || parseInt(c.style.width, 10) || c.width / 2,
+                e = parseInt(c.getAttribute("data-height"), 10) || parseInt(c.style.height, 10) || c.height / 2;
+            c.setAttribute("data-width", d),
+                c.setAttribute("data-height", e),
+                c.style.zoom = 1 / window.deviceRatio,
+                c.style.width = d * window.deviceRatio + "px",
+                c.style.height = e * window.deviceRatio + "px",
+                c.width = 2 * d * a,
+                c.height = 2 * e * a
         }
         var f = b.apply(this, arguments);
         return this.clear(), f

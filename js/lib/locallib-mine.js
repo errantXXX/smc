@@ -36,24 +36,24 @@ define('catalog/ua/sound/webaudio', ["underscore"], function(a) {
         })
     };
     return {cannotUseWebAudio: function() {
-        var a = [{ua: "Mozilla/5.0 (Linux; U; Android 4.4.2; ja-jp; SOL25 Build/17.1.C.0.296) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"}, {ua: new RegExp("Mozilla/5.0 \\(Linux; Android 4.4.2; SOL25 Build/17.1.C.0.296\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/[.0-9]* Mobile Safari/537.36")}, {ua: "Mozilla/5.0 (Linux; U; Android 4.4.2; ja-jp; F-01F Build/V10R22A) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"}, {ua: new RegExp("Mozilla/5.0 \\(Linux; Android 4.4.2; SO-01F Build/14.3.B.0.288\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/[.0-9]* Mobile Safari/537.36")}];
-        return b(a)
-    },cannotDisconnectWithArguments: function() {
-        var a = [{device: {model: "HTL22"},os: {name: "Android"}}, {device: {model: "SO-02E Build/10.3.1.B.0.256"},os: {name: "Android",version: "4.2.2"},browser: {name: "Mobile Safari"}}];
-        return b(a)
-    },cannotStop: function() {
-        var a = [{device: {model: "SC-04E"},os: {name: "Android",version: "4.3"}}];
-        return b(a)
-    },cannotCreatePanner: function() {
-        var a = [{ua: new RegExp("Mozilla/5.0 \\(Linux; U; Android 4.[0-9]+.[0-9]+; ja-jp; SonySO-02F Build/[.0-9a-zA-Z]*\\) AppleWebKit/[.0-9]+ \\(KHTML, like Gecko\\) Version/[.0-9]* Mobile Safari/[.0-9]+")}];
-        return !b(a)
-    },shouldUseDoublePlaybackRate: function() {
-        var a = [{ua: "Mozilla/5.0 (Linux; Android 4.3; ja-jp; SC-04E Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36"}];
-        return b(a)
-    },shouldUseHalfPlaybackRate: function() {
-        var a = [{device: {model: "ME173X Build/JDQ39"},os: {name: "Android",version: "4.2.2"},browser: {name: "Chrome"}}];
-        return b(a)
-    }}
+            var a = [{ua: "Mozilla/5.0 (Linux; U; Android 4.4.2; ja-jp; SOL25 Build/17.1.C.0.296) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"}, {ua: new RegExp("Mozilla/5.0 \\(Linux; Android 4.4.2; SOL25 Build/17.1.C.0.296\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/[.0-9]* Mobile Safari/537.36")}, {ua: "Mozilla/5.0 (Linux; U; Android 4.4.2; ja-jp; F-01F Build/V10R22A) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"}, {ua: new RegExp("Mozilla/5.0 \\(Linux; Android 4.4.2; SO-01F Build/14.3.B.0.288\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/[.0-9]* Mobile Safari/537.36")}];
+            return b(a)
+        },cannotDisconnectWithArguments: function() {
+            var a = [{device: {model: "HTL22"},os: {name: "Android"}}, {device: {model: "SO-02E Build/10.3.1.B.0.256"},os: {name: "Android",version: "4.2.2"},browser: {name: "Mobile Safari"}}];
+            return b(a)
+        },cannotStop: function() {
+            var a = [{device: {model: "SC-04E"},os: {name: "Android",version: "4.3"}}];
+            return b(a)
+        },cannotCreatePanner: function() {
+            var a = [{ua: new RegExp("Mozilla/5.0 \\(Linux; U; Android 4.[0-9]+.[0-9]+; ja-jp; SonySO-02F Build/[.0-9a-zA-Z]*\\) AppleWebKit/[.0-9]+ \\(KHTML, like Gecko\\) Version/[.0-9]* Mobile Safari/[.0-9]+")}];
+            return !b(a)
+        },shouldUseDoublePlaybackRate: function() {
+            var a = [{ua: "Mozilla/5.0 (Linux; Android 4.3; ja-jp; SC-04E Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36"}];
+            return b(a)
+        },shouldUseHalfPlaybackRate: function() {
+            var a = [{device: {model: "ME173X Build/JDQ39"},os: {name: "Android",version: "4.2.2"},browser: {name: "Chrome"}}];
+            return b(a)
+        }}
 });
 define('lib/sound-util', ["catalog/ua/sound/webaudio"], function(a) {
     function b() {
@@ -337,7 +337,10 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         var a = this;
         a.ready = f.returnFalse, a.destroy = f.returnFalse, a.getInstances = f.returnEmptyObject, a.load = f.returnRejectedPromise, a.play = f.returnRejectedPromise, a.repeat = f.returnRejectedPromise, a.stop = f.returnFalse, a.isPlaying = f.returnFalse, a.setPlaying = f.returnFalse, a.mute = f.returnFalse, a.unmute = f.returnFalse, a.setVolume = f.returnFalse, a.replay = f.returnFalse, a.once = f.returnFalse, a.requiresUserAction = f.returnFalse
     }).call(s);
-    var t = b.clone(s), u = function(d) {
+    var t = b.clone(s);
+
+    var u = function(d) {
+
         d._instances = {}, d._loadedSources = {}, d._bindingCallbackList = {};
         var e = new a.Deferred;
         return d._setup ? e.resolve() : (d._setup = !0, function(g) {
@@ -481,6 +484,8 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         return c.promise()
     };
     (function() {
+        console.info(u);
+        console.info(a);
         var a = this;
         a.setup = b.partial(u, a)
     }).call(t), (q || r) && (d.isShellApp() ? !function(a) {
@@ -639,6 +644,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
         }, e.setPlaying = function(a, b) {
             return a = e._alias[a] || a || "", a && t.setPlaying(a, b)
         }, e.load = function(b, c) {
+            console.info(t.load.toString())
             return c.force || e._isPlayable(b) ? e._reservedSounds[b] || e._sounds[b] || e._errorSounds[b] ? (new a.Deferred).resolve().promise() : (e._reservedSounds[b] = b, t.load(b, c).done(function() {
                 e._sounds[b] = b, delete e._reservedSounds[b], delete e._errorSounds[b], c.ignoreComplete || e._handleComplete()
             }).fail(function() {
@@ -732,6 +738,7 @@ define('lib/sound-player', ["jquery", "underscore", "lib/sound-util", "lib/shell
             return t.once(a, b, c)
         }
     }.call(w), w.isSupportedWebAudio() || w.setup(!1);
+
     var x, y;
     return document.hidden ? (x = "hidden", y = "visibilitychange") : document.mozHidden ? (x = "mozHidden", y = "mozvisibilitychange") : document.msHidden ? (x = "msHidden", y = "msvisibilitychange") : document.webkitHidden && (x = "webkitHidden", y = "webkitvisibilitychange"), x && y && document.addEventListener(y, function() {
         document[x] ? w.mute() : w.unmute()
@@ -1475,279 +1482,262 @@ define('model/data-loader', ["jquery", "underscore", "backbone", "util/backbone-
 });
 define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/sound", "model/data", "model/data-loader", "util/local-storage"], function(a, b, c, d, e, f, g, h) {
     var i = "silent", j = "se/btn_se/btn_se_03.mp3", k = [{se: i,classes: ["prt-silent-se", "btn-silent-se", "btn-help-topic-title", "btn-command-forward"]}, {se: "se/queststart_se_1.mp3",classes: ["se-quest-start"]}, {se: "se/target_se_1.mp3",classes: ["btn-targeting"]}, {se: "se/book_open_se_1.mp3",classes: ["btn-story", "btn-archive-list", "btn-library"]}, {se: "se/stamp_se_1.mp3",classes: ["btn-stamp-ok"]}, {se: "se/btn_se/btn_se_02.mp3",classes: ["btn-usual-cancel", "btn-usual-text-cancel", "btn-usual-cancel-small", "btn-usual-close", "btn-head-close", "btn-deck-cancel", "btn-cancel", "btn-close", "btn-help-close", "btn-command-back", "btn-log", "btn-ability-unavailable", "btn-summon-unavailable", "btn-tutorial-disable", "btn-play uncleared"]}, {se: "se/menu_open_se_1.mp3",classes: ["btn-head-pop", "btn-open"]}, {se: "se/menu_close_se_1.mp3",classes: ["btn-head-close"]}, {se: "se/btn_se/btn_se_04.mp3",classes: ["se-start", "btn-result", "btn-start", "btn-tutorial-start"]}, {se: "se/btn_se/btn_se_05.mp3",classes: ["btn-attack-start"]}, {se: "se/btn_se/btn_se_01.mp3",classes: ["se-ok", "btn-select-baloon", "btn-usual-ok"]}, {se: j,classes: ["btn-shine", "btn-ability-available", "btn-summon-available", "btn-archive-item", "btn-treasure-item"]}], l = [{se: "se/sell_se_1.mp3",classes: ["pop-sell-result"]}], m = c.Model.extend({loadSound: function(a, b) {
-        return b = b || {}, e.loadFile(a, b)
-    },loadBGM: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, this.loadSound(a, b)
-    },loadSE: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.loadSound(a, b)
-    },loadVoice: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
-    },playSound: function(a, c) {
-
-        c = c || {};
-        var d;
-        if( c.force){
-            e.setup(!0)
-        }
-        if(c.alias){
-            if(c.loop) {
-                d = e.setAliasAndRepeat
-            } else {
-                e.setAliasAndPlay
-            }
-            console.info(d);
-            console.info(a);
-            console.info(c.force);
-            d = b.partial(d, a, c.alias, b.omit(c, "alias"));
-        } else {
-            d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)
-        }
-        c.force ? e.setup(!0).done(d) : d()
-    },playBGM: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, b.loop = !0, b.force && (b.force = !1, delete b.force), this.playSound(a, b)
-    },playSE: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.playSound(a, b)
-    },playVoice: function(a, b) {
-        return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.playSound(a, b)
-    },stopBGM: function(a) {
-        a ? e.stop(a) : e.stop(d.BGM_ALIAS)
-    },stopSE: function(a) {
-        a ? e.stop(a) : (e.stop(d.SE_ALIAS), e.stop(d.SE_SAMPLE_ALIAS))
-    },stopVoice: function(a) {
-        a ? e.stop(a) : (e.stop(d.VOICE_ALIAS), e.stop(d.VOICE_SAMPLE_ALIAS))
-    },unsetBGM: function(a) {
-        e.unsetAlias(a || d.BGM_ALIAS)
-    },unsetSE: function(a) {
-        e.unsetAlias(a || d.SE_ALIAS)
-    },unsetVoice: function(a) {
-        e.unsetAlias(a || d.VOICE_ALIAS)
-    },isPlayingBGM: function(a) {
-        return e.isPlaying(a || d.BGM_ALIAS)
-    },isPlayingSE: function(a) {
-        return e.isPlaying(a || d.SE_ALIAS)
-    },isPlayingVoice: function(a) {
-        return e.isPlaying(a || d.VOICE_ALIAS)
-    },setPlayingVoice: function(a) {
-        return e.setPlaying(d.VOICE_ALIAS, a)
-    },_getLocationId: function(a) {
-        var b = this;
-        return (new (f.extend({urlRoot: window.Game.baseUri + "user/location_id"}))).fetch({ignoreError: !0}).done(function(c) {
-            a && a.call(b, c)
-        })
-    },_getPreLocationId: function(a) {
-        var b = this;
-        return (new (f.extend({urlRoot: window.Game.baseUri + "user/pre_location_id"}))).fetch({ignoreError: !0}).done(function(c) {
-            a && a.call(b, c)
-        })
-    },_getShipId: function(a, b) {
-        var c = this;
-        return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/ship_type" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
-            b && b.call(c, a)
-        })
-    },_getJukebox: function(a, b) {
-        var c = this;
-        return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/bgm_file" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
-            b && b.call(c, a)
-        })
-    },_getSoundData: function(a, c, d) {
-        var e = this;
-        return b.isFunction(c) && (d = c, c = null), g.load(a, {success: function(a) {
-            if (d) {
-                var f = a.data;
-                b.isObject(f) && !b.isArray(f) && (f = f[c]), b.isArray(f) && (f = f[b.random(f.length - 1)]), d.call(e, f)
-            }
-        }})
-    },playTownBGM: function(a) {
-        var b = this;
-        if (a)
-            return b._getSoundData("sound/town_bgm?data=" + a, a, function(a) {
-                b.playBGM(a)
-            });
-        if (h.isSupported()) {
-            var c = h.get("mypage_char_bgm");
-            if (c && "default" != c)
-                return void b.playBGM("bgm/" + c)
-        }
-        return b._getLocationId(function(a) {
-            a && b.playTownBGM(a)
-        })
-    },playQuestMapBGM: function(a, c) {
-        var d = this;
-        if ("normal" === a)
-            return d._getPreLocationId(function(a) {
-                a && d.playQuestMapBGM(a, c)
-            });
-        if (a) {
-            var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
-            return d._getSoundData("sound/quest_map_bgm?" + e, function(a) {
-                d.playBGM(a)
+            return b = b || {}, e.loadFile(a, b)
+        },loadBGM: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, this.loadSound(a, b)
+        },loadSE: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.loadSound(a, b)
+        },loadVoice: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.loadSound(a, b)
+        },playSound: function(a, c) {
+            c = c || {};
+            var d;
+            c.force && e.setup(!0), c.alias ? (d = c.loop ? e.setAliasAndRepeat : e.setAliasAndPlay, d = b.partial(d, a, c.alias, b.omit(c, "alias"))) : (d = c.loop ? e.repeat : e.play, d = b.partial(d, a, c)), c.force ? e.setup(!0).done(d) : d()
+        },playBGM: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.BGM_ALIAS, b.loop = !0, b.force && (b.force = !1, delete b.force), this.playSound(a, b)
+        },playSE: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.SE_ALIAS, this.playSound(a, b)
+        },playVoice: function(a, b) {
+            return b = b || {}, b.alias = b.alias || d.VOICE_ALIAS, this.playSound(a, b)
+        },stopBGM: function(a) {
+            a ? e.stop(a) : e.stop(d.BGM_ALIAS)
+        },stopSE: function(a) {
+            a ? e.stop(a) : (e.stop(d.SE_ALIAS), e.stop(d.SE_SAMPLE_ALIAS))
+        },stopVoice: function(a) {
+            a ? e.stop(a) : (e.stop(d.VOICE_ALIAS), e.stop(d.VOICE_SAMPLE_ALIAS))
+        },unsetBGM: function(a) {
+            e.unsetAlias(a || d.BGM_ALIAS)
+        },unsetSE: function(a) {
+            e.unsetAlias(a || d.SE_ALIAS)
+        },unsetVoice: function(a) {
+            e.unsetAlias(a || d.VOICE_ALIAS)
+        },isPlayingBGM: function(a) {
+            return e.isPlaying(a || d.BGM_ALIAS)
+        },isPlayingSE: function(a) {
+            return e.isPlaying(a || d.SE_ALIAS)
+        },isPlayingVoice: function(a) {
+            return e.isPlaying(a || d.VOICE_ALIAS)
+        },setPlayingVoice: function(a) {
+            return e.setPlaying(d.VOICE_ALIAS, a)
+        },_getLocationId: function(a) {
+            var b = this;
+            return (new (f.extend({urlRoot: window.Game.baseUri + "user/location_id"}))).fetch({ignoreError: !0}).done(function(c) {
+                a && a.call(b, c)
             })
-        }
-        return d._getLocationId(function(a) {
-            a && d.playQuestMapBGM(a, c)
-        })
-    },playQuestSupporterBGM: function(a, c) {
-        var d = this;
-        if (a) {
-            var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
-            return d._getSoundData("sound/quest_supporter_bgm?" + e, function(a) {
-                d.playBGM(a)
+        },_getPreLocationId: function(a) {
+            var b = this;
+            return (new (f.extend({urlRoot: window.Game.baseUri + "user/pre_location_id"}))).fetch({ignoreError: !0}).done(function(c) {
+                a && a.call(b, c)
             })
-        }
-        return d._getLocationId(function(a) {
-            a && d.playQuestSupporterBGM(a, c)
-        })
-    },playShipBGM: function(a, b) {
-        var c = this;
-        return a ? c._getSoundData("sound/ship_bgm?data=" + a, a, function(a) {
-            c.playBGM(a)
-        }) : c._getShipId(b, function(a) {
-            a ? c.playShipBGM(a) : c.playTownBGM()
-        })
-    },playGuildBGM: function(a, b) {
-        var c = this;
-        return a ? void this.playBGM("bgm/" + a + ".mp3") : c._getJukebox(b, function(a) {
-            a && c.playGuildBGM(a)
-        })
-    },playJukeboxDefaultBGM: function() {
-        return this.playBGM("bgm/13_event_generalpurpose_00.mp3")
-    },playTutorialQuestBGM: function() {
-        return this.playBGM("bgm/02_field_01.mp3")
-    },playTutorialTownBGM: function() {
-        return this.playBGM("bgm/11_kaze_reel_00.mp3")
-    },playShopBGM: function() {
-        return this.playBGM("bgm/11_kaze_reel_00.mp3")
-    },playResultBGM: function() {
-        return this.playBGM("bgm/05_gatcha_02.mp3")
-    },playEventBGM: function() {
-        return this.playBGM("bgm/12_baltz_06.mp3")
-    },playLimitedBGM: function(a) {
-        var b = "2009" == a ? "bgm/31_garonzo_02.mp3" : "bgm/02_field_02.mp3";
-        return this.playBGM(b)
-    },loadMypageVoiceData: function(a) {
-        var b = this;
-        b._getSoundData("sound/mypage_voice?data=" + a, a)
-    },playMypageVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/mypage_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },loadArchiveVoiceData: function(a) {
-        var b = this;
-        b._getSoundData("sound/archive_voice?data=" + a, a)
-    },playArchiveVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/archive_voice?data=" + a, a, function(a) {
-            b.playVoice(a, {force: !0})
-        })
-    },playWinVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/win_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playDyingVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/dying_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playSpecialSkillGaugeVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/special_skill_gauge_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playFormationVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/formation_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playGachaVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/gacha_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playEvolutionVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/evolution_voice?data=" + a, a, function(a) {
-            b.playVoice(a)
-        })
-    },playSampleSE: function(a) {
-        var b = this;
-        b._getSoundData("sound/sample_se", function(a) {
-            b.playSE(a, {alias: d.SE_SAMPLE_ALIAS})
-        })
-    },playSampleVoice: function(a) {
-        var b = this;
-        b._getSoundData("sound/sample_voice", function(a) {
-            b.playVoice(a, {alias: d.VOICE_SAMPLE_ALIAS})
-        })
-    },playRecastMaxSE: function() {
-        return this.playSE("se/ougi_gauge_se_1.mp3")
-    },playSlideSE: function() {
-        return this.playSE("se/btn_se/btn_se_02.mp3")
-    },playEquipSE: function() {
-        return this.playSE("se/equip_se_1.mp3")
-    },playChangeWeaponSE: function() {
-        return this.playSE("se/set_sw_se_1.mp3")
-    },playSortSE: function() {
-        return this.playSE("se/sort_se_1.mp3")
-    },playNextSceneSE: function() {
-        return this.playSE(d.SE_NEXT_SCENE, {alias: d.SE_NEXT_SCENE})
-    },playExpGaugeSE: function() {
-        return this.playSound("se/gauge_se_1.mp3", {offset: .15})
-    },playAssistSE: function() {
-        return this.playSound("se/help_se_1_01.mp3")
-    },playAssistJoinedSE: function() {
-        return this.playSE("se/help_se_2.mp3")
-    },playBattleReadySE: function() {
-        return this.playSE("se/ready_se_1.mp3")
-    },playOpenAccordionSE: function() {
-        return this.playSE("se/page_se_1.mp3")
-    },playCloseAccordionSE: function() {
-        return this.playSE("se/page_back_se_1.mp3")
-    },playOpenMenuSE: function() {
-        return this.playSE("se/menu_open_se_1.mp3")
-    },playCloseMenuSE: function() {
-        return this.playSE("se/menu_close_se_1.mp3")
-    },playGetItemSE: function() {
-        return this.playSE("se/itemget_04_se_1.mp3")
-    },playGetTreasureSE: function() {
-        return this.playSE("se/itemget_03_se_1.mp3")
-    },playRankUpSE: function() {
-        return this.playSE("se/rankup_se_1.mp3")
-    },playLevelUpSE: function() {
-        return this.playSE("se/levelup_se_1.mp3")
-    },playPopSE: function() {
-        return this.playSE("se/popup_se_1.mp3")
-    },playQuestForwardButtonSE: function() {
-        return this.playSE("se/btn_se/btn_se_01.mp3")
-    },playSuccessSE: function() {
-        return this.playSE("se/success_s_se_1.mp3")
-    },playGreatSuccessSE: function() {
-        return this.playSE("se/success_l_se_1.mp3")
-    },playPushStampSE: function() {
-        return this.playSE("se/stamp_se_1.mp3")
-    },playRecoverySE: function() {
-        return this.playSE("se/item_use_se_1.mp3")
-    },playButtonSE: function(a) {
-        var c = this;
-        if (a.hasClass("btn-disable-sound") || (a.hasClass("btn-switch-sound") || a.hasClass("btn-bgm-change")) && a.hasClass("soundOn"))
-            ;
-        else {
-            var d = b.some(k, function(d) {
-                return b.some(d.classes, function(b) {
-                    return a.hasClass(b) ? (d.se !== i && c.playSE(d.se), !0) : !1
+        },_getShipId: function(a, b) {
+            var c = this;
+            return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/ship_type" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
+                b && b.call(c, a)
+            })
+        },_getJukebox: function(a, b) {
+            var c = this;
+            return (new (f.extend({urlRoot: window.Game.baseUri + "guild_airship/bgm_file" + (a ? "/" + a : "")}))).fetch({ignoreError: !0}).done(function(a) {
+                b && b.call(c, a)
+            })
+        },_getSoundData: function(a, c, d) {
+            var e = this;
+            return b.isFunction(c) && (d = c, c = null), g.load(a, {success: function(a) {
+                    if (d) {
+                        var f = a.data;
+                        b.isObject(f) && !b.isArray(f) && (f = f[c]), b.isArray(f) && (f = f[b.random(f.length - 1)]), d.call(e, f)
+                    }
+                }})
+        },playTownBGM: function(a) {
+            var b = this;
+            if (a)
+                return b._getSoundData("sound/town_bgm?data=" + a, a, function(a) {
+                    b.playBGM(a)
+                });
+            if (h.isSupported()) {
+                var c = h.get("mypage_char_bgm");
+                if (c && "default" != c)
+                    return void b.playBGM("bgm/" + c)
+            }
+            return b._getLocationId(function(a) {
+                a && b.playTownBGM(a)
+            })
+        },playQuestMapBGM: function(a, c) {
+            var d = this;
+            if ("normal" === a)
+                return d._getPreLocationId(function(a) {
+                    a && d.playQuestMapBGM(a, c)
+                });
+            if (a) {
+                var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
+                return d._getSoundData("sound/quest_map_bgm?" + e, function(a) {
+                    d.playBGM(a)
                 })
-            });
-            d || c.playSE(j)
-        }
-    },playPopShowSE: function(a) {
-        var c = this;
-        b.some(l, function(d) {
-            return b.some(d.classes, function(b) {
-                return a.hasClass(b) ? (c.playSE(d.se), !0) : !1
+            }
+            return d._getLocationId(function(a) {
+                a && d.playQuestMapBGM(a, c)
             })
-        })
-    }});
+        },playQuestSupporterBGM: function(a, c) {
+            var d = this;
+            if (a) {
+                var e = b.filter([a ? "location_id=" + a : null, c ? "quest_id=" + c : null], b.identity).join("&");
+                return d._getSoundData("sound/quest_supporter_bgm?" + e, function(a) {
+                    d.playBGM(a)
+                })
+            }
+            return d._getLocationId(function(a) {
+                a && d.playQuestSupporterBGM(a, c)
+            })
+        },playShipBGM: function(a, b) {
+            var c = this;
+            return a ? c._getSoundData("sound/ship_bgm?data=" + a, a, function(a) {
+                c.playBGM(a)
+            }) : c._getShipId(b, function(a) {
+                a ? c.playShipBGM(a) : c.playTownBGM()
+            })
+        },playGuildBGM: function(a, b) {
+            var c = this;
+            return a ? void this.playBGM("bgm/" + a + ".mp3") : c._getJukebox(b, function(a) {
+                a && c.playGuildBGM(a)
+            })
+        },playJukeboxDefaultBGM: function() {
+            return this.playBGM("bgm/13_event_generalpurpose_00.mp3")
+        },playTutorialQuestBGM: function() {
+            return this.playBGM("bgm/02_field_01.mp3")
+        },playTutorialTownBGM: function() {
+            return this.playBGM("bgm/11_kaze_reel_00.mp3")
+        },playShopBGM: function() {
+            return this.playBGM("bgm/11_kaze_reel_00.mp3")
+        },playResultBGM: function() {
+            return this.playBGM("bgm/05_gatcha_02.mp3")
+        },playEventBGM: function() {
+            return this.playBGM("bgm/12_baltz_06.mp3")
+        },playLimitedBGM: function(a) {
+            var b = "2009" == a ? "bgm/31_garonzo_02.mp3" : "bgm/02_field_02.mp3";
+            return this.playBGM(b)
+        },loadMypageVoiceData: function(a) {
+            var b = this;
+            b._getSoundData("sound/mypage_voice?data=" + a, a)
+        },playMypageVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/mypage_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },loadArchiveVoiceData: function(a) {
+            var b = this;
+            b._getSoundData("sound/archive_voice?data=" + a, a)
+        },playArchiveVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/archive_voice?data=" + a, a, function(a) {
+                b.playVoice(a, {force: !0})
+            })
+        },playWinVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/win_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playDyingVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/dying_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playSpecialSkillGaugeVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/special_skill_gauge_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playFormationVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/formation_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playGachaVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/gacha_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playEvolutionVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/evolution_voice?data=" + a, a, function(a) {
+                b.playVoice(a)
+            })
+        },playSampleSE: function(a) {
+            var b = this;
+            b._getSoundData("sound/sample_se", function(a) {
+                b.playSE(a, {alias: d.SE_SAMPLE_ALIAS})
+            })
+        },playSampleVoice: function(a) {
+            var b = this;
+            b._getSoundData("sound/sample_voice", function(a) {
+                b.playVoice(a, {alias: d.VOICE_SAMPLE_ALIAS})
+            })
+        },playRecastMaxSE: function() {
+            return this.playSE("se/ougi_gauge_se_1.mp3")
+        },playSlideSE: function() {
+            return this.playSE("se/btn_se/btn_se_02.mp3")
+        },playEquipSE: function() {
+            return this.playSE("se/equip_se_1.mp3")
+        },playChangeWeaponSE: function() {
+            return this.playSE("se/set_sw_se_1.mp3")
+        },playSortSE: function() {
+            return this.playSE("se/sort_se_1.mp3")
+        },playNextSceneSE: function() {
+            return this.playSE(d.SE_NEXT_SCENE, {alias: d.SE_NEXT_SCENE})
+        },playExpGaugeSE: function() {
+            return this.playSound("se/gauge_se_1.mp3", {offset: .15})
+        },playAssistSE: function() {
+            return this.playSound("se/help_se_1_01.mp3")
+        },playAssistJoinedSE: function() {
+            return this.playSE("se/help_se_2.mp3")
+        },playBattleReadySE: function() {
+            return this.playSE("se/ready_se_1.mp3")
+        },playOpenAccordionSE: function() {
+            return this.playSE("se/page_se_1.mp3")
+        },playCloseAccordionSE: function() {
+            return this.playSE("se/page_back_se_1.mp3")
+        },playOpenMenuSE: function() {
+            return this.playSE("se/menu_open_se_1.mp3")
+        },playCloseMenuSE: function() {
+            return this.playSE("se/menu_close_se_1.mp3")
+        },playGetItemSE: function() {
+            return this.playSE("se/itemget_04_se_1.mp3")
+        },playGetTreasureSE: function() {
+            return this.playSE("se/itemget_03_se_1.mp3")
+        },playRankUpSE: function() {
+            return this.playSE("se/rankup_se_1.mp3")
+        },playLevelUpSE: function() {
+            return this.playSE("se/levelup_se_1.mp3")
+        },playPopSE: function() {
+            return this.playSE("se/popup_se_1.mp3")
+        },playQuestForwardButtonSE: function() {
+            return this.playSE("se/btn_se/btn_se_01.mp3")
+        },playSuccessSE: function() {
+            return this.playSE("se/success_s_se_1.mp3")
+        },playGreatSuccessSE: function() {
+            return this.playSE("se/success_l_se_1.mp3")
+        },playPushStampSE: function() {
+            return this.playSE("se/stamp_se_1.mp3")
+        },playRecoverySE: function() {
+            return this.playSE("se/item_use_se_1.mp3")
+        },playButtonSE: function(a) {
+            var c = this;
+            if (a.hasClass("btn-disable-sound") || (a.hasClass("btn-switch-sound") || a.hasClass("btn-bgm-change")) && a.hasClass("soundOn"))
+                ;
+            else {
+                var d = b.some(k, function(d) {
+                    return b.some(d.classes, function(b) {
+                        return a.hasClass(b) ? (d.se !== i && c.playSE(d.se), !0) : !1
+                    })
+                });
+                d || c.playSE(j)
+            }
+        },playPopShowSE: function(a) {
+            var c = this;
+            b.some(l, function(d) {
+                return b.some(d.classes, function(b) {
+                    return a.hasClass(b) ? (c.playSE(d.se), !0) : !1
+                })
+            })
+        }});
     return m.makeSingleton(), m
 });
 define('util/touch', ["jquery", "underscore", "util/function", "flexslider"], function(a, b, c) {

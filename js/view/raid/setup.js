@@ -151,156 +151,156 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
     Ia = function () {
         return{
         interval: {
-            multilog: 1e4, 
-            condition: 1500, 
-            raidstate: 1e3, 
-            balloon: 2e3, 
-            chatlog: 1e4, 
+            multilog: 1e4,
+            condition: 1500,
+            raidstate: 1e3,
+            balloon: 2e3,
+            chatlog: 1e4,
             watching: 1e3
-        }, 
+        },
         cjs: {
-            win: "raid_win", 
-            quest_clear: "quest_clear", 
-            quest_failed: "quest_failed", 
-            raid_union_summon: "raid_union_summon", 
-            parts: ["raid_parts_attack", "raid_parts_back", "raid_parts_turn", "raid_parts_auto", "raid_parts_next"], 
-            raid_cutin: "raid_cutin", 
-            raid_cutine: "raid_cutine", 
-            raid_reload: "raid_reload", 
-            raid_chain: "raid_chain", 
-            arcade_quest_clear: "usf_win", 
-            arcade_quest_failed: "usf_lose", 
-            bonus_stage_quest_clear: "usf_perfect", 
-            bonus_stage_quest_failed: "usf_timeover", 
-            sfv_quest_clear: "sfv_win", 
-            sfv_quest_failed: "sfv_lose", 
-            sfv_congratulations: "sfv_congratulations", 
-            sfv_game_over: "sfv_game_over", 
-            sfv_suvival_result: "sfv_suvival_result", 
-            trialbattle_game_end: "trialbattle_game_end"}, 
+            win: "raid_win",
+            quest_clear: "quest_clear",
+            quest_failed: "quest_failed",
+            raid_union_summon: "raid_union_summon",
+            parts: ["raid_parts_attack", "raid_parts_back", "raid_parts_turn", "raid_parts_auto", "raid_parts_next"],
+            raid_cutin: "raid_cutin",
+            raid_cutine: "raid_cutine",
+            raid_reload: "raid_reload",
+            raid_chain: "raid_chain",
+            arcade_quest_clear: "usf_win",
+            arcade_quest_failed: "usf_lose",
+            bonus_stage_quest_clear: "usf_perfect",
+            bonus_stage_quest_failed: "usf_timeover",
+            sfv_quest_clear: "sfv_win",
+            sfv_quest_failed: "sfv_lose",
+            sfv_congratulations: "sfv_congratulations",
+            sfv_game_over: "sfv_game_over",
+            sfv_suvival_result: "sfv_suvival_result",
+            trialbattle_game_end: "trialbattle_game_end"},
             grid: {
                 parts: {
-                    raid_parts_attack: {x: 350, y: 475}, 
-                    raid_parts_back: {x: 0, y: 487}, 
-                    raid_parts_turn: {x: 113, y: 520}, 
-                    raid_parts_auto: {x: 0, y: 540}, 
+                    raid_parts_attack: {x: 350, y: 475},
+                    raid_parts_back: {x: 0, y: 487},
+                    raid_parts_turn: {x: 113, y: 520},
+                    raid_parts_auto: {x: 0, y: 540},
                     raid_parts_next: {x: 640, y: 487}
-                }, 
+                },
                 player: [
                     {x: 430, y: 360},
                     {x: 540, y: 390},
                     {x: 465, y: 485},
                     {x: 570, y: 525}
-                ], 
+                ],
                 tutorial: [
                     {x: 465, y: 485},
                     {x: 540, y: 390}
-                ], 
+                ],
                 s: {
                     s1: [
                         {x: 150, y: 520}
-                    ], 
+                    ],
                     s2: [
                         {x: 215, y: 440},
                         {x: 105, y: 555}
-                    ], 
+                    ],
                     s3: [
                         {x: 190, y: 430},
                         {x: 150, y: 625},
                         {x: 70, y: 515}
                     ]
-                }, 
+                },
                 m: {
                     m1: [
                         {x: 150, y: 550}
-                    ], 
+                    ],
                     m2: [
                         {x: 240, y: 510},
                         {x: 100, y: 575}
-                    ], 
+                    ],
                     m3: [
                         {x: 190, y: 430},
                         {x: 150, y: 625},
                         {x: 70, y: 515}
                     ]
-                }, 
+                },
                 l: {
                     l1: [
                         {x: 110, y: 660}
-                    ], 
+                    ],
                     l2: [
                         {x: 110, y: 660},
                         {x: 110, y: 660}
-                    ], 
+                    ],
                     l3: [
                         {x: 110, y: 660},
                         {x: 110, y: 660},
                         {x: 110, y: 660}
                     ]
-                }, 
+                },
                 hit: {
-                    player: {x: 0, y: 0}, 
-                    boss: {
-                        s: {x: 0, y: 0}, 
-                        m: {x: -20, y: -40}, 
-                        l: {x: 80, y: -120}
-                    }
-                }, 
-                effect: {
-                        player: {x: 0, y: 0}, 
+                    player: {x: 0, y: 0},
                     boss: {
                         s: {x: 0, y: 0},
-                        m: {x: -20, y: -40}, 
+                        m: {x: -20, y: -40},
                         l: {x: 80, y: -120}
                     }
-                }, 
+                },
+                effect: {
+                        player: {x: 0, y: 0},
+                    boss: {
+                        s: {x: 0, y: 0},
+                        m: {x: -20, y: -40},
+                        l: {x: 80, y: -120}
+                    }
+                },
                 message: {
-                        player: {x: 80, y: -170}, 
+                        player: {x: 80, y: -170},
                         boss: {
                             s: {x: -60, y: -230},
                             m: {x: -60, y: -230}, l: {x: -75, y: -370}
                         }
-                }, 
+                },
                 damage_position_plus: {
                         boss: {
-                            s: {x: 0, y: 0}, 
-                            m: {x: 0, y: 0}, 
+                            s: {x: 0, y: 0},
+                            m: {x: 0, y: 0},
                             l: {x: 0, y: 0}
                         }
                 }
-            }, 
+            },
             relative: {
-                offscreen: {player: 350}, 
-                summon: {x: 0, y: 0}, 
-                summon_simple: {x: 360, y: 200}, 
-                summon_union: {x: 0}, 
-                raid_cutin: {x: 0}, 
-                raid_cutine: {x: 0}, 
-                win: {x: 0, y: -70}, 
-                lose: {x: 0, y: -70}, 
-                turnbar: {x: 70}, 
+                offscreen: {player: 350},
+                summon: {x: 0, y: 0},
+                summon_simple: {x: 360, y: 200},
+                summon_union: {x: 0},
+                raid_cutin: {x: 0},
+                raid_cutine: {x: 0},
+                win: {x: 0, y: -70},
+                lose: {x: 0, y: -70},
+                turnbar: {x: 70},
                 treasure: {
-                    s: {x: 30, y: -70}, 
-                    m: {x: 60, y: -70}, 
+                    s: {x: 30, y: -70},
+                    m: {x: 60, y: -70},
                     l: {x: 120, y: -120}
-                }, 
+                },
                 item: {
-                    s: {x: 30, y: -70}, 
-                    m: {x: 60, y: -70}, 
+                    s: {x: 30, y: -70},
+                    m: {x: 60, y: -70},
                     l: {x: 120, y: -120}
                 }
-            }, 
+            },
             timing: {
-                0: 0, 
-                1: 3, 
-                2: 6, 
-                3: 9, 
-                4: 12, 
+                0: 0,
+                1: 3,
+                2: 6,
+                3: 9,
+                4: 12,
                 5: 15
-            }, 
+            },
             key_enemy: {
-                mode_1: 1, 
-                mode_2: 2, 
+                mode_1: 1,
+                mode_2: 2,
                 mode_3: 3
             }
         }
@@ -450,6 +450,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
                             a(".prt-bg-effect-brightness, .prt-bg-effect-color").css("display", "none")
                         }
                     }
+
                     if (stage.clear(), createjs.denaVersion)createjs.Ticker.setFPS(e.currentFps), createjs.Ticker.addEventListener("tick", stage); else {
                         if (a("body").hasClass("android4")) {
                             var i = f.getContext("2d");
@@ -459,13 +460,18 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
                         } else stage.funcUpdate = function () {
                             stage.Stage_originalUpdate()
                         };
-                        createjs.Ticker.setFPS(e.currentFps), createjs.Ticker.addEventListener("tick", stage.funcUpdate)
+                        console.info( stage.funcUpdate);
+                        console.info(stage);
+                        createjs.Ticker.setFPS(e.currentFps), createjs.Ticker.addEventListener("tick", stage)
                     }
                     stage.pJsnData = d, stage.gMasterContainer = new createjs.Container, stage.gPlayerContainer = new createjs.Container, stage.gBossContainer = new createjs.Container, stage.gPartsContainer = new createjs.Container, stage.gAryRootAvatar = [], stage.gAryCntnAvatar = [], stage.gAryRootBoss = [], stage.gAryCntnBoss = [], stage.gAryRootParts = [], stage.gAryCntnParts = [], stage.gAryInterval = [], stage.setup = e, stage.gGameParam = b.defaults({fps: e.currentFps, spf: Math.round(1e3 / e.currentFps * 100) / 100}, Ia()), stage.gGameStatus = b.defaults({turn: d.turn, reload_flg: c.reload_flg || !1}, Ja()), stage.gGameStatus.isVersusView = n, stage.gGameStatus.isVersusView ? R[0] == d.location_id ? d.arcade && d.arcade.is_bonus ? (stage.gGameParam.cjs.win = stage.gGameParam.cjs.quest_clear = stage.gGameParam.cjs.bonus_stage_quest_clear, stage.gGameParam.cjs.quest_failed = stage.gGameParam.cjs.bonus_stage_quest_failed, stage.gGameStatus.remain_turn = +d.arcade.bonus_maxtrun - +d.turn + 1) : (stage.gGameParam.cjs.win = stage.gGameParam.cjs.quest_clear = stage.gGameParam.cjs.arcade_quest_clear, stage.gGameParam.cjs.quest_failed = stage.gGameParam.cjs.arcade_quest_failed) : d.is_survival ? (stage.gGameParam.cjs.win = stage.gGameParam.cjs.quest_clear = stage.gGameParam.cjs.sfv_congratulations, stage.gGameParam.cjs.quest_failed = stage.gGameParam.cjs.sfv_game_over) : (stage.gGameParam.cjs.win = stage.gGameParam.cjs.quest_clear = stage.gGameParam.cjs.sfv_quest_clear, stage.gGameParam.cjs.quest_failed = stage.gGameParam.cjs.sfv_quest_failed) : d.is_trialbattle && (stage.gGameParam.cjs.quest_failed = stage.gGameParam.cjs.trialbattle_game_end), stage.gGameStatus.summon_speed = d.summon_speed;
                     var j = stage.gGameParam, k = stage.gGameStatus;
                     b.each(d.boss.param, function (a, c) {
                         k.bossmode.looks.mode[c] = a.modechange, k.bossmode.looks.gauge[c] = a.modegauge, k.bossmode.already_changed[c] = !1, (b.isUndefined(a.message_position) || "" === a.message_position.x) && (stage.pJsnData.boss.param[c].message_position = {x: j.grid.message.boss[d.boss.type].x, y: j.grid.message.boss[d.boss.type].y}), stage.pJsnData.boss.param[c].damage_position_plus ? ("" === stage.pJsnData.boss.param[c].damage_position_plus.x && (stage.pJsnData.boss.param[c].damage_position_plus.x = j.grid.damage_position_plus.boss[d.boss.type].x), "" === stage.pJsnData.boss.param[c].damage_position_plus.y && (stage.pJsnData.boss.param[c].damage_position_plus.y = j.grid.damage_position_plus.boss[d.boss.type].y)) : stage.pJsnData.boss.param[c].damage_position_plus = {x: j.grid.damage_position_plus.boss[d.boss.type].x, y: j.grid.damage_position_plus.boss[d.boss.type].y}
-                    }), k.lock = b.isUndefined(d.special_skill_flag) ? 0 : parseInt(d.special_skill_flag), a(".btn-lock").addClass("lock" + k.lock), k.shouldReAuth = d.is_semi && d.event_id_of_semi == Q, stage.pJsnData.tutorial_flag && (j.grid.player[0].x = j.grid.tutorial[0].x, j.grid.player[0].y = j.grid.tutorial[0].y, j.grid.player[1].x = j.grid.tutorial[1].x, j.grid.player[1].y = j.grid.tutorial[1].y);
+                    }), k.lock = b.isUndefined(d.special_skill_flag) ? 0 : parseInt(d.special_skill_flag),
+                        a(".btn-lock").addClass("lock" + k.lock),
+                        k.shouldReAuth = d.is_semi && d.event_id_of_semi == Q,
+                        stage.pJsnData.tutorial_flag && (j.grid.player[0].x = j.grid.tutorial[0].x, j.grid.player[0].y = j.grid.tutorial[0].y, j.grid.player[1].x = j.grid.tutorial[1].x, j.grid.player[1].y = j.grid.tutorial[1].y);
                     var l = a.extend(!0, {}, stage.pJsnData);
                     stage.pJsnData.player.number = stage.pJsnData.player.number || stage.pJsnData.player.param.length, k.player.number = stage.pJsnData.player.number - 1 <= 3 ? stage.pJsnData.player.number - 1 : 3;
                     for (var o = 0, p = k.player.number; p >= o; ++o)k.player.param.push(l.player.param[l.formation[o]]);
@@ -508,7 +514,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
             })
         }})
     }, prepareLoading: function (c, d, e) {
-            console.l('prepareLoading');
+            console.ll('prepareLoading');
 
         if (o.loadSE("se/treasure_se_6.mp3"), c.is_survival ? (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("stage"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("stage")) : d && (this.$el.find(".cnt-raid-header .prt-battle-num .txt-battle").addClass("round"), this.$el.find(".prt-start-direction .prt-battle-num .txt-battle").addClass("round")), c.is_survival && "undefined" != typeof c.survival && c.survival.is_score_buff)o.playBGM(c.bgm), this.popBattleService(c); else if (c.is_survival && "undefined" != typeof c.survival && 1 == c.survival.stage_number) {
             var f = {cjsName: "sfv_survival_start", fpsNum: 18, canvasElem: "canvas-pre-battle", canvasWidth: 640, canvasHeight: 920};
@@ -587,13 +593,17 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
     }, render: function (c) {
  
         var j = this, k = stage.gGameParam, l = stage.gGameStatus, m = stage.pJsnData, n = stage.gPlayerContainer;
-        stage.gAryRootAvatar = e.mAdd(l.player.param), stage.gAryCntnAvatar = e.mSet(m.player, stage.gAryRootAvatar, k, n), 1 == m.tutorial_flag && stage.gAryRootAvatar.length >= 2 && n.swapChildrenAt(1, 0), e.mShow(stage.gAryCntnAvatar, l.player.param), stage.gMasterContainer.addChild(n), stage.gAryRootBoss = e.mAdd(l.boss.param), stage.gAryCntnBoss = e.mSet(m.boss, stage.gAryRootBoss, k, stage.gBossContainer), stage.gBossContainer.swapChildrenAt(2, 1), stage.gMasterContainer.addChild(stage.gBossContainer), stage.addChild(stage.gMasterContainer), stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0), stage.gMasterContainer.setChildIndex(n, 1);
+        stage.gAryRootAvatar = e.mAdd(l.player.param), stage.gAryCntnAvatar = e.mSet(m.player, stage.gAryRootAvatar, k, n), 1 == m.tutorial_flag && stage.gAryRootAvatar.length >= 2 && n.swapChildrenAt(1, 0);
+            e.mShow(stage.gAryCntnAvatar, l.player.param);
+
+            stage.gMasterContainer.addChild(n), stage.gAryRootBoss = e.mAdd(l.boss.param), stage.gAryCntnBoss = e.mSet(m.boss, stage.gAryRootBoss, k, stage.gBossContainer), stage.gBossContainer.swapChildrenAt(2, 1), stage.gMasterContainer.addChild(stage.gBossContainer), stage.addChild(stage.gMasterContainer), stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0), stage.gMasterContainer.setChildIndex(n, 1);
         var o = this;
         b.each(wa, function (a, b) {
             stage.addChild(a)
         }), b.each(k.cjs.parts, function (a) {
             stage.gAryRootParts.push(new lib[a])
         });
+
         for (var p = stage.gAryRootParts, q = stage.gAryCntnParts, r = k.grid, s = 0, t = p.length; t > s; s++)q[s] = new createjs.Container, q[s].addChild(p[s]), stage.gPartsContainer.addChild(q[s]), q[s].x = r.parts[k.cjs.parts[s]].x, q[s].y = r.parts[k.cjs.parts[s]].y, q[s].visible = !1;
         stage.addChild(stage.gPartsContainer);
         for (var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length, x = g.mInit("avatar"), s = 0, t = u; t > s; s++)x.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0, paused: !0});
@@ -612,6 +622,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         f.mChangeMotionAll(stage.gAryRootAvatar, x.timeline, {motion: "hide", mc: l.player.param, type: "player"}), z.timeline[0].call(function () {
             j.renewCharaList(28)
         }), a(".prt-enemy-gauge").hide();
+
         for (var s = 0, t = u; t > s; s++)i.mPlayerGaugeHp(x.timeline[s], {pos: s, param: l.player.param[s]}), i.mPlayerGaugeRecast(x.timeline[s], {pos: s, param: l.player.param[s]}), i.mPlayerGaugeAttr(x.timeline[s], {pos: s, param: l.player.param[s]});
         for (var s = 0, t = v; t > s; s++)i.mBossGaugeHp(y.timeline[s], wa, m.boss.type, {pos: s, param: l.boss.param[s]}), i.mBossGaugeRecast(y.timeline[s], wa, m.boss.type, {pos: s, param: l.boss.param[s]}), i.mBossGaugeName(y.timeline[s], m.boss.type, {pos: s, param: l.boss.param[s]});
         if (a(".prt-command-summon .prt-list-top").addClass("summon-off"), m.summon)for (var D = m.summon, s = 0, t = D.length; t > s; s++) {
@@ -636,8 +647,14 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
             var I = m.effect_unit || [];
             b.isEmpty(I) || i.mConditionAssistUnit(I)
         }
-        if (f.mWaitAll([x, y, z], {playtime: 3}), 1 == m.battle.count)f.mChangeMotionAll(stage.gAryRootAvatar, x.timeline, {motion: B, mc: l.player.param, type: "player", is_alive: "on", wait: 10}); else {
-            for (var s = 0, t = u; t > s; s++)f.mChangeMotion(x.timeline[s], {motion: "setup", pos: s, type: "player", is_alive: "on"}), f.mMoveTo(stage.gAryCntnAvatar, x, {index: s, x: -k.relative.offscreen.player, playtime: 6, ease: "quartOut"}, {tween: [y, z], adjust: -5, wait: 8}), f.mChangeMotion(x.timeline[s], {motion: "stbwait", pos: s, type: "player", is_alive: "on"});
+        if (f.mWaitAll([x, y, z], {playtime: 3}), 1 == m.battle.count){
+            f.mChangeMotionAll(stage.gAryRootAvatar, x.timeline, {motion: 'dead', mc: l.player.param, type: "player", is_alive: "on", wait: 10});
+        } else {
+            console.info('else timelien');
+            for (var s = 0, t = u; t > s; s++)
+                //f.mChangeMotion(x.timeline[s], {motion: "setup", pos: s, type: "player", is_alive: "on"}),
+                //f.mMoveTo(stage.gAryCntnAvatar, x, {index: s, x: -k.relative.offscreen.player, playtime: 6, ease: "quartOut"}, {tween: [y, z], adjust: -5, wait: 8}),
+                //f.mChangeMotion(x.timeline[s], {motion: "stbwait", pos: s, type: "player", is_alive: "on"});
             f.mWaitAll([x, y, z], {playtime: 10});
             for (var s = 0, t = r.player.length; t > s; s++)r.player[s].x -= k.relative.offscreen.player
         }
@@ -2378,7 +2395,7 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
         }
         var x = new Date, y = new d, z = this;
         console.ll('attack');
-        console.l(l,'l');
+
         y.preSave(stage.gGameStatus.shouldReAuth, l, {url: y.urlRoot(k, l.mode, stage.pJsnData.is_multi, stage.pJsnData.is_semi), silent: !0, error: function () {
             z.inactivateMask(), stage.gGameStatus.attacking = 0, stage.gGameStatus.usingAbility = 0, j.ResetAllAttackQueue(), j.CommandChangeTop()
         }, success: function () {

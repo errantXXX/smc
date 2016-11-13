@@ -1,5 +1,5 @@
 {
-    "data": "<div>11z,<i id=\"asset-css\" css=\"raid/index.css\"></i></div>",
+    "data": "<div>,<i id=\"asset-css\" css=\"raid/index.css\"></i><canvas id=\"canvas\" data-width=\"320\" data-height=\"327\"></canvas><div class=\"prt-bg-stage-distant\" style=\"width:100;height:100\"></div></div>",
     "option": ""
 
 }

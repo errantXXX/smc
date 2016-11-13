@@ -5,7 +5,7 @@ define([], function() {
             b.push(d)
         }
         return b
-    },mSet: function(a, b, c, d) {
+    },mSet: function(a/*pJson*/, b/*gAryRootAvatar*/, c/*gGameParam*/, d/*container*/) {
         for (var e = [], f = 0; f <= b.length - 1; f++)
             e[f] = new createjs.Container, e[f].visible = !1, e[f].addChild(b[f]);
         for (var g = [], f = 0; f <= b.length - 1; f++) {
