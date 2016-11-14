@@ -1,4 +1,4 @@
-define(["jquery","underscore","backbone","view/content","model/raid/setup", "model/sound","model/cjs-loader","model/manifest-loader","util/sprite-sheet-manager","view/raid/ui","lib/raid/motion-new","lib/raid/draw","lib/raid/timeline"],function ($,_,backbone,contentView,setupRaidModel,soundModel,cjsLoaderModel,manifestLoaderModel,spriteSheetManagerUtil,uiRaidView,motionControl,drawControl,timelineControl) {
+define(["jquery","underscore","backbone","view/content","model/raid/setup", "model/sound","model/cjs-loader","model/manifest-loader","util/sprite-sheet-manager","view/raid/ui","lib/raid/motion","lib/raid/draw","lib/raid/timeline"],function ($,_,backbone,contentView,setupRaidModel,soundModel,cjsLoaderModel,manifestLoaderModel,spriteSheetManagerUtil,uiRaidView,motionControl,drawControl,timelineControl) {
     var XHR_START = "xhrStart";
     var R = ["70670", "70950", "80000"];
     var Q = "7001";
@@ -160,7 +160,19 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
         }
     };
     var GAME_STATUS = function () {
-        return{lock: 0, target: 0, attacking: 0, replacehit: [], waitmode: ["wait", "wait", "wait"], balloon: "wait", finish: !1, retire: !1, lose: !1, clear: !1, motion: !1, menu: !1, attack_action: null, last_drop: null, raid_union_summon_name: "", is_summon_simple: "", message_count: 0, tutorial_state: !1, rep: 0, btn_lock: !1, defaultmotion: "stbwait", dropped: [], attack_count: 0, $use_ability: null, already_finish: !1, node_finish: !1, cheer_compleate: !1, is_clear: !1, serif: 1, ability_popup: 1, ability_pick: null, ability_sub_param: [], pop_limit: !1, pop_revival: !1, battle_end: !1, is_normal_attack: !1, auto_attack: !1, enable_auto_button: !1, auto_button: !0, chat_category: 1, stamp_page: 0, key_enemy_dead: !1, union_enemy: !1, player: {param: [], condition: [], number: 0, all_dead: !1}, boss: {param: [], condition: [], last_die: null, all_dead: !1, form_change_tween: !1}, field: {hasFieldEffect: !1}, defend_order: {hasAssistUnitEffect: !1}, timer: {}, action: {ab_select: ""}, assist: {all: 1, friend: 1, guild: 1}, temporary: {small: 0, large: 0}, potion: {count: 0, limit_flg: !1, limit_number: 0, limit_remain: 0}, command_slide: {state: 0, now_pos: 0}, bossmode: {looks: {mode: [], gauge: []}, already_changed: []}, finishAfterContribution: !1, is_escorted_character_dead: 0, isVersusView: !1, isShowBossGauge: !0, logtimer: 0, motion_lock: !1, shouldReAuth: !1, remain_turn: 0, hide_ability_pos: void 0, isDrawBgImgByCjs: !1, backImage: [], backImageValue: [], isBackImageUpdated: !1, preemptiveDeferred: null, cutinDeferred: null, attackQueue: {index: [], param: [], $useAbility: [], $useAbilityTmp: null, attackButtonPushed: !1, abilityRailUI: null, charaChangeFlag: !1}, form_change_frame: {}}
+        return{
+            lock: 0,
+            target: 0,
+            attacking: 0,
+            replacehit: [],
+            waitmode: ["wait", "wait", "wait"],
+            balloon: "wait", finish: !1, retire: !1, lose: !1, clear: !1, motion: !1, menu: !1, attack_action: null, last_drop: null, raid_union_summon_name: "",
+            is_summon_simple: "", message_count: 0, tutorial_state: !1, rep: 0, btn_lock: !1, defaultmotion: "stbwait", dropped: [], attack_count: 0, $use_ability: null,
+            already_finish: !1, node_finish: !1, cheer_compleate: !1, is_clear: !1, serif: 1, ability_popup: 1, ability_pick: null, ability_sub_param: [], pop_limit: !1,
+            pop_revival: !1, battle_end: !1, is_normal_attack: !1, auto_attack: !1, enable_auto_button: !1, auto_button: !0, chat_category: 1, stamp_page: 0,
+            key_enemy_dead: !1, union_enemy: !1, player: {param: [], condition: [], number: 0, all_dead: !1}, boss: {param: [], condition: [], last_die: null,
+                all_dead: !1, form_change_tween: !1}, field: {hasFieldEffect: !1}, defend_order: {hasAssistUnitEffect: !1}, timer: {}, action: {ab_select: ""},
+            assist: {all: 1, friend: 1, guild: 1}, temporary: {small: 0, large: 0}, potion: {count: 0, limit_flg: !1, limit_number: 0, limit_remain: 0}, command_slide: {state: 0, now_pos: 0}, bossmode: {looks: {mode: [], gauge: []}, already_changed: []}, finishAfterContribution: !1, is_escorted_character_dead: 0, isVersusView: !1, isShowBossGauge: !0, logtimer: 0, motion_lock: !1, shouldReAuth: !1, remain_turn: 0, hide_ability_pos: void 0, isDrawBgImgByCjs: !1, backImage: [], backImageValue: [], isBackImageUpdated: !1, preemptiveDeferred: null, cutinDeferred: null, attackQueue: {index: [], param: [], $useAbility: [], $useAbilityTmp: null, attackButtonPushed: !1, abilityRailUI: null, charaChangeFlag: !1}, form_change_frame: {}}
     };
     Ka = {s: {s1: [
         {x: 220, y: 110}
@@ -219,6 +231,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
     ]}};
     var defaultCharacterImg  = Game.imgUri + "/sp/assets/npc/raid_normal/3999999999.jpg";
     var RAID_CONS_CJS = ["ab_0004", "ab_3000", "ab_all_3020", "ab_start", "raid_win", "quest_clear", "quest_failed", "raid_union_summon", "treasure_get", "item_get", "raid_parts_attack", "raid_parts_back", "raid_parts_turn", "raid_parts_next", "raid_cutin", "raid_cutine", "raid_reload", "raid_chain", "raid_effect_heal", "raid_effect_buff", "raid_effect_debuff", "ab_all_70", "raid_parts_auto", "ab_enemy_action", "ef_all_2000", "ef_2000"];
+    RAID_CONS_CJS = [];
     var view = contentView.extend({
         el: $(".contents"),
         stage: null,
@@ -323,6 +336,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                             var pJsnData = $.extend(!0, {}, stage.pJsnData);
                             stage.pJsnData.player.number = stage.pJsnData.player.number || stage.pJsnData.player.param.length;
                             stage.gGameStatus.player.number = stage.pJsnData.player.number - 1 <= 3 ? stage.pJsnData.player.number - 1 : 3;
+                            console.info(stage.gGameStatus.player.number);
                             for (var o = 0, p = gGameStatus.player.number; p >= o; ++o)gGameStatus.player.param.push(pJsnData.player.param[pJsnData.formation[o]]);
                             gGameStatus.is_escorted_character_dead = json.is_escorted_character_dead,
                             //_this.checkPlayerAllDead()
@@ -379,30 +393,37 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
             });
 
         },
-        render1:function(params){
+       render:function(params){
 
-            var j = this, k = stage.gGameParam, l = stage.gGameStatus, m = stage.pJsnData, n = stage.gPlayerContainer;
-            var _this = this,gGameParam = stage.gGameParam,gGameStatus = stage.gGameStatus,pJsnData =  stage.pJsnData,
-                gPlayerContainer =  stage.gPlayerContainer;
-            stage.gAryRootAvatar = drawControl.mAdd(gGameStatus.player.param),
-                stage.gAryCntnAvatar = drawControl.mSet(pJsnData.player, stage.gAryRootAvatar, gGameParam, gPlayerContainer),
-                //1 == pJsnData.tutorial_flag && stage.gAryRootAvatar.length >= 2 && n.swapChildrenAt(1, 0),
-                drawControl.mShow(stage.gAryCntnAvatar, gGameStatus.player.param),
+            var _this = this,
+                gGameParam = stage.gGameParam,
+                gGameStatus = stage.gGameStatus,
+                pJsnData =  stage.pJsnData;
                 stage.gMasterContainer.addChild(gPlayerContainer),
+                stage.gAryRootAvatar = drawControl.mAdd(gGameStatus.player.param),
+                stage.gAryCntnAvatar = drawControl.mSet(pJsnData.player, stage.gAryRootAvatar, gGameParam, stage.gPlayerContainer),
+                //1 == pJsnData.tutorial_flag && stage.gAryRootAvatar.length >= 2 && n.swapChildrenAt(1, 0),
+                drawControl.mShow(stage.gAryCntnAvatar, pJsnData.player.param),
+
+                stage.gMasterContainer.addChild(stage.gBossContainer),
                 stage.gAryRootBoss = drawControl.mAdd(gGameStatus.boss.param),
                 stage.gAryCntnBoss =drawControl.mSet(pJsnData.boss, stage.gAryRootBoss, gGameParam, stage.gBossContainer),
+                drawControl.mShow(stage.gAryCntnBoss, pJsnData.boss.param),
                 stage.gBossContainer.swapChildrenAt(2, 1),
-                stage.gMasterContainer.addChild(stage.gBossContainer),
+
+
                 stage.addChild(stage.gMasterContainer),
-                stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0),
-                stage.gMasterContainer.setChildIndex(gPlayerContainer, 1);
-                var o = this;
-                /*_.each(wa, function (a) {
+                    stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0),
+                    stage.gMasterContainer.setChildIndex(stage.gPlayerContainer, 1);
+;
+              var o = this;
+               /* _.each(wa, function (a) {
                     stage.addChild(a)
-                }),*/
+                }),
                 _.each(gGameParam.cjs.parts, function (a) {
                     stage.gAryRootParts.push(new lib[a])
-                });
+                });*/
+
             for (var p = stage.gAryRootParts,
                      q = stage.gAryCntnParts,
                      r = gGameParam.grid,
@@ -416,68 +437,45 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                             q[s].visible = false;
             }
             //(stage.gPartsContainer);
-            var u = stage.gAryCntnAvatar.length,
-                v = stage.gAryCntnBoss.length,
-                avatarTimeline = timelineControl.mInit("avatar"),
-                bossTimeline = timelineControl.mInit("boss");
-            for (var s = 0, t = u; t > s; s++)avatarTimeline.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0, paused: !0});
-            for (var s = 0, t = v; t > s; s++)bossTimeline.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0, paused: !0});
-            var commonTimeline = timelineControl.mInit("common");
-            commonTimeline.timeline[0] = createjs.Tween.get({}, {override: !0, paused: !0});
-            _this.oTweenCommon = commonTimeline, motionControl.mWaitAll([avatarTimeline, bossTimeline, commonTimeline], {playtime: 1}),
-           /* commonTimeline.timeline[0].call(function () {
-                for (var a = 0, b = u; b > a; a++)stage.gAryCntnAvatar[a].x -= 9999
-            }), motionControl.mWaitAll([avatarTimeline,bossTimeline, commonTimeline], {playtime: 1}), commonTimeline.timeline[0].call(function () {
-                for (var a = 0, b = u; b > a; a++)stage.gAryCntnAvatar[a].x += 9999
-            });*/
+           var commonTimeLineArray = timelineControl.mInit('common');
+           for (var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length, avatarTimeLineArray = timelineControl.mInit("avatar"), s = 0, t = u; t > s; s++)
+               avatarTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0,paused: false});
+           for (var bossTimeLineArray = timelineControl.mInit("boss"), s = 0, t = v; t > s; s++)
+               bossTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0,paused: false});
 
-            motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeline.timeline, {motion: 'dead', mc: gGameStatus.player.param, type: "player", is_alive: "on", wait: 10});
-            console.info(stage);
-            console.info(stage.gAryCntnAvatar[0]);
+           commonTimeLineArray.timeline[0] = createjs.Tween.get({}, {override: !0,paused: false});
+
+
+           _this.oTweenCommon = commonTimeLineArray;
+
+                      motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
+            for (var a = 0, b = u; b > a; a++)
+            stage.gAryCntnAvatar[a].x -= 9999;
+
+            }),
+            motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
+            for (var a = 0, b = u; b > a; a++)
+            stage.gAryCntnAvatar[a].x += 9999
+            });
+           console.info(gGameStatus.boss.param)
+           motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {motion: "stbwait",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10});
+           motionControl.mChangeMotionAll(stage.gAryRootBoss, bossTimeLineArray.timeline, {motion: "setin",mc: gGameStatus.boss.param,type: "boss",is_alive: "on",wait: 8});
+
+           var npc_01 = new lib.enemy_6200032();
+           console.info(npc_01.enemy_6200032);
+           var test = new createjs.Container;
+            test.x = 200;
+           test.y = 500;
+           test.addChild(npc_01);
+           stage.addChild(test);
+
+           npc_01.enemy_6200032.gotoAndPlay('setin');
+
+
+
+
         },
-        render:function(){
-            var _this = this,gGameParam = stage.gGameParam,gGameStatus = stage.gGameStatus,pJsnData =  stage.pJsnData,
-                gPlayerContainer =  stage.gPlayerContainer;
-            stage.gMasterContainer.addChild(stage.gPlayerContainer);
 
-            stage.gAryRootAvatar = drawControl.mAdd(stage.gGameStatus.player.param);
-            stage.gAryCntnAvatar = drawControl.mSet(stage.pJsnData.player, stage.gAryRootAvatar, stage.gGameParam, stage.gPlayerContainer);
-            drawControl.mShow(stage.gAryCntnAvatar, stage.pJsnData.player.param);
-
-            stage.gBossContainer.swapChildrenAt(2, 1),
-                stage.gMasterContainer.addChild(stage.gBossContainer),
-                stage.addChild(stage.gMasterContainer),
-                stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0),
-                stage.gMasterContainer.setChildIndex(stage.gPlayerContainer, 1);
-
-            //var avatarTimeLineArray = timelineFactory.mInit('avatar');
-            //var avatarContainer = new createjs.Container();
-            //var bossContainer = new createjs.Container();
-            ///var bossTimeLineArray = timelineFactory.mInit('boss');
-            var commonTimeLineArray = timelineControl.mInit('common');
-            for (var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length, avatarTimeLineArray = timelineControl.mInit("avatar"), s = 0, t = u; t > s; s++)
-                avatarTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0,paused: false});
-            for (var bossTimeLineArray = timelineControl.mInit("boss"), s = 0, t = v; t > s; s++)
-                bossTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0,paused: !0});
-
-            commonTimeLineArray.timeline[0] = createjs.Tween.get({}, {override: !0,paused: false});
-
-
-            _this.oTweenCommon = commonTimeLineArray;
-
-            /*motionFactory.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
-             for (var a = 0, b = u; b > a; a++)
-             stage.gAryCntnAvatar[a].x -= 9999;
-
-             }),
-             motionFactory.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
-             for (var a = 0, b = u; b > a; a++)
-             stage.gAryCntnAvatar[a].x += 9999
-             });*/
-            motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {motion: "wait",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10});
-            console.info(stage);
-            stage.gAryCntnAvatar[0].visible = true;
-        },
         loadCJS: function (json, c, callback) {
             var resourceList = [].concat(RAID_CONS_CJS);
             /*if(c){
@@ -497,7 +495,8 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
             }*/
             //c ? e = R[0] == a.location_id ? a.arcade && a.arcade.is_bonus ? b.union(e, Ea) : b.union(e, Da) : a.is_survival ? b.union(e, Ga) : b.union(e, Fa) : a.is_trialbattle && (e = b.union(e, Ha)),
                 _.each(json.player.param, function (player) {
-                    resourceList.push(player.cjs), resourceList.push(player.effect)
+                    resourceList.push(player.cjs),
+                        resourceList.push(player.effect)
             }), _.each(json.boss.param, function (boss) {
                     resourceList.push(boss.cjs), resourceList.push(boss.effect)
             }), _.isUndefined(json.is_boss) || "" == json.is_boss || resourceList.push(json.is_boss),

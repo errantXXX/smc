@@ -1,0 +1,1 @@
+define(["jquery","backbone"],function(a,b){var c=b.Model.extend({defaults:{manifest:[{src:Game.imgUri+"/sp/cjs/ehit_ar_0004.png?s=3b2849b8c66116435f1f95b23ad6ee53",id:"ehit_ar_0004",type:"image"}]}});return c});

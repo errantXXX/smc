@@ -33,7 +33,7 @@ define(["lib/raid/timeline"], function(a, b) {
                         targetMotion = !option.is_replace && option.motion == c.pDownTarget && "player" === option.type && targetCurrentHp / stage.gGameStatus.player.param[k].hpmax <= c.pDownThreshold ? c.pDownLabel : option.motion,
                         //this.mIsSpecialMotion({type: option.type,pos: k,motion: targetMotion}) && (targetMotion = stage.gGameStatus.player.param[k].condition.special_motion),
                         //"1" != stage.pJsnData.effect_mode && (targetMotion = c.mCjsLabelSelecter(targetType, targetMotion)),
-                        console.info(timelineManager[k]);
+
                         timelineManager[k].wait(option.wait).call(function(index, mcList, targetMotion) {
 
                             ("on" !== option.is_alive || objectStatus[index].alive > 0) && mcList[index][option.mc[index].cjs].gotoAndPlay(targetMotion)
