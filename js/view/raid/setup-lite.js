@@ -399,7 +399,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 gGameParam = stage.gGameParam,
                 gGameStatus = stage.gGameStatus,
                 pJsnData =  stage.pJsnData;
-                stage.gMasterContainer.addChild(gPlayerContainer),
+                stage.gMasterContainer.addChild(stage.gPlayerContainer),
                 stage.gAryRootAvatar = drawControl.mAdd(gGameStatus.player.param),
                 stage.gAryCntnAvatar = drawControl.mSet(pJsnData.player, stage.gAryRootAvatar, gGameParam, stage.gPlayerContainer),
                 //1 == pJsnData.tutorial_flag && stage.gAryRootAvatar.length >= 2 && n.swapChildrenAt(1, 0),
@@ -448,7 +448,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
 
            _this.oTweenCommon = commonTimeLineArray;
 
-                      motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
+            /*motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
             for (var a = 0, b = u; b > a; a++)
             stage.gAryCntnAvatar[a].x -= 9999;
 
@@ -456,20 +456,12 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
             motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
             for (var a = 0, b = u; b > a; a++)
             stage.gAryCntnAvatar[a].x += 9999
-            });
-           console.info(gGameStatus.boss.param)
+            });*/
+
            motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {motion: "stbwait",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10});
            motionControl.mChangeMotionAll(stage.gAryRootBoss, bossTimeLineArray.timeline, {motion: "setin",mc: gGameStatus.boss.param,type: "boss",is_alive: "on",wait: 8});
 
-           var npc_01 = new lib.enemy_6200032();
-           console.info(npc_01.enemy_6200032);
-           var test = new createjs.Container;
-            test.x = 200;
-           test.y = 500;
-           test.addChild(npc_01);
-           stage.addChild(test);
 
-           npc_01.enemy_6200032.gotoAndPlay('setin');
 
 
 
