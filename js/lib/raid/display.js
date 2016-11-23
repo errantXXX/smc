@@ -2,7 +2,8 @@
  * Created by Administrator on 2016/10/18.
  */
 define(["underscore", "model/sound", "model/raid/setup", "util/language-message"], function(a, b, c, d) {
-    var e = [], f = !1, g = !1, h = 16, i = {reqStartTime: 0,mBossSetup: function(a, b, c) {
+    var e = [], f = !1, g = !1, h = 16, i = {reqStartTime: 0,
+        mBossSetup: function(a, b, c) {
         if (c.size = c.size ? c.size : "s", c.force = c.force ? c.force : !1, c.force)
             for (var d = 0; d <= b.length - 1; d++)
                 1 == b[d].alive && (c.force = !1);
@@ -20,8 +21,19 @@ define(["underscore", "model/sound", "model/raid/setup", "util/language-message"
             i.mPlayerGaugeHpForLog(b)
         }, [a, b])
     },mPlayerGaugeHpForLog: function(a) {
-        var b = Number(a.pos), c = parseInt(a.param.hp / a.param.hpmax * 100), d = 25 >= c ? "red" : "green", e = $(".prt-command-top .lis-character" + b + " .prt-gauge-hp-inner"), f = $(".prt-command-chara .lis-character" + b + " .prt-gauge-hp-inner"), g = $(".prt-command .lis-character" + b + " .txt-hp-value");
-        e.css("width", c + "%").attr({color: d}), f.css("width", c + "%").attr({color: d}), g.attr({color: d}), clearInterval(stage.gAryInterval[b]), stage.gAryInterval[b] = setInterval(i.mPlayerHpRenew, 1e3 / 24, b, stage.gGameStatus.player.param[b].hp, a.param.hp), stage.gGameStatus.player.param[b].hp = a.param.hp, stage.pJsnData.player.param[stage.pJsnData.formation[b]].hp = a.param.hp
+        var b = Number(a.pos),
+            c = parseInt(a.param.hp / a.param.hpmax * 100),
+            d = 25 >= c ? "red" : "green",
+            e = $(".prt-command-top .lis-character" + b + " .prt-gauge-hp-inner"),
+            f = $(".prt-command-chara .lis-character" + b + " .prt-gauge-hp-inner"),
+            g = $(".prt-command .lis-character" + b + " .txt-hp-value");
+        e.css("width", c + "%").attr({color: d}),
+            f.css("width", c + "%").attr({color: d}),
+            g.attr({color: d}),
+            clearInterval(stage.gAryInterval[b]),
+            stage.gAryInterval[b] = setInterval(i.mPlayerHpRenew, 1e3 / 24, b, stage.gGameStatus.player.param[b].hp, a.param.hp),
+            stage.gGameStatus.player.param[b].hp = a.param.hp,
+            stage.pJsnData.player.param[stage.pJsnData.formation[b]].hp = a.param.hp
     },mPlayerHpRenew: function(a, b, c) {
         if (b == c)
             return $(".prt-command .lis-character" + a + " .txt-hp-value").html("" + b), void clearInterval(stage.gAryInterval[a]);

@@ -11,10 +11,63 @@
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link type="text/css" rel="stylesheet" href="/Astral/css/common.css">
     <link type="text/css" rel="stylesheet" href="/Astral/css/index.css">
+    <style>
+        .player{
+            background: #999;
+            position: absolute;
+            top: 230px;
+            z-index: 10;
+            width: 320px;
+            height: 100px;
+        }
+        li.lis-character {
+            width:49px;
+            height:100px;
+            display: block;
+            float: left;
+            position: relative;
+        }
+        li img {
+            width: 100%;
+        }
+        .txt-name {
+            color: #f2eee2;
+            text-shadow: 0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;
+            position: absolute;
+            top: 0;
+            left: 5px;
+        }
+        .attack-btn {
+            display: block;
+            position: absolute;
+            top: 300px;
+            left:200px;
+            z-index: 100;
+            color: #ffff5f;
+        }
+    </style>
 </head>
 <body><div class="" id="loading"></div>
-<canvas cjs-noclip="1" id="canvas" data-width="320" data-height="327"></canvas>
-<div class="contents"></div>
+<canvas cjs-noclip="1" id="canvas" data-width="320" data-height="327" style=""></canvas>
+
+<div class="contents">
+    <div class="player">
+        <div >
+            <ul>
+                <li class="lis-character01">
+                    <img src="http://gbf.game-a1.mbga.jp/assets_en/1479447415/img_mid/sp/assets/npc/raid_normal/3030005000_01.jpg"/>
+                    <div class="txt-name">cjlory</div>
+                    <div class="txt-hp-value" color="green">400</div>
+                    <div class="prt-gauge-hp">
+                        <div class="prt-gauge-hp-inner" color="green" style="width: 60%;"></div>
+                    </div>
+                    <div class="prt-percent"><span class="txt-gauge-value">10</span><div>%</div></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
 
 <script src="../lib/Game.js" crossorigin="anonymous"></script>

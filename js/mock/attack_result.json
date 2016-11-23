@@ -1,0 +1,641 @@
+{
+  "scenario": [
+    {
+      "cmd": "condition",
+      "pos": 0,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 0
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 1,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 1
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 2,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 2
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 3,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 3
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 0,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 0
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 1,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 1
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 2,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 2
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 3,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 3
+      }
+    },
+    {
+      "cmd": "wait",
+      "fps": 12
+    },
+    {
+      "cmd": "attack",
+      "from": "player",
+      "pos": 0,
+      "damage": [
+        [
+          {
+            "attack_count": 0,
+            "concurrent_attack_count": null,
+            "pos": 0,
+            "value": 252,
+            "split": [
+              "2",
+              "5",
+              "2"
+            ],
+            "hp": 0,
+            "size": "m",
+            "critical": false,
+            "miss": 0,
+            "color": "4",
+            "additional": [
+              {
+                "message": null,
+                "effect": null
+              }
+            ]
+          }
+        ]
+      ],
+      "voice": [
+        null
+      ],
+      "color": "4",
+      "single_motion_flag": false,
+      "concurrent_attack_flag": false
+    },
+    {
+      "cmd": "die",
+      "to": "boss",
+      "pos": 0,
+      "exp": 45,
+      "rp": 30,
+      "voice": null,
+      "kill_voice": {
+        "id": 0,
+        "path": null
+      },
+      "chain": 0,
+      "is_show_popup": 0,
+      "die_information_title": null,
+      "die_information_body": null,
+      "die_type": null
+    },
+    {
+      "cmd": "drop",
+      "pos": 0,
+      "get": [
+        "9"
+      ]
+    },
+    {
+      "cmd": "lupi",
+      "pos": 0,
+      "value": 20
+    },
+    {
+      "cmd": "recast",
+      "to": "player",
+      "pos": 0,
+      "value": 40,
+      "max": "",
+      "split": [
+        "4",
+        "0"
+      ]
+    },
+    {
+      "cmd": "attack",
+      "from": "player",
+      "pos": 1,
+      "damage": [
+        [
+          {
+            "attack_count": 0,
+            "concurrent_attack_count": null,
+            "pos": 1,
+            "value": 300,
+            "split": [
+              "3",
+              "0",
+              "0"
+            ],
+            "hp": 707,
+            "size": "m",
+            "critical": false,
+            "miss": 0,
+            "color": "6",
+            "additional": [
+              {
+                "message": null,
+                "effect": null
+              }
+            ]
+          }
+        ]
+      ],
+      "voice": [
+        "voice\/3020017000_v_144.mp3"
+      ],
+      "color": "6",
+      "single_motion_flag": false,
+      "concurrent_attack_flag": false
+    },
+    {
+      "cmd": "recast",
+      "to": "player",
+      "pos": 1,
+      "value": 20,
+      "max": "",
+      "split": [
+        "2",
+        "0"
+      ]
+    },
+    {
+      "cmd": "attack",
+      "from": "player",
+      "pos": 2,
+      "damage": [
+        [
+          {
+            "attack_count": 0,
+            "concurrent_attack_count": null,
+            "pos": 1,
+            "value": 199,
+            "split": [
+              "1",
+              "9",
+              "9"
+            ],
+            "hp": 508,
+            "size": "s",
+            "critical": false,
+            "miss": 0,
+            "color": "3",
+            "additional": [
+              {
+                "message": null,
+                "effect": null
+              }
+            ]
+          }
+        ]
+      ],
+      "voice": [
+        "voice\/3020013000_v_159.mp3"
+      ],
+      "color": "3",
+      "single_motion_flag": false,
+      "concurrent_attack_flag": false
+    },
+    {
+      "cmd": "recast",
+      "to": "player",
+      "pos": 2,
+      "value": 70,
+      "max": "",
+      "split": [
+        "7",
+        "0"
+      ]
+    },
+    {
+      "cmd": "attack",
+      "from": "player",
+      "pos": 3,
+      "damage": [
+        [
+          {
+            "attack_count": 0,
+            "concurrent_attack_count": null,
+            "pos": 1,
+            "value": 231,
+            "split": [
+              "2",
+              "3",
+              "1"
+            ],
+            "hp": 277,
+            "size": "m",
+            "critical": false,
+            "miss": 0,
+            "color": "2",
+            "additional": [
+              {
+                "message": null,
+                "effect": null
+              }
+            ]
+          }
+        ]
+      ],
+      "voice": [
+        "voice\/3030005000_v_187.mp3"
+      ],
+      "color": "2",
+      "single_motion_flag": false,
+      "concurrent_attack_flag": false
+    },
+    {
+      "cmd": "recast",
+      "to": "player",
+      "pos": 3,
+      "value": 47,
+      "max": "",
+      "split": [
+        "4",
+        "7"
+      ]
+    },
+    {
+      "cmd": "turn",
+      "mode": "boss"
+    },
+    {
+      "cmd": "bgm",
+      "value": "bgm\/10_battle_multiraid_02.mp3"
+    },
+    {
+      "cmd": "recast",
+      "to": "player",
+      "pos": 2,
+      "value": 80,
+      "max": "",
+      "split": [
+        "8",
+        "0"
+      ]
+    },
+    {
+      "cmd": "attack",
+      "from": "boss",
+      "pos": 1,
+      "damage": {
+        "1": [
+          {
+            "attack_count": 1,
+            "pos": 2,
+            "value": 87,
+            "attr": "4",
+            "split": [
+              "8",
+              "7"
+            ],
+            "hp": 279,
+            "size": "l",
+            "miss": 0,
+            "additional": [
+              {
+                "message": null,
+                "effect": null
+              }
+            ]
+          }
+        ]
+      },
+      "voice": [
+        null
+      ],
+      "color": 1,
+      "single_motion_flag": false,
+      "concurrent_attack_flag": false
+    },
+    {
+      "cmd": "recast",
+      "to": "boss",
+      "pos": 1,
+      "value": 1,
+      "max": "3",
+      "split": [
+        "1"
+      ]
+    },
+    {
+      "cmd": "condition",
+      "pos": 0,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 0
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 1,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 1
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 2,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 2
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 3,
+      "to": "player",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 3
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": 1,
+      "to": "boss",
+      "condition": {
+        "buff": null,
+        "debuff": null,
+        "num": 2
+      }
+    },
+    {
+      "cmd": "condition",
+      "pos": null,
+      "to": "field_effect",
+      "condition": []
+    },
+    {
+      "cmd": "boss_gauge",
+      "pos": 1,
+      "name": {
+        "ja": "Lv3 \u5e1d\u56fd\u5175",
+        "en": "Lvl 3 Imperial Soldier"
+      },
+      "attr": 4,
+      "hp": 277,
+      "hpmax": 1007,
+      "recast": 1,
+      "recastmax": 3
+    },
+    {
+      "cmd": "formchange",
+      "form": 1,
+      "param": {
+        "attr": 4,
+        "name": {
+          "ja": "Lv3 \u5e1d\u56fd\u5175",
+          "en": "Lvl 3 Imperial Soldier"
+        },
+        "effect": "ehit_ar_0004",
+        "cjs": "enemy_6200032",
+        "extra_attr": 0
+      },
+      "pos": 1,
+      "to": "boss",
+      "type": null,
+      "no_motion": null,
+      "no_change_motion": null,
+      "bg_image": null,
+      "fullscreen": ""
+    }
+  ],
+  "status": {
+    "ability": {
+      "1": {
+        "mode": "player",
+        "pos": 0,
+        "alive": 1,
+        "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/leader\/ds\/110001_sw_0_01.jpg",
+        "list": {
+          "1": [
+            {
+              "class": "ico-ability37_3 ability-character-num-1-1",
+              "ability-id": "70",
+              "ability-recast": "0",
+              "recaset-default": "5",
+              "duration": "1",
+              "duration-second": "",
+              "duration-type": " turn",
+              "ability-character-num": 0,
+              "text-data": "50% DMG cut to all parties",
+              "ability-name": "Phalanx",
+              "icon-type": "3",
+              "type": "damage_cut",
+              "ability-pick": ""
+            },
+            {
+              "class": "num-recast-a0 ability-icon-num-1-1",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "2": {
+        "mode": "npc",
+        "pos": 1,
+        "alive": 1,
+        "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/npc\/ds\/3020017000.jpg",
+        "list": {
+          "1": [
+            {
+              "class": "ico-ability40_1 ability-character-num-2-1",
+              "ability-id": "1402",
+              "ability-recast": "0",
+              "recaset-default": "6",
+              "duration": "",
+              "duration-second": "180",
+              "duration-type": "",
+              "ability-character-num": 1,
+              "text-data": "Dark DMG to a foe \/ Blind",
+              "ability-name": "Dark Mist",
+              "icon-type": "1",
+              "type": "damage,blind",
+              "ability-pick": ""
+            },
+            {
+              "class": "num-recast-a0 ability-icon-num-2-1",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "3": {
+        "mode": "npc",
+        "pos": 2,
+        "alive": 1,
+        "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/npc\/ds\/3020013000.jpg",
+        "list": {
+          "1": [
+            {
+              "class": "ico-ability51_3 ability-character-num-3-1",
+              "ability-id": "180",
+              "ability-recast": "0",
+              "recaset-default": "6",
+              "duration": "1",
+              "duration-second": "",
+              "duration-type": " turn",
+              "ability-character-num": 2,
+              "text-data": "Dodge all attacks from foes",
+              "ability-name": "Camouflage",
+              "icon-type": "3",
+              "type": "dodge",
+              "ability-pick": ""
+            },
+            {
+              "class": "num-recast-a0 ability-icon-num-3-1",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "4": {
+        "mode": "npc",
+        "pos": 3,
+        "alive": 1,
+        "src": "http:\/\/gbf.game.mbga.jp\/assets\/img\/sp\/assets\/npc\/ds\/3030005000.jpg",
+        "list": {
+          "1": [
+            {
+              "class": "ico-ability3_2 ability-character-num-4-1",
+              "ability-id": "3000",
+              "ability-recast": "0",
+              "recaset-default": "6",
+              "duration": "",
+              "duration-second": "",
+              "duration-type": "",
+              "ability-character-num": 3,
+              "text-data": "Restore all allies' HP",
+              "ability-name": "Heal",
+              "icon-type": "2",
+              "type": "defined_heal,heal",
+              "ability-pick": ""
+            },
+            {
+              "class": "num-recast-a0 ability-icon-num-4-1",
+              "value": "0"
+            }
+          ],
+          "2": [
+            {
+              "class": "ico-ability ability-character-num-4-2",
+              "ability-id": null,
+              "ability-recast": 0,
+              "ability-character-num": 3,
+              "text-data": null,
+              "ability-pick": null
+            },
+            {
+              "class": "ability-icon-num-4-2",
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    "supporter": {
+      "recast": "0"
+    },
+    "summon": {
+      "recast": [
+        7,
+        6,
+        2,
+        5,
+        5
+      ]
+    },
+    "summon_enable": 1,
+    "balloon": {
+      "boss": [
+        {
+          "pos": 1,
+          "serif": "",
+          "voice": null
+        }
+      ]
+    },
+    "fellow": 1,
+    "timer": 0,
+    "turn": 3,
+    "treasure": {
+      "treasure_type_1": 0,
+      "treasure_type_2": 0,
+      "treasure_type_3": 0,
+      "treasure_type_4": 0,
+      "treasure_type_5": 2
+    },
+    "lupi": 60,
+    "voice": {
+      "special_skill_gauge_voice": null,
+      "dying_voice": null
+    },
+    "is_escorted_character_dead": 0
+  },
+  "navi_information": [
+    {
+      "navi": "3050001000_angry2",
+      "text": "That one's gonna come at us!<br>Get ready!"
+    }
+  ],
+  "duplicate_key": "5832b146b8456"
+}

@@ -1,4 +1,4 @@
-define(["jquery","underscore","backbone","view/content","model/raid/setup", "model/sound","model/cjs-loader","model/manifest-loader","util/sprite-sheet-manager","view/raid/ui","lib/raid/motion","lib/raid/draw","lib/raid/timeline"],function ($,_,backbone,contentView,setupRaidModel,soundModel,cjsLoaderModel,manifestLoaderModel,spriteSheetManagerUtil,uiRaidView,motionControl,drawControl,timelineControl) {
+define(["jquery","underscore","backbone","view/content","model/raid/setup", "model/sound","model/cjs-loader","model/manifest-loader","util/sprite-sheet-manager","view/raid/ui","lib/raid/motion","lib/raid/draw","lib/raid/timeline","lib/raid/effect"],function ($,_,backbone,contentView,setupRaidModel,soundModel,cjsLoaderModel,manifestLoaderModel,spriteSheetManagerUtil,uiRaidView,motionControl,drawControl,timelineControl,effectControl) {
     var XHR_START = "xhrStart";
     var R = ["70670", "70950", "80000"];
     var Q = "7001";
@@ -340,7 +340,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                             for (var o = 0, p = gGameStatus.player.number; p >= o; ++o)gGameStatus.player.param.push(pJsnData.player.param[pJsnData.formation[o]]);
                             gGameStatus.is_escorted_character_dead = json.is_escorted_character_dead,
                             //_this.checkPlayerAllDead()
-                            $('[class^="lis-character"]').children("img").attr("src", defaultCharacterImg);
+                            $('[class^="lis-character"]').find("img").attr("src", defaultCharacterImg);
                             for (var o = 0, p = stage.pJsnData.boss.param.length; p > o; ++o)gGameStatus.boss.param.push(pJsnData.boss.param[o]);
                             if (stage.pJsnData.battle.count > 1)for (var o = 0, p = game.gGameParam.grid.player.length; p > o; ++o)game.gGameParam.grid.player[o].x += game.gGameParam.relative.offscreen.player;
                             gGameStatus.defaultmotion = 1 == stage.pJsnData.battle.count && 1 == gGameStatus.turn ? "wait" : "stbwait",
@@ -392,6 +392,70 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 }
             });
 
+        }, events: {"click .attack-btn": "Attack"},
+        Attack:function () {
+
+            var action = "normal_attack_result";
+            var _this = this;
+            var raidModel = new setupRaidModel;
+            raidModel.preSave(false, {}, {
+                url: raidModel.urlRoot(action, "on",false, false),
+                silent: !0,
+                error: function () {
+                },
+                success: function (json) {
+                    var json = raidModel.toJSON();
+                    var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length;
+                    for (_this.avatarTimeLineArray = avatarTimeLineArray = timelineControl.mInit("avatar"), s = 0, t = u; t > s; s++)
+                        avatarTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0,paused: !0});
+                    for (_this.bossTimeLineArray = bossTimeLineArray = timelineControl.mInit("boss"), s = 0, t = v; t > s; s++)
+                        bossTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0,paused: !0});
+                    _this.commonTimeLineArray = commonTimeLineArray = timelineControl.mInit('common');
+                    commonTimeLineArray.timeline[0] = createjs.Tween.get({}, {override: !0,paused: false});
+                    _this.oTweenCommon = commonTimeLineArray;
+                    _this.play(json,avatarTimeLineArray,bossTimeLineArray,commonTimeLineArray);
+                }});
+
+        },
+        play:function(json,avatarTimeLineArray,bossTimeLineArray,commonTimeLineArray){
+            var scenario = json.scenario;
+            var _this = this;
+
+
+
+            for(var i=0;i<scenario.length;i++){
+                var scenarioUnit = scenario[i];
+                switch (scenarioUnit.cmd){
+                    case "attack":
+                        if(scenarioUnit.from == 'player') {
+                            motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:1});
+                            var durTime = motionControl.mChangeMotion(_this.avatarTimeLineArray.timeline[scenarioUnit.pos],{
+                                motion:'attack',
+                                pos: scenarioUnit.pos,
+                                type:'player',
+                                voice:null
+                            });
+
+                                motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:durTime});
+                                motionControl.mChangeMotion(_this.avatarTimeLineArray.timeline[scenarioUnit.pos],{
+                                    motion:'stbwait',
+                                    pos: scenarioUnit.pos,
+                                    type:'player',
+                                    voice:null
+                                });
+
+
+
+                        } else {
+
+                        }
+
+                };
+                var timelineList = [];
+                timelineList.push(new createjs.Timeline([].concat(avatarTimeLineArray.timeline, bossTimeLineArray.timeline, commonTimeLineArray.timeline), {start: 0}, {useTicks: !0, paused: !0}));
+                for (var s = 0, t = timelineList.length; t > s; s++)timelineList[s].setPaused(!1);
+
+            }
         },
        render:function(params){
 
@@ -437,29 +501,55 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                             q[s].visible = false;
             }
             //(stage.gPartsContainer);
-           var commonTimeLineArray = timelineControl.mInit('common');
-           for (var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length, avatarTimeLineArray = timelineControl.mInit("avatar"), s = 0, t = u; t > s; s++)
-               avatarTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0,paused: false});
-           for (var bossTimeLineArray = timelineControl.mInit("boss"), s = 0, t = v; t > s; s++)
-               bossTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0,paused: false});
 
+           var u = stage.gAryCntnAvatar.length, v = stage.gAryCntnBoss.length;
+           for (_this.avatarTimeLineArray = avatarTimeLineArray = timelineControl.mInit("avatar"), s = 0, t = u; t > s; s++)
+               avatarTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnAvatar[s], {override: !0,paused: !0});
+           for (_this.bossTimeLineArray = bossTimeLineArray = timelineControl.mInit("boss"), s = 0, t = v; t > s; s++)
+               bossTimeLineArray.timeline[s] = createjs.Tween.get(stage.gAryCntnBoss[s], {override: !0,paused: !0});
+           _this.commonTimeLineArray = commonTimeLineArray = timelineControl.mInit('common');
            commonTimeLineArray.timeline[0] = createjs.Tween.get({}, {override: !0,paused: false});
+             _this.oTweenCommon = commonTimeLineArray;
 
-
-           _this.oTweenCommon = commonTimeLineArray;
-
-            /*motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
+            motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
+                console.info(-9999)
             for (var a = 0, b = u; b > a; a++)
             stage.gAryCntnAvatar[a].x -= 9999;
+                console.info(9999)
 
             }),
             motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1}), commonTimeLineArray.timeline[0].call(function() {
             for (var a = 0, b = u; b > a; a++)
             stage.gAryCntnAvatar[a].x += 9999
-            });*/
+            });
 
-           motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {motion: "stbwait",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10});
-           motionControl.mChangeMotionAll(stage.gAryRootBoss, bossTimeLineArray.timeline, {motion: "setin",mc: gGameStatus.boss.param,type: "boss",is_alive: "on",wait: 8});
+           motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {
+               motion: "setup",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10
+           });
+           motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray, commonTimeLineArray], {playtime: 1});
+           motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {
+               motion: "stbwait",mc: gGameStatus.player.param,type: "player",is_alive: "on",wait: 10
+           });
+        /*   motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {
+               motion: "attack",
+               mc: gGameStatus.player.param,
+               type: "player",
+               is_alive: "on",wait: 100
+           });
+           motionControl.mChangeMotionAll(stage.gAryRootAvatar, avatarTimeLineArray.timeline, {
+               motion: "stbwait",
+               mc: gGameStatus.player.param,
+               type: "player",
+               is_alive: "on",wait: 700
+           });*/
+
+           motionControl.mChangeMotionAll(stage.gAryRootBoss, bossTimeLineArray.timeline, {motion: "wait",mc: gGameStatus.boss.param,type: "boss",is_alive: "on",wait: 8});
+           var timelineList = [];
+           timelineList.push(new createjs.Timeline([].concat(avatarTimeLineArray.timeline, bossTimeLineArray.timeline, commonTimeLineArray.timeline), {start: 0}, {useTicks: !0, paused: !0}));
+           for (var s = 0, t = timelineList.length; t > s; s++)timelineList[s].setPaused(!1);
+           //motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:5000});
+
+
 
 
 

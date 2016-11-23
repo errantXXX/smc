@@ -157,6 +157,7 @@ define(["lib/raid/timeline", "model/sound"], function (a, b) {
             return f && a.mAdjust(f, m), m
         },
         mChangeMotion: function (d, e, f) {
+
             e.motion = e.motion ? e.motion : "", e.type = e.type ? e.type : "", e.delay = e.delay ? e.delay * (1e3 / createjs.Ticker.getFPS()) : 0, e.is_alive = e.is_alive ? e.is_alive : "", e.is_replace = e.is_replace ? e.is_replace : "", e.current_hp = e.current_hp ? e.current_hp : "";
             var g = "player" === e.type ? stage.gAryRootAvatar[e.pos] : "boss" === e.type ? stage.gAryRootBoss[e.pos] : "", h = stage.gGameStatus[e.type].param, i = "player" === e.type ? 1 == stage.gGameStatus.player.param[e.pos].leader ? "job" : "npc" : "enemy", j = "", k = "";
             "player" === e.type && (k = e.current_hp ? e.current_hp : stage.gGameStatus.player.param[e.pos].hp), j = !e.is_replace && e.motion == c.pDownTarget && "player" === e.type && k / stage.gGameStatus.player.param[e.pos].hpmax <= c.pDownThreshold ? c.pDownLabel : e.motion, this.mIsSpecialMotion({
@@ -164,6 +165,7 @@ define(["lib/raid/timeline", "model/sound"], function (a, b) {
                 pos: e.pos,
                 motion: j
             }) && (j = stage.gGameStatus.player.param[e.pos].condition.special_motion), "1" != stage.pJsnData.effect_mode && (j = c.mCjsLabelSelecter(i, j)), d.call(function () {
+                console.info('motion callback');
                 if ("on" !== e.is_alive || 0 != h[e.pos].alive) {
                     var a = "player" === e.type ? stage.gAryRootAvatar[e.pos] : "boss" === e.type ? stage.gAryRootBoss[e.pos] : "";
                     setTimeout(function () {

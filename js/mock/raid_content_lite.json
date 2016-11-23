@@ -1,5 +1,5 @@
 {
-    "data": "<div>,<i id=\"asset-css\" css=\"raid/index.css\"></i><div class=\"prt-bg-stage-distant\" style=\"width:100;height:100\"></div></div>",
+    "data": "<div><i id=\"asset-css\" css=\"raid/index.css\"></i><div class=\"prt-bg-stage-distant\" style=\"width:100;height:100\"></div><div class=\"lis-character\"><ul><li> <img/></li><li><img></li><li><img></li><li><img></li></ul></div><a href=\"javascript:;\" class=\"attack-btn\">ATTACK</a></div>",
     "option": ""
 
 }
