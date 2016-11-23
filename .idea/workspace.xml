@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="264dea31-64fe-430c-b896-bf34fa2e066f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/test.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/cjs/enemy_6200032.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/mock/attack_result.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/lib/Game.js" afterPath="$PROJECT_DIR$/js/lib/Game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/lib/raid/display.js" afterPath="$PROJECT_DIR$/js/lib/raid/display.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/lib/raid/motion.js" afterPath="$PROJECT_DIR$/js/lib/raid/motion.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/mine/index.html" afterPath="$PROJECT_DIR$/js/mine/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/mock/raid_content_lite.json" afterPath="$PROJECT_DIR$/js/mock/raid_content_lite.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/view/raid/setup-lite.js" afterPath="$PROJECT_DIR$/js/view/raid/setup-lite.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/view/raid/setup.js" afterPath="$PROJECT_DIR$/js/view/raid/setup.js" />
     </list>
     <ignored path="Astral.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="setup-lite.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="setup-lite.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/view/raid/setup-lite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="438" column="152" selection-start-line="438" selection-start-column="152" selection-end-line="438" selection-end-column="152" />
+            <state relative-caret-position="1">
+              <caret line="459" column="31" selection-start-line="459" selection-start-column="31" selection-end-line="459" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -62,21 +54,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="raid_content.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/mock/raid_content.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="display.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/lib/raid/display.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="418">
               <caret line="175" column="39" selection-start-line="175" selection-start-column="39" selection-end-line="175" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="raid_content_lite.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/mock/raid_content_lite.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -105,8 +97,8 @@
       <file leaf-file-name="setup.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/view/raid/setup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="814" column="68" selection-start-line="813" selection-start-column="48" selection-end-line="814" selection-end-column="68" />
+            <state relative-caret-position="2705">
+              <caret line="1323" column="95" selection-start-line="1323" selection-start-column="95" selection-end-line="1323" selection-end-column="95" />
               <folding />
             </state>
           </provider>
@@ -122,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="attack_result.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/mock/attack_result.json">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/mine/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="168" column="9" selection-start-line="168" selection-start-column="9" selection-end-line="168" selection-end-column="9" />
+            <state relative-caret-position="152">
+              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -166,13 +158,13 @@
         <option value="$PROJECT_DIR$/js/mock/raid_start.json" />
         <option value="$PROJECT_DIR$/js/cjs/enemy_6200032.js" />
         <option value="$PROJECT_DIR$/js/lib/raid/display.js" />
-        <option value="$PROJECT_DIR$/js/mine/index.html" />
         <option value="$PROJECT_DIR$/js/mock/raid_content_lite.json" />
         <option value="$PROJECT_DIR$/js/mock/attack_result.json" />
         <option value="$PROJECT_DIR$/js/lib/Game.js" />
         <option value="$PROJECT_DIR$/js/lib/raid/motion.js" />
         <option value="$PROJECT_DIR$/js/view/raid/setup.js" />
         <option value="$PROJECT_DIR$/js/view/raid/setup-lite.js" />
+        <option value="$PROJECT_DIR$/js/mine/index.html" />
       </list>
     </option>
   </component>
@@ -481,11 +473,18 @@
       <option name="project" value="LOCAL" />
       <updated>1479122007166</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="daily update">
+      <created>1479887786939</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1479887786939</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62502000" />
+    <option name="totallyTimeSpent" value="63943000" />
   </component>
   <component name="TodoView" selected-index="4" />
   <component name="ToolWindowManager">
@@ -873,24 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/mine/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#li#0;n#ul#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/mock/raid_content_lite.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/mock/raid_content.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -955,18 +936,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/view/raid/setup.js">
+    <entry file="file://$PROJECT_DIR$/js/view/raid/setup-lite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="814" column="68" selection-start-line="813" selection-start-column="48" selection-end-line="814" selection-end-column="68" />
+        <state relative-caret-position="1">
+          <caret line="459" column="31" selection-start-line="459" selection-start-column="31" selection-end-line="459" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/view/raid/setup-lite.js">
+    <entry file="file://$PROJECT_DIR$/js/view/raid/setup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="438" column="152" selection-start-line="438" selection-start-column="152" selection-end-line="438" selection-end-column="152" />
+        <state relative-caret-position="2705">
+          <caret line="1323" column="95" selection-start-line="1323" selection-start-column="95" selection-end-line="1323" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/mock/raid_content_lite.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/mine/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
           <folding />
         </state>
       </provider>

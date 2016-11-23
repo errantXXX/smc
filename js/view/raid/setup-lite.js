@@ -458,7 +458,6 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
             }
         },
        render:function(params){
-
             var _this = this,
                 gGameParam = stage.gGameParam,
                 gGameStatus = stage.gGameStatus,
