@@ -1351,7 +1351,9 @@ define(["jquery", "underscore", "backbone", "model/raid/setup", "lib/raid/draw",
                                     var l = 0;
                                     b.each(a, function (c) {
                                         var d = c.concurrent_attack_count;
-                                        if ((G.concurrent_attack_flag === !1 || 0 === d) && (l = h.mHitEffect(k.timeline[c.pos], v.gAryCntnBoss[c.pos], {kind: v.gGameStatus.player.param[G.pos].effect, size: v.pJsnData.boss.type, type: "boss", pos: c.pos})), G.concurrent_attack_flag === !0 && 0 === d || G.concurrent_attack_flag === !1 && (b.isUndefined(c.miss) || 1 != c.miss))var e = f.mChangeMotion(k.timeline[c.pos], {motion: "damage", pos: c.pos, type: "boss"});
+                                        if ((G.concurrent_attack_flag === !1 || 0 === d) && (l = h.mHitEffect(k.timeline[c.pos], v.gAryCntnBoss[c.pos], {kind: v.gGameStatus.player.param[G.pos].effect, size: v.pJsnData.boss.type, type: "boss", pos: c.pos})),
+                                            G.concurrent_attack_flag === !0 && 0 === d || G.concurrent_attack_flag === !1 && (b.isUndefined(c.miss) || 1 != c.miss))
+                                            var e = f.mChangeMotion(k.timeline[c.pos], {motion: "damage", pos: c.pos, type: "boss"});
                                         h.mDamageRattle(p.timeline[0]);
                                         var j = c.color || G.color || v.gGameStatus.player.param[G.pos].attr, m = t.createDamageComponent(c, "boss", L > 1, j, b.isNull(d) ? void 0 : d);
                                         if (k.timeline[c.pos].call(function () {

@@ -253,7 +253,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 success: function () {
                     var json = raidModel.toJSON();
                     //soundModel.loadBGM(json.bgm);
-                    //soundModel.playBGM('/Astral/sound/bt.mp3');
+                    soundModel.playBGM('/Astral/sound/bt.mp3');
                     //soundModel.playSuccessSE();
 
 
@@ -420,21 +420,23 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
         play:function(json,avatarTimeLineArray,bossTimeLineArray,commonTimeLineArray){
             var scenario = json.scenario;
             var _this = this;
-
+            //h.mHitEffect(k.timeline[a.pos], v.gAryCntnBoss[a.pos], {kind: v.gGameStatus.player.param[G.pos].effect, size: v.pJsnData.boss.type, type: "boss", pos: a.pos}),
 
 
             for(var i=0;i<scenario.length;i++){
                 var scenarioUnit = scenario[i];
-                switch (scenarioUnit.cmd){
-                    case "attack":
-                        if(scenarioUnit.from == 'player') {
-                            motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:1});
-                            var durTime = motionControl.mChangeMotion(_this.avatarTimeLineArray.timeline[scenarioUnit.pos],{
-                                motion:'attack',
-                                pos: scenarioUnit.pos,
-                                type:'player',
-                                voice:null
-                            });
+
+
+                    switch (scenarioUnit.cmd){
+                        case "attack":
+                            if(scenarioUnit.from == 'player') {
+                                motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:1});
+                                var durTime = motionControl.mChangeMotion(_this.avatarTimeLineArray.timeline[scenarioUnit.pos],{
+                                    motion:'attack',
+                                    pos: scenarioUnit.pos,
+                                    type:'player',
+                                    voice:null
+                                });
 
                                 motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:durTime});
                                 motionControl.mChangeMotion(_this.avatarTimeLineArray.timeline[scenarioUnit.pos],{
@@ -444,13 +446,35 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                                     voice:null
                                 });
 
+                               /* _.each(scenarioUnit.damage,function (damage) {
+                                    _.each(damage,function (damage) {
+                                        var attackCount = damage.concurrent_attack_count;
+                                        var effect = effectControl.mHitEffect(bossTimeLineArray.timeline[damage.pos], stage.gAryCntnBoss[damage.pos], {kind: stage.gGameStatus.player.param[scenarioUnit.pos].effect, size: stage.pJsnData.boss.type, type: "boss", pos: damage.pos});
+                                        //effect.show();
+                                        var color = damage.color || scenarioUnit.color || sta.gGameStatus.player.param[scenarioUnit.pos].attr;
+                                        var durTime = motionControl.mChangeMotion(bossTimeLineArray.timeline[damage.pos], {motion: "damage", pos: damage.pos, type: "boss"});
+                                        effectControl.mDamageRattle(commonTimeLineArray.timeline[0]);
+                                        var damageComponent = contentView.createDamageComponent(damage, "boss", true, color, _.isNull(attackCount) ? void 0 :attackCount);
+                                        bossTimeLineArray.timeline[damage.pos].call(function () {
+                                            damageComponent.show()
+                                        }), 0 === attackCount && motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray,commonTimeLineArray], {playtime: 3});
+                                    })
 
 
-                        } else {
 
-                        }
+                                })
+                                */
 
-                };
+
+
+                            } else {
+
+                            }
+
+                    };
+
+
+
                 var timelineList = [];
                 timelineList.push(new createjs.Timeline([].concat(avatarTimeLineArray.timeline, bossTimeLineArray.timeline, commonTimeLineArray.timeline), {start: 0}, {useTicks: !0, paused: !0}));
                 for (var s = 0, t = timelineList.length; t > s; s++)timelineList[s].setPaused(!1);

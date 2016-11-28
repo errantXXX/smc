@@ -13,7 +13,7 @@ var  Game = {};
 
 Game.controller = '';
 Game.baseUri    = '/Astral/';
-Game.imgUri     = 'http://gbf.game-a1.mbga.jp/assets_en/1479711208/img_mid';
+Game.imgUri     = 'http://gbf.game-a1.mbga.jp/assets_en/1480056298/img_mid';
 Game.cssUri     = '/Astral/css/';
 Game.jsUri      = '/Astral/js';
 Game.fontUri    = '/Astral/font';
