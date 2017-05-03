@@ -69,7 +69,31 @@ define("pex", (function (global) {
     };
 }(this)));
 
-!function(a){a("head").append("		<style>		.typist-container {			overflow: hidden;		}		.typist-container p {			margin: 0 0 3px;		}		.typist-container p.prompt {			margin: 5px 0;		}		</style>");var b,c={backgroundColor:"#333",textColor:"#DDD",fontFamily:"monospace",height:300},d=80,e=function(a){},f=function(a){a&&a()},g=function(){a(".cursor").remove();var c=a("<div></div>");b.append(c);var d=0;return b.children().each(function(){d+=a(this).height()}),b.scrollTop(d),c},h={init:function(d){d=a.extend(c,d),b=this;var f=b.attr("style")+";"||"",g="";return g+="; color: "+d.textColor,g+="; font-family: "+d.fontFamily,b.addClass("typist-container").attr("style",f+g).height(d.height),e(),b},prompt:function(){return b.queue(function(b){a(".cursor").remove(),g().addClass("prompt").html('$ <span class="cursor">|</span>'),b()})},type:function(c){b.queue(f);for(var g=function(e){b.queue(function(b){a(".cursor").before(c[e]),b()}).delay(d)},h=0;h<c.length;h++)g(h);return b.queue(e)},echo:function(a){for(var c,e="",f="",h=!0,i=!1,j={"&amp;":"&","&quot;":'"',"&#039;":"'","&apos;":"'","&lt;":"<","&gt;":">"},k=function(j,k){var l=a.substr(j,k);b.queue(function(a){0===j&&(c=g()),i&&"<"===l?h=!1:i&&">"===l?(h=!0,i=!1,e="",f=""):("<"!==l||i)&&(i||h||"<"===l||">"===l)?h?c.append(e+l+f):">"!==l||i||(e+=l,f="</"+e.substring(1,e.length),h=!0,i=!0):(e+=l,h=!1),a()}),b.delay(d)},l=0;l<a.length;){var m=1;if("<"===a[l]&&(d=0),">"===a[l]&&(d=80),"&"===a[l]){var n=a.slice(l,a.indexOf(";",l+1))+";";j[n]&&(m=n.length)}k(l,m),l+=m}return b},wait:function(a){return b.delay(a)},call:function(a){return b.queue(function(c){a(b),c()}),b},speed:function(a){return"fast"===a?d=20:"slow"===a&&(d=120),b}};a.fn.typist=function(b){return h[b]?h[b].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof b&&b?void a.error("Method "+b+" does not exist on jQuery.tooltip"):h.init.apply(this,arguments)}}(jQuery);
+!function(a){a("head").append("		<style>		.typist-container {			overflow: hidden;		}		.typist-container p {			margin: 0 0 3px;		}		.typist-container p.prompt {			margin: 5px 0;		}		</style>");
+    var b,
+        c={backgroundColor:"#333",textColor:"#DDD",fontFamily:"monospace",height:300},
+        d=80,
+        e=function(a){},
+        f=function(a){a&&a()},
+        g=function(){a(".cursor").remove();
+            var c=a("<div></div>");b.append(c);
+            var d=0;
+            return b.children().each(function(){d+=a(this).height()}),b.scrollTop(d),c
+        },
+        h={
+            init:function(d){
+                d=a.extend(c,d),
+                b=this;
+                var f=b.attr("style")+";"||"",
+                    g="";return g+="; color: "+d.textColor,
+                    g+="; font-family: "+d.fontFamily,b.addClass("typist-container").attr("style",f+g).height(d.height),e(),b},
+            prompt:function(){return b.queue(function(b){a(".cursor").remove(),g().addClass("prompt").html('$ <span class="cursor">|</span>'),b()})},
+            type:function(c){b.queue(f);for(var g=function(e){b.queue(function(b){a(".cursor").before(c[e]),b()}).delay(d)},h=0;h<c.length;h++)g(h);return b.queue(e)},
+            echo:function(a){for(var c,e="",f="",h=!0,i=!1,j={"&amp;":"&","&quot;":'"',"&#039;":"'","&apos;":"'","&lt;":"<","&gt;":">"},k=function(j,k){var l=a.substr(j,k);b.queue(function(a){0===j&&(c=g()),i&&"<"===l?h=!1:i&&">"===l?(h=!0,i=!1,e="",f=""):("<"!==l||i)&&(i||h||"<"===l||">"===l)?h?c.append(e+l+f):">"!==l||i||(e+=l,f="</"+e.substring(1,e.length),h=!0,i=!0):(e+=l,h=!1),a()}),b.delay(d)},l=0;l<a.length;){var m=1;if("<"===a[l]&&(d=0),">"===a[l]&&(d=80),"&"===a[l]){var n=a.slice(l,a.indexOf(";",l+1))+";";j[n]&&(m=n.length)}k(l,m),l+=m}return b},
+            wait:function(a){return b.delay(a)},call:function(a){return b.queue(function(c){a(b),c()}),b},
+            speed:function(a){return"fast"===a?d=20:"slow"===a&&(d=120),b}
+        };
+    a.fn.typist=function(b){return h[b]?h[b].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof b&&b?void a.error("Method "+b+" does not exist on jQuery.tooltip"):h.init.apply(this,arguments)}}(jQuery);
 define("typist", ["jquery"], function(){});
 
 /*

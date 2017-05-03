@@ -253,7 +253,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 success: function () {
                     var json = raidModel.toJSON();
                     //soundModel.loadBGM(json.bgm);
-                    soundModel.playBGM('/Astral/sound/bt.mp3');
+                    //soundModel.playBGM('/Astral/sound/bt.mp3');
                     //soundModel.playSuccessSE();
 
 
@@ -416,6 +416,37 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                     _this.play(json,avatarTimeLineArray,bossTimeLineArray,commonTimeLineArray);
                 }});
 
+        },convertBossPositionToContainerIndex: function (a) {
+            var b = a;
+            return 3 === stage.pJsnData.boss.number && (1 == a ? b = 2 : 2 == a && (b = 1)), b
+        },
+        createDamageComponent: function (a, c, d, e, f) {
+            debugger;
+            var g = {}, h = 12 * (a.split.length - 1);
+            if ("player" === c) {
+                var i = stage.gGameParam.grid.player[a.pos];
+                g.x = i.x - h, g.y = i.y - 100
+            } else {
+                var j = this.convertBossPositionToContainerIndex(a.pos), k = stage.gBossContainer.getChildAt(j);
+                "l" === stage.pJsnData.boss.type ? (g.x = k.x + h, g.y = k.y - 270) : (g.x = k.x + h, g.y = k.y - 150), g.x = g.x + +stage.pJsnData.boss.param[a.pos].damage_position_plus.x, g.y = g.y + +stage.pJsnData.boss.param[a.pos].damage_position_plus.y
+            }
+            if (!_.isUndefined(a.miss) && 1 == a.miss) {
+                var l = new z.components.OverheadMessage(this.spriteSheetManager.getById("raid_ui_0"), "miss", "", !1);
+                return l.x = g.x, l.y = g.y, l.addEventListener("animationEnd", function p() {
+                    l.parent.removeChild(l), l.removeEventListener("animationEnd", p)
+                }), stage.addChild(l), l
+            }
+            var e = _.isUndefined(a.attr) ? e || 0 : a.attr, m = a.size || "m", n = {attributeId: e, num: a.split, size: m, isCritical: a.critical}, o = new uiRaidView.components.Damage(this.spriteSheetManager.getById("raid_ui_0"), n);
+            if (o.x = g.x, o.y = g.y, !_.isUndefined(f))switch (f) {
+                case 0:
+                    o.y += 50;
+                    break;
+                case 1:
+                    o.x += 70, o.y -= 50
+            }
+            return d && ("player" === c ? (o.x += Math.round(30 * Math.random()) - 20, o.y += Math.round(100 * Math.random()) - 40) : (o.x += Math.round(80 * Math.random()) - 20, o.y += Math.round(80 * Math.random()) - 40)), o.addEventListener("animationEnd", function q() {
+                o.parent.removeChild(o), o.removeEventListener("animationEnd", q)
+            }), stage.addChild(o), o
         },
         play:function(json,avatarTimeLineArray,bossTimeLineArray,commonTimeLineArray){
             var scenario = json.scenario;
@@ -446,15 +477,18 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                                     voice:null
                                 });
 
-                               /* _.each(scenarioUnit.damage,function (damage) {
+                                _.each(scenarioUnit.damage,function (damage) {
                                     _.each(damage,function (damage) {
+                                        //debugger;
                                         var attackCount = damage.concurrent_attack_count;
                                         var effect = effectControl.mHitEffect(bossTimeLineArray.timeline[damage.pos], stage.gAryCntnBoss[damage.pos], {kind: stage.gGameStatus.player.param[scenarioUnit.pos].effect, size: stage.pJsnData.boss.type, type: "boss", pos: damage.pos});
                                         //effect.show();
+
                                         var color = damage.color || scenarioUnit.color || sta.gGameStatus.player.param[scenarioUnit.pos].attr;
                                         var durTime = motionControl.mChangeMotion(bossTimeLineArray.timeline[damage.pos], {motion: "damage", pos: damage.pos, type: "boss"});
                                         effectControl.mDamageRattle(commonTimeLineArray.timeline[0]);
-                                        var damageComponent = contentView.createDamageComponent(damage, "boss", true, color, _.isNull(attackCount) ? void 0 :attackCount);
+                                        console.info(contentView);
+                                        var damageComponent = _this.createDamageComponent(damage, "boss", true, color, _.isNull(attackCount) ? void 0 :attackCount);
                                         bossTimeLineArray.timeline[damage.pos].call(function () {
                                             damageComponent.show()
                                         }), 0 === attackCount && motionControl.mWaitAll([avatarTimeLineArray, bossTimeLineArray,commonTimeLineArray], {playtime: 3});
@@ -463,7 +497,7 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
 
 
                                 })
-                                */
+
 
 
 

@@ -1,6 +1,6 @@
-/**
- * Created by Administrator on 2016/10/18.
- */
+Game = {
+
+};
 window.displayInitialize = function() {
     var deviceRatio = window.innerWidth / 320;
     return deviceRatio;
@@ -9,15 +9,13 @@ window.fitScreenByZoom = function(deviceRatio) {
     var html = document.getElementsByTagName('html')[0];
     html.style.zoom = deviceRatio;
 };
-var  Game = {};
-
-Game.controller = '';
-Game.baseUri    = '/Astral/';
-Game.imgUri     = 'http://gbf.game-a1.mbga.jp/assets_en/1493521611/img_mid';
-Game.cssUri     = '/Astral/css/';
-Game.jsUri      = '/Astral/js';
-Game.fontUri    = '/Astral/font';
-Game.soundUri   = '/Astral/sound';
+Game.baseUri="http://127.0.0.1:8080/";
+Game.baseUri    = 'http://127.0.0.1:8080/';
+Game.imgUri     = 'http://127.0.0.1:8080';
+Game.cssUri     = '/Astral/demo/css/';
+Game.jsUri      = '/Astral/demo';
+Game.fontUri    = '/Astral/demo/font';
+Game.soundUri   = '/Astral/demo/sound';
 Game.setting = {};
 Game.setting.cjs_mode = 0;
 Game.cjsScale = 0.75;

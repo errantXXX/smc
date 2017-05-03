@@ -24,7 +24,7 @@ var loadCreateJS = function(a) {
 require(["lib/common"], function() {
 
     require(["util/device"]);
-    console.log('lib/common')
+
     var userAgent = (new UAParser).getResult();
     Game.ua = Game.ua ? _.extend(Game.ua, userAgent) : userAgent;
 
@@ -188,7 +188,7 @@ require(["lib/common"], function() {
                 console.info(e);
             }
             require(["lib/locallib-lite"], function() {
-                console.info('requre locallib-lite complete');
+
                 require(["backbone", "view/loading", "router/app-router-mine"], function(backbone, loadingObject, appRouter) {
                     console.info('start main logic');
                     globalGame.loading = new loadingObject,

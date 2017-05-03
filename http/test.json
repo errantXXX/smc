@@ -1,0 +1,22 @@
+[
+        {
+            "character_name":"鸣人",
+            "img_url":"",
+            "scene_id":"001",
+            "bgm":"",
+            "voice":"",
+            "position":"C",
+            "command": "fade-in",
+            "detail":"哈哈"
+        },
+        {
+            "name":"佐助",
+            "img_url":"",
+            "animation":"L",
+            "text":[
+                "哈哈",
+                "哈哈"
+
+            ]
+        }
+]

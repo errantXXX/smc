@@ -1,0 +1,95 @@
+<html>
+<head></head>
+<body><div class="contents"></div>
+    <script src="../js/lib/require.js"></script>
+    <script src="js/lib/Game.js"></script>
+
+    <script>
+
+       require.config({ baseUrl: '/Astral/demo/js/',
+           shim:{
+               jquery:{exports:"$"},
+               underscore:{exports:"_"},
+               backbone:{
+                   deps:["underscore","jquery"],exports:"Backbone"
+               },
+               typist:{deps:["jquery"]}
+           }
+
+
+       });
+       var loadCreateJS = function(a) {
+
+           0 === Game.setting.cjs_mode ? require(["lib/createjs"], function() {
+
+               require(["lib/createjs-patch","lib/soundjs-0.5.2-patch"], function() {
+
+                   a()
+               })
+           }) : 1 === Game.setting.cjs_mode && require(["createjsliteopengl"], function(b) {
+               window.createjs = b, require(["lib/createjslite-patch"], function() {
+                   a()
+               })
+           })
+       };
+       require(['../js/lib/common.js'],function(){
+           require(["util/device"]);
+           var userAgent = (new UAParser).getResult();
+           Game.ua = Game.ua ? _.extend(Game.ua, userAgent) : userAgent;
+           var globalGame = window.Game;
+           loadCreateJS(function(){
+
+               require(['js/lib/locallib-lite.js'],function(){
+
+
+                   require(["backbone", "view/loading", "router/app-router"], function(backbone, loadingObject, appRouter) {
+                       console.info('start main logic');
+                       globalGame.loading = new loadingObject,
+                               globalGame.router = new appRouter,
+                               backbone.history.start();
+                   })
+               })
+           })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//           var f = {height: "auto", fontFamily: "inherit", fontSize: 0,color:'red'}, myType = $("#main").typist(f);
+//           myType.typist('echo','test is test');
+//           require(['model/content','collection/quest/scenario-collection'],function(content,collection){
+//               var mycollection = new collection();
+//               mycollection.fetch({
+//                   success : function() {
+//                       // 获取数据成功后, 重新读取一次
+//                       console.info(mycollection.models);
+//
+//                   }
+//               });
+//
+//
+//
+//           })
+       });
+
+
+
+
+
+    </script>
+</body>
+</html>
