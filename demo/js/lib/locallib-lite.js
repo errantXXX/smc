@@ -1338,7 +1338,6 @@ define('model/content', ["underscore", "backbone", "model/data", "lib/sound", "m
                 d += "/" + a
             }), b += d
         }
-        console.info(b);
         return b
     },initialize: function(a) {
         c.prototype.initialize.apply(this)
@@ -1797,17 +1796,29 @@ define('model/sound', ["jquery", "underscore", "backbone", "constant", "lib/soun
     return m.makeSingleton(), m
 });
 define('view/content', ["underscore", "backbone", "model/content","lib/shellapp"],function(_,backbone,contentModel,shellApp) {
+    var decodeURIComponentEx = function(uriComponent){
+        if(!uriComponent){
+            return  uriComponent;
+        }
+        var ret;
+        try{
+            ret = decodeURIComponent(uriComponent);
+        }catch(ex){
+            ret = unescape(uriComponent);
+        }
+        return ret;
+    };
     var view = backbone.View.extend(
         {
             el: ".contents",
             setTimeoutTimerIdObj: {},
             setIntervalTimerIdObj: {},
             initialize: function (params) {
-
             },
             content_render:function(json){
-                this.$el.html(decodeURIComponent(json.get("data")));
+                this.$el.html(decodeURIComponentEx(json.get("data")));
                 var cssResource = this.$el.find("#asset-css").attr("css");
+                console.info(cssResource);
                 var isError = false;
                 var _this = this;
                 var cssPath = Game.cssUri + cssResource, loadQueue = new createjs.LoadQueue(!0);

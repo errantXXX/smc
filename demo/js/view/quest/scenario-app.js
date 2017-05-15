@@ -1,5 +1,16 @@
-define(['model/content','view/quest/event-scenario-view','view/quest/abstract-view'],function(contentModel,eventScenarioView,abstractView){
-
+define(['model/content','view/quest/scenario-view','view/quest/abstract-view'],function(contentModel,ScenarioView,abstractView){
+    var decodeURIComponentEx = function(uriComponent){
+        if(!uriComponent){
+            return  uriComponent;
+        }
+        var ret;
+        try{
+            ret = decodeURIComponent(uriComponent);
+        }catch(ex){
+            ret = unescape(uriComponent);
+        }
+        return ret;
+    };
     var myAbstarctView = abstractView.extend({
         initialize: function (option) {
             this.scenario_id = option.scenario_id;
@@ -8,14 +19,13 @@ define(['model/content','view/quest/event-scenario-view','view/quest/abstract-vi
             this.listenTo(this.content_model, "change", this.render);
         },
         render: function(a) {
-            console.info(a.get("data"));
-            console.info(this.$el);
-            console.info('rendr app');
+            this.content_render(this.content_model);
             var b = this.instanceEventSceneView();
-            this.$el.html(decodeURIComponent(a.get("data")));
+
+            //this.$el.html(decodeURIComponentEx(a.get("data")));
         },
         instanceEventSceneView:function(){
-            var eventSceneView = new eventScenarioView({scenario_id: this.scenario_id});
+            var eventSceneView = new ScenarioView({scenario_id: this.scenario_id});
             return this.addSubView(eventSceneView), eventSceneView;
         }
     })

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <style>
+
+        </style>
+        <i id="asset-css" css="talk.css"></i>
+        <div class="talk-bg">
+            <div class="talk-body">
+                <div class="character-list">
+                <img class="character" id="char-img"/>
+                </div>
+                <i class="ico-cursor-talk"></i>
+                <div class="dialog">
+                    <div class="character-name">
+                    </div>
+
+                    <div id="btn-auto" class="on">自动播放</div>
+                    <div class="prt-message-area">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="../js/lib/jquery.js"></script>
+
+
+<script>
+    console.info($)
+    console.info($('.container')[0].outerHTML);
+    var data = {"data":$('.container')[0].outerHTML};
+    console.info(JSON.stringify(data));
+</script>
+</html>

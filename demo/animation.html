@@ -1,0 +1,168 @@
+<html>
+<head></head>
+<body><div class="contents"><canvas cjs-noclip="1" id="my" data-width="320" data-height="327" style=""></canvas></div>
+<script src="../js/lib/require.js"></script>
+<script src="js/lib/Game.js"></script>
+
+<script>
+
+    require.config({ baseUrl: '/Astral/demo/js/',
+        paths : {
+            text : '../../js/lib/require-text', //text is required
+            json : '../../js/lib/require-json' //alias to plugin
+        },
+        shim:{
+            jquery:{exports:"$"},
+            underscore:{exports:"_"},
+            backbone:{
+                deps:["underscore","jquery"],exports:"Backbone"
+            },
+            typist:{deps:["jquery"]}
+        }
+
+
+    });
+    var loadCreateJS = function(a) {
+
+        0 === Game.setting.cjs_mode ? require(["lib/createjs"], function() {
+
+            require(["lib/soundjs-0.5.2-patch"], function() {
+
+                a()
+            })
+        }) : 1 === Game.setting.cjs_mode && require(["createjsliteopengl"], function(b) {
+            window.createjs = b, require(["lib/createjslite-patch"], function() {
+                a()
+            })
+        })
+    };
+    require(['../js/lib/common.js'],function(){
+        require(["util/device"]);
+        var userAgent = (new UAParser).getResult();
+        Game.ua = Game.ua ? _.extend(Game.ua, userAgent) : userAgent;
+        var globalGame = window.Game;
+        loadCreateJS(function(){
+
+            require(['json!cjs/json/wolf-sprite.json','json!cjs/json/wolf-action.json'],function(wolfData, wolfAction){
+
+                console.info(wolfAction);
+                var spriteSheet = new createjs.SpriteSheet(wolfData);
+                var animation = new createjs.Sprite(spriteSheet);
+
+                var stage = new createjs.Stage("my");
+                createjs.Ticker.addEventListener("tick", stage);
+                var wolf = [];
+                for (var i = 0; i < 110; i++) {
+                    wolf["Asset_" + i] = new createjs.Bitmap("animation/wolf/images/Asset_" + i +'.png');
+                };
+                var obj;
+                var wolfAnimationAction = {};
+                function make(){
+                    var action = wolfAction.actions.action;
+                    for(var i=0;i <action.length;i++) {
+
+                        wolfAnimationAction[action[i]["-name"]] = [];
+                        for(var j=0;j < action[i].layer[0].frame.length;j++) {
+                            if( action[i].layer[0].frame[j].element) {
+                                wolfAnimationAction[action[i]["-name"]].push({
+                                    frame: action[i].layer[0].frame[j].element['-assetId'],
+                                    x: action[i].layer[0].frame[j].element['-x'] || '0',
+                                    y: action[i].layer[0].frame[j].element['-y'] || '0',
+                                    rotation: action[i].layer[0].frame[j].element['-rotation'] || '0'
+                                })
+                            }
+
+                        }
+                    }
+
+                };
+                make();
+//                (window.mc_wolf_attack = function(){
+//
+////                    this.timeline.addTween(
+////                            createjs.Tween.get(wolf["Asset_0"])
+////                                    .to({x:0}).to({_off:true}));\
+//                    this.frame_01 = function() {
+//                        console.info(111);
+//                        this.stop();
+//                        this.timeline.get(wolf["Asset_1"],{override:true}).to({x:0})
+//                    }
+//                    this.timeline.addTween(
+//                            createjs.Tween.get(wolf["Asset_2"])
+//                                    .to({x:-100},1).to({x:100},1).wait(1)).call(function(){
+//                            alert(1)});
+//
+//
+//
+//                }).prototype = obj = new createjs.MovieClip;
+//                 f = new mc_wolf_attack;
+                //stage.addChild(f);
+
+                stage.addChild(animation);
+//                var wolfHit = function() {
+//                    for(var i = 0; i < 10;i ++) {
+//
+//                    }
+//                }
+                orderAction = wolfAnimationAction['A_1hit'];
+                console.info(wolfData.animations.Asset.frames);
+                for(var i = 0; i < orderAction.length;i++) {
+//                   animation.setTransform(
+//                       orderAction[i].x,
+//                       orderAction[i].y,
+//                       orderAction[i].rotation
+//
+//                   );
+                    console.info();
+                    //animation.stop();
+                    debugger;
+                    animation.gotoAndPlay(wolfData.animations.Asset.frames[orderAction[i].frame]);
+                    animation.stop();
+                }
+                //f.gotoAndPlay(0);
+
+            })
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//           var f = {height: "auto", fontFamily: "inherit", fontSize: 0,color:'red'}, myType = $("#main").typist(f);
+//           myType.typist('echo','test is test');
+//           require(['model/content','collection/quest/scenario-collection'],function(content,collection){
+//               var mycollection = new collection();
+//               mycollection.fetch({
+//                   success : function() {
+//                       // 获取数据成功后, 重新读取一次
+//                       console.info(mycollection.models);
+//
+//                   }
+//               });
+//
+//
+//
+//           })
+    });
+
+
+
+
+
+</script>
+</body>
+</html>

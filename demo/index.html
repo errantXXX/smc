@@ -39,7 +39,7 @@
            var globalGame = window.Game;
            loadCreateJS(function(){
 
-               require(['js/lib/locallib-lite.js'],function(){
+               require(['js/lib/locallib-lite.js?'+Math.random()],function(){
 
 
                    require(["backbone", "view/loading", "router/app-router"], function(backbone, loadingObject, appRouter) {

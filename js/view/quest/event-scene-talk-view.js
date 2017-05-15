@@ -1,6 +1,6 @@
 define(["underscore", "backbone", "typist", "view/quest/abstract-view"], function (a, b, c, d) {
     var e = null, f = d.extend({el: ".prt-message-area", render: function (a, b, c) {
-
+        debugger;
         var d = this;
         e && clearTimeout(e), $(".prt-sel-area").hide(), d.$el.html('<span class="txt-message"></span>');
         var f = {height: "auto", fontFamily: "inherit", fontSize: 0}, g = d.$(".txt-message").typist(f), h = a.split(/<br.*?>/gi), i = d._countMessageLength(h), j = function () {

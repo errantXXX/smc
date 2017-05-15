@@ -11,8 +11,8 @@ window.fitScreenByZoom = function(deviceRatio) {
 };
 Game.baseUri="http://127.0.0.1:8080/";
 Game.baseUri    = 'http://127.0.0.1:8080/';
-Game.imgUri     = 'http://127.0.0.1:8080';
-Game.cssUri     = '/Astral/demo/css/';
+Game.imgUri     = 'http://127.0.0.1:8080/img/';
+Game.cssUri     = 'http://127.0.0.1:8080/css/';
 Game.jsUri      = '/Astral/demo';
 Game.fontUri    = '/Astral/demo/font';
 Game.soundUri   = '/Astral/demo/sound';
