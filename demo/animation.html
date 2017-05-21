@@ -2,7 +2,7 @@
 <head>
 
 </head>
-<body><div class="contents"><canvas cjs-noclip="1" id="my" data-width="320" data-height="327" style=""></canvas></div>
+<body><div class="contents" style="height: 1000px;"><canvas cjs-noclip="1" id="my" data-width="1000" data-height="1000" ></canvas></div>
 <script src="../js/lib/require.js"></script>
 <script src="js/lib/Game.js"></script>
 
@@ -46,23 +46,29 @@
         loadCreateJS(function(){
 
             require(['json!cjs/json/wolf-sprite.json','json!cjs/json/wolf-action.json'],function(wolfData, wolfAction){
-
+                console.info(Backbone);
                 var spriteSheet = new createjs.SpriteSheet(wolfData);
                 var animation = new createjs.Sprite(spriteSheet);
-                var wolfFrames = wolfData.animations.Asset.frames;
+                var wolfFrames = wolfData.animations;
+                console.info('wolfFrames',wolfFrames);
                 var wolfSprite = [];
+                for (var i in wolfFrames) {
+                    console.info(i);
+                    wolfSprite[i]  = new createjs.Sprite(spriteSheet,i);
+
+                }
+                console.info(wolfSprite)
                 var temp;
-                for(var i = 0; i < wolfFrames.length; i++) {
-                    (function(a){
-                        (wolfSprite["Asset_" + wolfFrames[a]] = function () {
-                            this.spriteSheet = spriteSheet
-                            this.gotoAndStop(a);
-                        }).prototype = temp = new createjs.Sprite();
-
-                    })(i);
-
-
-                };
+//                for(var i = 0; i < wolfFrames.length; i++) {
+//                    (function(a){
+//                        console.info(a);
+//
+//                        console.info(wolfSprite);
+//
+//                    })(i);
+//
+//
+//                };
 
                 console.info(wolfSprite)
                 var stage = new createjs.Stage("my");
@@ -71,14 +77,15 @@
                 var wolfAnimationAction = [];
                 (wolfAnimationAction['test'] = function(){
                     this.instanceList = [];
-                    this.instanceList['Asset_1'] = new wolfSprite['Asset_1'];
+                    this.instanceList['Asset_1'] =  wolfSprite['Asset_1'];
                     this.instanceList['Asset_1'].parent = this;
-                    this.instanceList['Asset_2'] = new wolfSprite['Asset_2'];
+                    this.instanceList['Asset_2'] =  wolfSprite['Asset_2'];
                     this.instanceList['Asset_2'].parent = this;
-                    this.instanceList['Asset_3'] = new wolfSprite['Asset_3'];
+                    this.instanceList['Asset_3'] =  wolfSprite['Asset_3'];
                     this.instanceList['Asset_3'].parent = this;
-                    this.instanceList['Asset_4'] = new wolfSprite['Asset_4'];
+                    this.instanceList['Asset_4'] =  wolfSprite['Asset_4'];
                     this.instanceList['Asset_4'].parent = this;
+                    window.tt = "createjs.Tween.get({}).to({state:[{t:this.instanceList['Asset_1']}]}).to({state:[{t:this.instanceList['Asset_2']}]},1).to({state:[{t:this.instanceList['Asset_3']}]},1).to({state:[{t:this.instanceList['Asset_4']}]},1).wait(1).call(function(){this.stop();})";
                     this.timeline.addTween(eval("createjs.Tween.get({}).to({state:[{t:this.instanceList['Asset_1']}]}).to({state:[{t:this.instanceList['Asset_2']}]},1).to({state:[{t:this.instanceList['Asset_3']}]},1).to({state:[{t:this.instanceList['Asset_4']}]},1).wait(1).call(function(){this.stop();})"));
 //
 
@@ -87,31 +94,69 @@
 
                 }).prototype = temp = new createjs.MovieClip();
 
-                var myMC = new  wolfAnimationAction['test'];
-                //stage.addChild(myMC);
-                myMC.gotoAndPlay("start");
+
                 var wolfCjs = [];
                 var obj;
                 function make(){
                     var action = wolfAction.actions.action;
 
                     for(var i=0;i <action.length;i++) {
-                        var actionName = action[i]["-name"];
 
-                            var command = "createjs.Tween.get({})";
-                            for(var j=0;j < action[i].layer[0].frame.length;j++) {
+                        if(action[i] == undefined) {
+                            continue;
+                        }
+                        var actionName = action[i]["name"];
+                        (function (i) {
+                            (wolfAnimationAction[actionName] = function() {
+                                var _this = this;
+                                var command = "createjs.Tween.get({})";
 
-                                if( action[i].layer[0].frame[j].element) {
-                                    command += ".to({state:[{t:new  wolfSprite[Asset_"+action[i].layer[0].frame[j].element['-assetId']+"]}]})"
+                                this.instance = [];
+                                var layer = action[i]["layer"][0].frame;
+                                for (var j = 0; j < layer.length; j++) {
+
+                                    if (layer[j].element) {
+                                        this.instance["Asset_" + layer[j].element['assetId']  ] =  wolfSprite["Asset_" + layer[j].element['assetId'] ];
+                                        var opt = {};
+                                        for (var k = 0; k < wolfAction.actions.asset.length;k++) {
+                                            if(wolfAction.actions.asset[k].className == "Asset_" + layer[j].element['assetId']){
+                                                opt = wolfAction.actions.asset[k];
+                                                break;
+                                            }
+
+                                        };
+
+                                        console.info('opt', opt);
+                                        var  x = opt.x || layer[j].element.x || 0;
+                                        var  y = opt.y || layer[j].element.y || 0;
+                                        var  rotation = layer[j].element.rotation || 0;
+                                        var scaleX = layer[j].element.scaleX || 1;
+                                        var scaleY = layer[j].element.scaleY || 1;
+                                        //this.instance["Asset_" + layer[j].element['assetId']  ].setTransform(x,y,scaleX,scaleY,rotation);
+
+//                                        this.instance["Asset_" + layer[j].element['assetId']  ].x = layer[j].element.x || 0;
+//                                        this.instance["Asset_" + layer[j].element['assetId']  ].y = layer[j].element.y || 0;
+//                                        this.instance["Asset_" + layer[j].element['assetId']  ].rotation = layer[j].element.rotation || 0;
+                                        this.instance["Asset_" + layer[j].element['assetId']  ].parent = _this;
+                                        console.info(this.instance["Asset_" + layer[j].element['assetId']  ]);
+                                        command += ".to({state:[{t:this.instance[\"Asset_" + layer[j].element['assetId'] + "\"]}]},3)"
 //                                    wolfAnimationAction[action[i]["-name"]].push({
 //                                       frame: action[i].layer[0].frame[j].element['-assetId'],
 //                                        x: action[i].layer[0].frame[j].element['-x'] || '0',
 //                                        y: action[i].layer[0].frame[j].element['-y'] || '0',
 //                                        rotation: action[i].layer[0].frame[j].element['-rotation'] || '0'
 //                                    })
-                                }
-                                console.info("command",command)
-                            };
+                                    }
+
+                                };
+
+
+                                //command += '.wait(1).call(function(){}) ';
+                                console.info(command);
+                                this.timeline.addTween(eval(command));
+
+                            }).prototype = temp = new createjs.MovieClip();
+                        })(i);
 
 
 
@@ -119,7 +164,33 @@
 
                 };
                 make();
-                console.info(wolfCjs);
+
+
+                var myMC1 = new  wolfAnimationAction['test'];
+                var myMC2 = new  wolfAnimationAction['A_1hit'];
+                var mm = [];
+                (mm['attack'] = function(){
+                this.mc1 = new wolfAnimationAction['A_1hit'];
+                this.mc2 = new wolfAnimationAction['A_2hit'];
+
+                   this.frame_01 = function() {
+                       this.mc1.gotoAndPlay('start');
+                       console.info('mc1');
+                    };
+                    this.frame_02 = function() {
+                        this.mc2.gotoAndPlay('start');
+                        console.info('mc2');
+                    };
+
+                    this.timeline.addTween(createjs.Tween.get({}).wait(40).call(this.frame_01).call(this.frame_02));
+                }).prototype = temp =  new createjs.MovieClip();
+
+                //myMC2.loop = false;
+                console.info(wolfAnimationAction);
+                var at = new mm['attack'];
+                stage.addChild(at);
+                at.gotoAndPlay("start");
+                console.info(at.timeline);
 
 
             })
