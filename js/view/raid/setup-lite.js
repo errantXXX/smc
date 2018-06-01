@@ -288,21 +288,20 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                     var resourcePromise = new $.Deferred;
                     $.when(loadCJSPromise,loadSpriteSheetPromise).done(function(){
                         //TODO animate preloading
+                        $(".prt-black-bg").css("display", "none");
+                        $(".contents").css("display", "block");
                         resourcePromise.resolve();
                     });
                     $.when(resourcePromise).done(function () {
                         console.info('init');
-
                         var canvasEle  = document.getElementById("canvas");
 
                         if(canvasEle != null) {
 
                             stage = new createjs.Stage(canvasEle);
                             //stage.clear();
-
                             createjs.Ticker.setFPS(_this.currentFps),
                             createjs.Ticker.addEventListener("tick", stage);
-
                             stage.pJsnData = json,
                                 stage.gMasterContainer = new createjs.Container,
                                 stage.gPlayerContainer = new createjs.Container,
@@ -351,8 +350,16 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                                 _.each(stage.pJsnData.background_image_object, function (bgImg, index) {
                                 stage.gGameStatus.isBackImageUpdated = !0, stage.gGameStatus.backImage.push(new createjs.Bitmap(Game.imgUri + bgImg)),
                                     stage.gGameStatus.backImageValue.push(index)
-                            }),
-                                    stage.gGameStatus.isDrawBgImgByCjs === !0 ? stage.addChild(stage.gGameStatus.backImage[0]) : $(".prt-bg-stage-distant").css("background-image", "url(" + Game.imgUri + stage.pJsnData.background + ")"),
+                            });
+                            if (stage.gGameStatus.isDrawBgImgByCjs === true) {
+                                stage.addChild(stage.gGameStatus.backImage[0])
+                            } else {
+                                $(".prt-bg-stage-distant").css("background-image", "url(" + Game.imgUri + stage.pJsnData.background + ")");
+                                $("body").delegate("div","click",function(){
+                                    _this.Attack();
+                                });
+                            }
+                            //stage.gGameStatus.isDrawBgImgByCjs === !0 ?  : $(".prt-bg-stage-distant").css("background-image", "url(" + Game.imgUri + stage.pJsnData.background + ")"),
                                 //_this.TutorialPreRender(),
                                 /*_this.rareEnemyAppearEffectDeferred = new a.Deferred,
                                     1 == stage.pJsnData.battle.count && stage.pJsnData.is_rare ? setTimeout(function () {
@@ -392,9 +399,9 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 }
             });
 
-        }, events: {"click .attack-btn": "Attack"},
+        }, events: {"touchstart #canvas": "Attack"},
         Attack:function () {
-
+            console.info('Attack');
             var action = "normal_attack_result";
             var _this = this;
             var raidModel = new setupRaidModel;
@@ -421,7 +428,6 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
             return 3 === stage.pJsnData.boss.number && (1 == a ? b = 2 : 2 == a && (b = 1)), b
         },
         createDamageComponent: function (a, c, d, e, f) {
-            debugger;
             var g = {}, h = 12 * (a.split.length - 1);
             if ("player" === c) {
                 var i = stage.gGameParam.grid.player[a.pos];
@@ -536,7 +542,6 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
                 stage.addChild(stage.gMasterContainer),
                     stage.gMasterContainer.setChildIndex(stage.gBossContainer, 0),
                     stage.gMasterContainer.setChildIndex(stage.gPlayerContainer, 1);
-;
               var o = this;
                /* _.each(wa, function (a) {
                     stage.addChild(a)
@@ -605,11 +610,6 @@ define(["jquery","underscore","backbone","view/content","model/raid/setup", "mod
            timelineList.push(new createjs.Timeline([].concat(avatarTimeLineArray.timeline, bossTimeLineArray.timeline, commonTimeLineArray.timeline), {start: 0}, {useTicks: !0, paused: !0}));
            for (var s = 0, t = timelineList.length; t > s; s++)timelineList[s].setPaused(!1);
            //motionControl.mWaitAll([_this.avatarTimeLineArray,_this.bossTimeLineArray, _this.commonTimeLineArray], {playtime:5000});
-
-
-
-
-
 
 
 

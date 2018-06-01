@@ -1819,7 +1819,7 @@ define('view/content', ["underscore", "backbone", "model/content","lib/shellapp"
                 }), loadQueue.addEventListener("complete", function(a) {
                     loadQueue.removeAllEventListeners(), isError || ($(".contents").css("display", "block"), $("#ready").css("display", "none"), _this.trigger("readyFadeOut"))
                 }), loadQueue.addEventListener("error", function(a) {
-                    alert("init content failed"), isError = true
+                    console.info("init content failed"), isError = true
                 }), loadQueue.loadFile(cssPath);
 
             },

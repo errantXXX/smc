@@ -1,0 +1,64 @@
+[
+    {
+        "character_name":"鸣人",
+        "big_img":"naruto.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "fadein",
+        "detail":"拥有很多的人想拥有更多"
+    },
+    {
+        "character_name":"佐助",
+        "big_img":"sasuki.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "fadein",
+        "detail":"拥有更多的话"
+    },
+    {
+        "character_name":"鸣人",
+        "big_img":"naruto.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "fadein",
+        "detail":"就想去更高的地方"
+    },
+    {
+        "character_name":"鸣人",
+        "big_img":"naruto.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "",
+        "detail":"站着的人一旦坐下"
+    },
+    {
+        "character_name":"佐助",
+        "big_img":"sasuki.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "fadein",
+        "detail":"便想躺下"
+    },
+    {
+        "character_name":"鸣人",
+        "big_img":"naruto.jpg",
+        "scene_id":"001",
+        "bgm":"",
+        "voice":"",
+        "position":"C",
+        "command": "fadein",
+        "detail":"把这种事情当做自己所谓的梦想"
+    }
+
+
+ ]

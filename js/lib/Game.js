@@ -10,14 +10,13 @@ window.fitScreenByZoom = function(deviceRatio) {
     html.style.zoom = deviceRatio;
 };
 var  Game = {};
-
 Game.controller = '';
-Game.baseUri    = '/Astral/';
-Game.imgUri     = 'http://gbf.game-a1.mbga.jp/assets_en/1493521611/img_mid';
-Game.cssUri     = '/Astral/css/';
-Game.jsUri      = '/Astral/js';
-Game.fontUri    = '/Astral/font';
-Game.soundUri   = '/Astral/sound';
+Game.baseUri    = '/';
+Game.imgUri     = 'http://game-a2.granbluefantasy.jp/assets_en/1527817646/img_mid';
+Game.cssUri     = '/css/';
+Game.jsUri      = '/js';
+Game.fontUri    = '/font';
+Game.soundUri   = '/sound';
 Game.setting = {};
 Game.setting.cjs_mode = 0;
 Game.cjsScale = 0.75;
